@@ -1,0 +1,62 @@
+Prototype:
+  Due March 31 before lab
+
+  Player Character:
+    ☐ Sprites
+    ☐ Melee mechanics
+    ☐ Ranged mechanics
+    ☐ Health
+
+  Monster:
+    ☐ Sprites
+    ☐ Bullets
+      ☐ damage
+      ☐ size
+    ☐ Health
+      ☐ bar
+      ☐ amount
+
+  Sidbar:
+    ☐ shealth
+    ☐ exp
+    ☐ gold
+    ☐ Weapon 1
+    ☐ Weapon 2
+    ☐ Stats
+      ☐ Vitality
+      ☐ Strength
+      ☐ Dexterity
+      ☐ Luck
+    ☐ Skills
+      ☐ Sword master
+      ☐ Bow master
+      ☐ Fire Trail
+      ☐ Auto magic
+      ☐ etc.
+        ☐ poison
+        ☐ burn
+        ☐ crit
+        ☐ multiple arrows
+        ☐ slows
+        ☐ stun chance
+        ☐ silence
+        ☐ melee range
+        ☐ attack speed
+        ☐ lifesteal
+        ☐ armour penetration
+        ☐ movement speed
+        ☐ 
+
+Alpha:
+
+
+
+
+
+Beta:
+
+
+
+
+
+Final:

@@ -6,15 +6,18 @@
 class LabSixGame extends Game {
 	
 	constructor(canvas) {
-		var canvasWidth = 700,
-			canvasHeight = 500;
+
+		var	windowWidth = utils.getWidth(),
+			windowHeight = utils.getHeight(),
+			canvasWidth = windowWidth - 15,
+			canvasHeight = windowHeight - 100;
 		canvas.width = canvasWidth;
 		canvas.height = canvasHeight;
 
 		super("Hunter Quest", canvasWidth, canvasHeight, canvas);
 
-		this.windowWidth = utils.getWidth(),
-		this.windowHeight = utils.getHeight(),
+		this.windowWidth = utils.getWidth();
+		this.windowHeight = utils.getHeight();
 		this.canvasWidth = canvasWidth;
 		this.canvasHeight = canvasHeight;
 		this.midPoint = new Point(0.5*this.canvasWidth, 0.5*this.canvasHeight);
