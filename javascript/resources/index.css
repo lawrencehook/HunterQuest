@@ -1,0 +1,20 @@
+body {
+	background-color: #D3D3D3;
+	font-family: "Times";
+
+}
+
+canvas {
+	background-color: #FFFFFF;
+	/*background-color: #000000;*/
+	display: block;
+	margin: auto;
+	/*margin-top: 30px;*/
+	position: relative;
+}
+
+h1, h4 {
+	text-align: center;
+	color: #171b77;
+
+}
