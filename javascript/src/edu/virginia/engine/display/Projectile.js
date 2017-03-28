@@ -19,7 +19,7 @@ class Projectile extends DisplayObjectContainer {
 	update(pressedKeys) {
 		super.update(pressedKeys);
 
-		this.position.translate(vx, vy);
+		this.position.plus(this.vx, this.vy);
 	}
 
 	draw(context) {

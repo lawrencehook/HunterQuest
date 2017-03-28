@@ -5,8 +5,10 @@
  * 
  * */
 class DisplayObject {
+// class DisplayObject extends EventDispatcher {
 	
 	constructor(id, filename, parentObj=null) {
+		// super();
 		this.id = id;
 		this.parent = parentObj;
 		if (this.parent) {

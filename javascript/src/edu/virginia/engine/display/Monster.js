@@ -30,7 +30,7 @@ class Monster extends AnimatedSprite {
 			// console.log(angle);
 			var vx = projectileSpeed * Math.cos(angle);
 			var vy = projectileSpeed * Math.sin(angle);
-			var projectile = new Projectile(this.position.x, this.position.y, projectileSize, projectileSize, vx, vy, projectileDamage, projetileColor, this.parent);
+			var projectile = new Projectile(this.position.x, this.position.y, projectileSize, projectileSize, vx, vy, projectileDamage, projectileColor, this.parent);
 		}
 	}
 

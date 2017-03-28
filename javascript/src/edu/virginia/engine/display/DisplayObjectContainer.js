@@ -19,7 +19,8 @@ class DisplayObjectContainer extends DisplayObject {
 	}
 
 	draw(context) {
-		if (this.displayImage && this.visible) {
+		// if (this.displayImage && this.visible) {
+		if (this.visible) {
 			super.applyTransformations(context);
 			if(this.loaded) context.drawImage(this.displayImage, 0, 0);
 			this.children.contents.forEach(function(child) {
