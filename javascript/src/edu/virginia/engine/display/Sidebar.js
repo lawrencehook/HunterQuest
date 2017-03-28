@@ -6,9 +6,9 @@ class Sidebar extends DisplayObjectContainer {
 	constructor(id, filename, parentObj=null, width, height) {
 		super(id, filename, parentObj);
 
-		this.health;
+		this.hp;
 		this.exp;
-		this.gold;
+		this.gold = 0;
 		this.weapon1;
 		this.weapon2;
 		this.stats = {
@@ -33,7 +33,30 @@ class Sidebar extends DisplayObjectContainer {
 
 	draw(context) {
 		super.draw(context);
+
+		// Background color
 		context.fillStyle = "#5decf0";
 		context.fillRect(this.x, this.y, this.width, this.height);
+
+		// Health bar
+		context.fillStyle = "#000000";
+		context.fillRect(5, 15, (this.width - 20), 13);
+		context.fillStyle = "#fc0008";
+		context.fillRect(5, 15, Character.getInstance().getPercentHealth() * (this.width - 20), 13);
+		context.fillStyle = "#000000";
+		context.font = "15px Times New Roman";
+		context.fillText("Health", 5, 15);
+
+		// Experience bar
+		context.fillStyle = "#ffff1c";
+		context.fillRect(5, 45, this.width - 20, 13);
+		context.fillStyle = "#000000";
+		context.font = "15px Times New Roman";
+		context.fillText("Experience", 5, 45);
+
+		// Gold
+		context.fillStyle = "#000000";
+		context.font = "15px Times New Roman";
+		context.fillText(this.gold + " Gold", 5, 85);
 	}
 }

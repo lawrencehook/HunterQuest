@@ -6,11 +6,19 @@ class Character extends AnimatedSprite {
 
 	constructor(id, spriteSheet, jsonSprites, parentObj=null) {
 		super(id, spriteSheet, jsonSprites, parentObj);
+		Character.instance = this;
 
 		this.xMinBound = 0;
 		this.xMaxBound;
 		this.yMinBound = 0;
 		this.yMaxBound;
+
+		this.health = 20;
+		this.maxHealth = 20;
+	}
+
+	static getInstance() {
+		return Character.instance;
 	}
 
 	updateCharacter(pressedKeys) {
@@ -89,6 +97,10 @@ class Character extends AnimatedSprite {
 		} else {
 			this.block.down = false;
 		}
+	}
+
+	getPercentHealth() {
+		return this.health / this.maxHealth;
 	}
 
 }
