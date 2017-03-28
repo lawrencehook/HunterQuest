@@ -13,7 +13,9 @@ class DisplayObject {
 			this.parent.addChild(this);
 		}
 		this.loaded = false;
-		this.loadImage(filename);
+		if (filename) {
+			this.loadImage(filename);
+		}
 
 		this.speed = 10;
 		this.angularSpeed = 0.01;
