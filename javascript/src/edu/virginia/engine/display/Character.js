@@ -7,7 +7,10 @@ class Character extends AnimatedSprite {
 	constructor(id, spriteSheet, jsonSprites, parentObj=null) {
 		super(id, spriteSheet, jsonSprites, parentObj);
 
-
+		this.xMinBound = 0;
+		this.xMaxBound;
+		this.yMinBound = 0;
+		this.yMaxBound;
 	}
 
 	updateCharacter(pressedKeys) {
@@ -61,27 +64,27 @@ class Character extends AnimatedSprite {
 	}
 
 	checkBounds() {
-		if (this.position.x <= 0) {
+		if (this.position.x <= this.xMinBound) {
 			this.block.left = true;
-			this.position.x = 0;
+			this.position.x = this.xMinBound;
 		} else {
 			this.block.left = false;
 		}
-		if (this.position.x >= this.xBound - this.getUnscaledWidth()) {
+		if (this.position.x >= this.xMaxBound - this.getUnscaledWidth()) {
 			this.block.right = true;
-			this.position.x = this.xBound - this.getUnscaledWidth();
+			this.position.x = this.xMaxBound - this.getUnscaledWidth();
 		} else {
 			this.block.right = false;
 		}
-		if (this.position.y <= 0) {
+		if (this.position.y <= this.yMinBound) {
 			this.block.up = true;
-			this.position.y = 0;
+			this.position.y = this.yMinBound;
 		} else {
 			this.block.up = false;
 		}
-		if (this.position.y >= this.yBound - this.getUnscaledHeight()) {
+		if (this.position.y >= this.yMaxBound - this.getUnscaledHeight()) {
 			this.block.down = true;
-			this.position.y = this.yBound - this.getUnscaledHeight();
+			this.position.y = this.yMaxBound - this.getUnscaledHeight();
 			this.jumped = false;
 		} else {
 			this.block.down = false;

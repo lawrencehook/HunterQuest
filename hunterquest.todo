@@ -22,7 +22,7 @@ Prototype:
       ☐ amount
 
   Sidbar:
-    ☐ shealth
+    ☐ health
     ☐ exp
     ☐ gold
     ☐ Weapon 1
@@ -53,15 +53,25 @@ Prototype:
         ☐ 
 
 Alpha:
+  ☐ at least 3 levels/enemies
+    (one of which is a larger monster/more powerful, another is multiple monsters)
+  ☐ different weapons (bow and sword)
+  ☐ enemy attack tracking
+  ☐ xp
 
 
 
 
 
 Beta:
-
-
+  ☐ Final boss completed
+  ☐ music/art in its final state
+  ☐ shop feature 
 
 
 
 Final:
+  ☐ Clean it up
+  ☐ levels 4-9
+  ☐ features are bug free
+  ☐ splash screen

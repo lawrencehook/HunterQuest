@@ -240,10 +240,18 @@ class DisplayObject {
 	}
 
 	getUnscaledHeight() {
-		return this.displayImage.height;
+		if (this.height) {
+			return this.height;
+		} else {
+			return this.displayImage.height;
+		}
 	}
 	getUnscaledWidth() {
-		return this.displayImage.width;
+		if (this.width) {
+			return this.width;
+		} else {
+			return this.displayImage.width;
+		}
 	}
 
 	getSpeed() {
@@ -371,7 +379,6 @@ class DisplayObject {
 		} else {
 			return false;
 		}
-
 	}
 
 }
