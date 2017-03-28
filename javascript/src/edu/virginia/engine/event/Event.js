@@ -3,10 +3,9 @@
 "use strict";
 
 class Event {
-	constructor(eventType, source, context) {
+	constructor(eventType, source) {
 		this.eventType = eventType;
 		this.source = source;
-		this.context = context;
 	}
 
 	setEventType(eventType) {
