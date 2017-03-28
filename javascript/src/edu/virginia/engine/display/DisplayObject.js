@@ -46,7 +46,6 @@ class DisplayObject {
 			left : false,
 			right : false
 		}
-		this.padding = 10;
 
 		this.moving = false;
 
@@ -61,7 +60,6 @@ class DisplayObject {
 		this.movingUp = false;
 		this.movingDown = false;
 		this.centered = false;
-		// this.hitBox = new Rectangle(this.position.x, this.position.y, this.getUnscaledWidth(), this.getUnscaledHeight());
 
 		this.eventDispatcher = new EventDispatcher();
 
@@ -135,7 +133,7 @@ class DisplayObject {
 		}
 		// up
 		if (pressedKeys.indexOf(38) != -1 && !this.block.up) {
-			this.position.y += this.speed;
+			this.position.y -= this.speed;
 			this.movingUp = true;
 		} else {
 			this.movingUp = false;
