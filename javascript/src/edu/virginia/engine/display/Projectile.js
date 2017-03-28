@@ -2,7 +2,7 @@
 
 "use strict";
 
-class Platform extends DisplayObjectContainer {
+class Projectile extends DisplayObjectContainer {
 	constructor(x, y, width, height, vx, vy, damage, color="#2f4d2f", parentObj=null) {
 		super("platform", "", parentObj);
 		this.position = new Point(x, y);
@@ -19,7 +19,7 @@ class Platform extends DisplayObjectContainer {
 	update(pressedKeys) {
 		super.update(pressedKeys);
 
-		this.position.translate(vx, vy);
+		this.position.plus(this.vx, this.vy);
 	}
 
 	draw(context) {
