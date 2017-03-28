@@ -46,6 +46,15 @@ class PhysicsSprite extends AnimatedSprite {
 			this.position.y += this.vy;
 		}
 
+		// Check for projectiles
+		var projectiles = Game.getInstance().projectiles;
+
+		for (var i = projectiles.length-1; i >= 0; i--) {
+			if (this.xCollides(projectiles[i]) && this.yCollides(projectiles[i])) {
+				// THROW EVENTS (UPDATE HP), DESTROY PROJECTILE
+			}
+		}
+
 	}
 
 	updateCharacter(pressedKeys) {
@@ -96,5 +105,10 @@ class PhysicsSprite extends AnimatedSprite {
 	xCollides(other) {
 		return (this.position.x + this.getUnscaledWidth() >= other.position.x &&
 			this.position.x < other.position.x + other.getUnscaledWidth());
+	}
+
+	yCollides(other) {
+		return (this.position.y + this.getUnscaledWidth() >= other.position.y &&
+			this.position.y < other.position.y + other.getUnscaledWidth());
 	}
 }
