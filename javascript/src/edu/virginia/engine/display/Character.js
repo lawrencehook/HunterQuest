@@ -57,21 +57,26 @@ class Character extends AnimatedSprite {
 		if (pressedKeys.indexOf(37) != -1) {
 			console.log("shoot left");
 			var center = this.getHitboxCenter();
-			Game.getInstance().projectiles.push(new Projectile(
-				this.position.x - 10, center - 5, 10, 10, 20, 0, parentObj=Game.getInstance()
-			));
+			var projectile = new Projectile(this.position.x - 10, center.y - 5, 10, 10, -20, 0, 2, "#2f4d2f", this.parent);
+			//Game.getInstance().projectiles.push(projectile);
 		}
 		// Up projectile
 		if (pressedKeys.indexOf(38) != -1) {
 			console.log("shoot up");
+			var center = this.getHitboxCenter();
+			var projectile = new Projectile(center.x - 5, this.position.y - 10, 10, 10, 0, -20, 2, "#2f4d2f", this.parent);
 		}
 		// Right projectile
 		if (pressedKeys.indexOf(39) != -1) {
 			console.log("shoot right");
+			var center = this.getHitboxCenter();
+			var projectile = new Projectile(this.position.x + this.getUnscaledWidth(), center.y - 5, 10, 10, 20, 0, 2, "#2f4d2f", this.parent);
 		}
 		// Down projectile
 		if (pressedKeys.indexOf(40) != -1) {
 			console.log("shoot down");
+			var center = this.getHitboxCenter();
+			var projectile = new Projectile(center.x - 5, this.position.y + this.getUnscaledHeight(), 10, 10, 0, 20, 2, "#2f4d2f", this.parent);
 		}
 	}
 

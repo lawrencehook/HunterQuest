@@ -4,7 +4,7 @@
 
 class Projectile extends DisplayObjectContainer {
 	constructor(x, y, width, height, vx, vy, damage, color="#2f4d2f", parentObj=null) {
-		super("platform", "", parentObj);
+		super("projectile", "", parentObj);
 		this.position = new Point(x, y);
 		this.width = width;
 		this.height = height;
@@ -19,7 +19,8 @@ class Projectile extends DisplayObjectContainer {
 	update(pressedKeys) {
 		super.update(pressedKeys);
 
-		this.position.plus(this.vx, this.vy);
+		this.position.x += this.vx
+		this.position.y += this.vy;
 	}
 
 	draw(context) {
