@@ -45,15 +45,6 @@ class PhysicsSprite extends AnimatedSprite {
 		if (!collided) {
 			this.position.y += this.vy;
 		}
-
-		// Check for projectiles
-		var projectiles = Game.getInstance().projectiles;
-		for (var i = projectiles.length-1; i >= 0; i--) {
-			if (this.xCollides(projectiles[i]) && this.yCollides(projectiles[i])) {
-				this.eventDispatcher.dispatchEvent(new StatusEvent("DAMAGE_TAKEN", projectiles[i], projectiles[i].damage));
-				projectiles.splice(i, 1);
-			}
-		}
 	}
 
 	updateCharacter(pressedKeys) {
@@ -99,15 +90,5 @@ class PhysicsSprite extends AnimatedSprite {
 			width : this.getUnscaledWidth,
 			height : 1
 		};
-	}
-
-	xCollides(other) {
-		return (this.position.x + this.getUnscaledWidth() >= other.position.x &&
-			this.position.x < other.position.x + other.getUnscaledWidth());
-	}
-
-	yCollides(other) {
-		return (this.position.y + this.getUnscaledWidth() >= other.position.y &&
-			this.position.y < other.position.y + other.getUnscaledWidth());
 	}
 }

@@ -15,6 +15,17 @@ class Sprite extends DisplayObjectContainer {
 	 */
 	update(pressedKeys) {
 		super.update(pressedKeys);
+
+		// Check for projectiles
+		var projectiles = Game.getInstance().projectiles;
+		if (projectiles != null) {
+			for (var i = projectiles.length-1; i >= 0; i--) {
+				if (this.xCollides(projectiles[i]) && this.yCollides(projectiles[i])) {
+					this.eventDispatcher.dispatchEvent(new StatusEvent("DAMAGE_TAKEN", projectiles[i], projectiles[i].damage));
+					projectiles.splice(i, 1);
+				}
+			}
+		}
 	}
 
 	/**
@@ -22,6 +33,17 @@ class Sprite extends DisplayObjectContainer {
 	 */
 	draw(g) {
 		super.draw(g);
+	}
+
+
+	xCollides(other) {
+		return (this.position.x + this.getUnscaledWidth() >= other.position.x &&
+			this.position.x < other.position.x + other.getUnscaledWidth());
+	}
+
+	yCollides(other) {
+		return (this.position.y + this.getUnscaledWidth() >= other.position.y &&
+			this.position.y < other.position.y + other.getUnscaledWidth());
 	}
 }
 
