@@ -19,8 +19,9 @@ class Projectile extends DisplayObjectContainer {
 	update(pressedKeys) {
 		super.update(pressedKeys);
 
-		this.position.x += this.vx
+		this.position.x += this.vx;
 		this.position.y += this.vy;
+		if(this.isOffscreen()) this.parent.removeChild(this);
 	}
 
 	draw(context) {
@@ -50,5 +51,9 @@ class Projectile extends DisplayObjectContainer {
 	}
 	getUnscaledHeight() {
 		return this.height;
+	}
+
+	isOffscreen() {
+		return (this.position.x < 0 || this.position.x > Game.getInstance().gamescreen.width) || (this.position.y < 0 || this.position.y > Game.getInstance().gamescreen.width);
 	}
 }
