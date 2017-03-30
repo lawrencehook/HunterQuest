@@ -23,16 +23,6 @@ class Sprite extends DisplayObjectContainer {
 	draw(g) {
 		super.draw(g);
 	}
-
-
-	xCollides(other) {
-		return (this.position.x + this.getUnscaledWidth() >= other.position.x &&
-			this.position.x < other.position.x + other.getUnscaledWidth());
-	}
-
-	yCollides(other) {
-		return (this.position.y + this.getUnscaledWidth() >= other.position.y &&
-			this.position.y < other.position.y + other.getUnscaledWidth());
-	}
+	
 }
 

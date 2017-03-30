@@ -91,4 +91,9 @@ class PhysicsSprite extends AnimatedSprite {
 			height : 1
 		};
 	}
+
+	xCollides(other) {
+		return (this.position.x + this.getUnscaledWidth() >= other.position.x &&
+			this.position.x < other.position.x + other.getUnscaledWidth());
+	}
 }

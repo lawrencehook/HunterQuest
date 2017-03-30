@@ -16,6 +16,9 @@ class Projectile extends DisplayObjectContainer {
 		this.collidable = true;
 
 		Game.getInstance().projectiles.add(this);
+		/*Game.getInstance().projectiles.contents.forEach(function(p) {
+			console.log(p);
+		})*/
 	}
 
 	update(pressedKeys) {
