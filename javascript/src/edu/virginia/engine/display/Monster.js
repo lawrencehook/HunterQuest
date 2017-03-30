@@ -26,7 +26,7 @@ class Monster extends AnimatedSprite {
 			var diffPosition = character.position.minus(this.position);
 			var dx = diffPosition.x;
 			var dy = diffPosition.y;
-			var angle = Math.atan(dy/dx);
+			var angle = Math.atan2(dy,dx);
 			// console.log(angle);
 			var vx = projectileSpeed * Math.cos(angle);
 			var vy = projectileSpeed * Math.sin(angle);
