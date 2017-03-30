@@ -2,7 +2,7 @@
 
 "use strict";
 
-class Monster extends AnimatedSprite {
+class Monster extends Entity {
 
 	constructor(id, spriteSheet, jsonSprites, parentObj=null) {
 		super(id, spriteSheet, jsonSprites, parentObj);
