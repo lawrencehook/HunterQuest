@@ -13,9 +13,9 @@ class Entity extends AnimatedSprite {
 		var projectiles = Game.getInstance().projectiles;
 		if (projectiles != null) {
 			for (var i = projectiles.length-1; i >= 0; i--) {
-				if (this.xCollides(projectiles[i]) && this.yCollides(projectiles[i])) {
-					this.eventDispatcher.dispatchEvent(new StatusEvent("DAMAGE_TAKEN", projectiles[i], projectiles[i].damage));
-					projectiles.splice(i, 1);
+				if (this.xCollides(projectiles.get(i)) && this.yCollides(projectiles.get(i))) {
+					this.eventDispatcher.dispatchEvent(new StatusEvent("DAMAGE_TAKEN", projectiles.get(i), projectiles.get(i).damage));
+					projectiles.get(i).destroy();
 				}
 			}
 		}

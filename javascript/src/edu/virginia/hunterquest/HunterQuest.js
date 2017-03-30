@@ -56,7 +56,7 @@ class HunterQuest extends Game {
 		this.sidebar = new Sidebar("sidebar", "", this, sidebarWidth, this.canvasHeight);
 		// this.opponent = new PhysicsSprite
 
-		this.projectiles = [];
+		this.projectiles = new ArrayList();
 	}
 
 	update(pressedKeys) {

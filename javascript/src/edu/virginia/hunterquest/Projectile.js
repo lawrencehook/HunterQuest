@@ -14,6 +14,8 @@ class Projectile extends DisplayObjectContainer {
 		this.fillColor = color;
 
 		this.collidable = true;
+
+		Game.getInstance().projectiles.add(this);
 	}
 
 	update(pressedKeys) {
@@ -21,7 +23,7 @@ class Projectile extends DisplayObjectContainer {
 
 		this.position.x += this.vx;
 		this.position.y += this.vy;
-		if(this.isOffscreen()) this.parent.removeChild(this);
+		if(this.isOffscreen()) destroy();
 	}
 
 	draw(context) {
@@ -55,5 +57,11 @@ class Projectile extends DisplayObjectContainer {
 
 	isOffscreen() {
 		return (this.position.x < 0 || this.position.x > Game.getInstance().gamescreen.width) || (this.position.y < 0 || this.position.y > Game.getInstance().gamescreen.width);
+	}
+
+	destroy() {
+		Game.getInstance().projectiles.remove(this);
+		this.parent.removeChild(this);
+		console.log("projectile destroyed");
 	}
 }
