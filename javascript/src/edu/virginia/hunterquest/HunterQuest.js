@@ -63,7 +63,6 @@ class HunterQuest extends Game {
 		super.update(pressedKeys);
 
 		this.tweenJuggler.nextFrame();
-
 	}
 
 	draw(context) {
