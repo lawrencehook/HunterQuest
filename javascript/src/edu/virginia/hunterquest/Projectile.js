@@ -23,7 +23,7 @@ class Projectile extends DisplayObjectContainer {
 
 		this.position.x += this.vx;
 		this.position.y += this.vy;
-		if(this.isOffscreen()) destroy();
+		if(this.isOffscreen()) this.destroy();
 	}
 
 	draw(context) {
