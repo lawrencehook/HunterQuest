@@ -13,6 +13,8 @@ class Character extends Entity {
 		this.yMinBound = 0;
 		this.yMaxBound;
 
+		this.cooldown = 0;
+
 		this.hp = 20;
 		this.maxHealth = 20;
 	}
@@ -56,7 +58,8 @@ class Character extends Entity {
 		// Left projectile
 		if (pressedKeys.indexOf(37) != -1) {
 			var center = this.getHitboxCenter();
-			var projectile = new Projectile(this.position.x - 10, center.y - 5, 10, 10, -20, 0, 2, "#2f4d2f", true, this.parent);
+			// var projectile = new Projectile(this.position.x - 10, center.y - 5, 10, 10, -20, 0, 2, "#2f4d2f", this.parent);
+			this.attack1("left");
 			//Game.getInstance().projectiles.push(projectile);
 		}
 		// Up projectile
@@ -74,6 +77,26 @@ class Character extends Entity {
 			var center = this.getHitboxCenter();
 			var projectile = new Projectile(center.x - 5, this.position.y + this.getUnscaledHeight(), 10, 10, 0, 20, 2, "#2f4d2f", true, this.parent);
 		}
+		console.log(this.parent.children.size());
+	}
+
+	attack1(direction) {
+		var projectileSpeed = 10;
+		var projectileSize = 10;
+		var projectileDamage = 2;
+		var projectileColor = "#ff0000";
+
+		console.log("cooldown is: " + this.cooldown)
+
+		if (this.cooldown <= 0) {
+			// ATTACK!
+			var center = this.getHitboxCenter();
+			var projectile = new Projectile(this.position.x - 10, center.y - 5, 10, 10, -20, 0, 2, "#2f4d2f", this.parent);
+		}
+		if(this.cooldown <= 0) {
+			this.cooldown = projectileSpeed;
+		}
+		this.cooldown -= 1;
 	}
 
 	checkBounds() {
