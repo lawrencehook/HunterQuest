@@ -42,10 +42,20 @@ class Entity extends AnimatedSprite {
 		// Entity dies
 		if (this.hp < 0) {
 			this.hp = 0;
+			this.die();
 		}
 		// Full health
 		if (this.hp > this.maxHealth) {
 			this.hp = this.maxHealth;
+		}
+	}
+
+	die() {
+		if (this.id === "character") {
+			// game over
+		}
+		else {
+			this.parent.removeChild(this);
 		}
 	}
 }
