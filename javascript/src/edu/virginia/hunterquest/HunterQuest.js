@@ -81,7 +81,7 @@ class HunterQuest extends Game {
 		super.update(pressedKeys);
 
 		if(pressedKeys.indexOf(74) !== -1) { //Press key = j
-			var rX = Math.random() * this.canvasWidth + 50;
+			var rX = Math.random() * this.canvasWidth;
 			var rY = Math.random() * this.canvasHeight + 50;
 			this.enemy1 = new Monster("enemy1", "spritesheet.png", marioSprites, this.gamescreen);
 			this.enemy1.position = (new Point(rX, rY)).minus(new Point(0.5*this.mario.getUnscaledWidth(), 0));
