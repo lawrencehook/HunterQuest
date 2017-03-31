@@ -62,23 +62,47 @@ class HunterQuest extends Game {
 		// Hunter Quest
 		this.gamescreen = new GameScreen("gamescreen", this, this.sidebarWidth, 0, this.canvasWidth - this.sidebarWidth, this.canvasHeight);
 
+		this.sidebar = new Sidebar("sidebar", "", this, this.sidebarWidth, this.canvasHeight);
+
 		this.mario = new Character("character", "spritesheet.png", marioSprites, this.gamescreen);
 		this.mario.ischaracter = true;
 		this.mario.xMaxBound = this.canvasWidth - this.sidebarWidth;
 		this.mario.yMaxBound = this.canvasHeight;
 		this.mario.position = this.gamescreen.getCenter();
 
-		this.enemy1 = new Monster("enemy1", "spritesheet.png", marioSprites, this.gamescreen);
-		this.enemy1.position = (new Point(0.5*this.canvasWidth, 50)).minus(new Point(0.5*this.mario.getUnscaledWidth(), 0));
-
-		this.sidebar = new Sidebar("sidebar", "", this, this.sidebarWidth, this.canvasHeight);
-		// this.opponent = new PhysicsSprite
-
 		this.projectiles = new ArrayList();
+
+		this.levels = new Array();
+		this.levels[0] = new LevelOne();
+		this.levels[1] = new LevelTwo();
+		this.levels[2] = new LevelThree();
+		// this.levels[3] = new LevelFour();
+		// this.levels[4] = new LevelFive();
+		// this.levels[5] = new LevelSix();
+		// this.levels[6] = new LevelSeven();
+		// this.levels[7] = new LevelEight();
+		// this.levels[8] = new LevelNine();
+		// this.levels[9] = new LevelTen();
+		this.currentLevel = 0;
+
+		this.levels[this.currentLevel].initialize();
 	}
 
 	update(pressedKeys) {
 		super.update(pressedKeys);
+
+		// TODO bring up a UI to continue/restart/etc.
+		//	Tween it up
+		if (this.levels[this.currentLevel].isCompleted()) {
+			if (this.currentLevel < this.levels.length - 1) {
+				console.log("Level " + (this.currentLevel + 1) + " completed!");
+				this.currentLevel += 1;
+				this.levels[this.currentLevel].initialize();
+			} else {
+				console.log("You beat Hunter Quest!");
+				this.pause();
+			}
+		}
 
 		if(pressedKeys.indexOf(74) !== -1) { //Press key = j
 			var rX = Math.random() * this.canvasWidth;

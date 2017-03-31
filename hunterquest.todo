@@ -1,11 +1,40 @@
 Prototype:
   Due March 31 before lab
   ✔ Movement @done (17-03-30 17:53)
-  ☐ attack with sword
+  ✔ attack with sword @done (17-03-31 13:23)
     We attack with a projectile instead. Ask TA if ok
   ✔ dodge features @done (17-03-27 21:17)
-  ☐ health
-  ☐ at least one enemy/level 
+  ✔ health @done (17-03-31 13:23)
+  ✔ at least one enemy/level @done (17-03-31 13:23)
+
+
+Alpha:
+  ✔ at least 3 levels/enemies @done (17-03-31 14:32)
+    (one of which is a larger monster/more powerful, another is multiple monsters)
+      ☐ Level class with various fields?
+        ☐ # of monsters
+        ☐ Strength of monsters
+      OR
+      ✔ new class for each level @done (17-03-31 14:32)
+
+  ☐ different weapons (bow and sword)
+  ☐ enemy attack tracking
+  ☐ xp
+
+
+Beta:
+  ☐ Final boss completed
+  ☐ music/art in its final state
+  ☐ shop feature
+
+
+Final:
+  ☐ Clean it up
+  ☐ levels 4-9
+  ☐ features are bug free
+  ☐ splash screen
+
+
 
   Player Character:
     ☐ Sprites
@@ -52,27 +81,3 @@ Prototype:
         ☐ armour penetration
         ☐ movement speed
         ☐ 
-
-Alpha:
-  ☐ at least 3 levels/enemies
-    (one of which is a larger monster/more powerful, another is multiple monsters)
-  ☐ different weapons (bow and sword)
-  ☐ enemy attack tracking
-  ☐ xp
-
-
-
-
-
-Beta:
-  ☐ Final boss completed
-  ☐ music/art in its final state
-  ☐ shop feature 
-
-
-
-Final:
-  ☐ Clean it up
-  ☐ levels 4-9
-  ☐ features are bug free
-  ☐ splash screen
