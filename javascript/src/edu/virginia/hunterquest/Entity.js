@@ -11,14 +11,17 @@ class Entity extends AnimatedSprite {
 
 		// Check for projectiles
 		var projectiles = Game.getInstance().projectiles;
-		console.log(projectiles);
-		if (projectiles != null) {
+		if (projectiles) {
 			for (var i = projectiles.size()-1; i >= 0; i--) {
-				console.log("fjfjf");
-				if (this.xCollides(projectiles.get(i)) && this.yCollides(projectiles.get(i))) {
-					this.eventDispatcher.dispatchEvent(new StatusEvent("DAMAGE_TAKEN", projectiles.get(i), projectiles.get(i).damage));
-					projectiles.get(i).destroy();
-					console.log("asdf");
+				var projectile = projectiles.get(i);
+				if (this.id === "character" ^ projectile.isFriendly) {
+					if (this.xCollides(projectile)) {
+						if (this.yCollides(projectile)) {
+							this.eventDispatcher.dispatchEvent(new StatusEvent("DAMAGE_TAKEN", projectile, projectile.damage));
+							projectile.destroy();
+							
+						}
+					}
 				}
 			}
 		}
