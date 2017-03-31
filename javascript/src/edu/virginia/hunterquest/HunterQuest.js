@@ -6,7 +6,6 @@
 class HunterQuest extends Game {
 	
 	constructor(canvas) {
-
 		var	windowWidth = utils.getWidth(),
 			windowHeight = utils.getHeight(),
 			canvasWidth = windowWidth - 15,
@@ -14,10 +13,10 @@ class HunterQuest extends Game {
 		canvas.width = canvasWidth;
 		canvas.height = canvasHeight;
 
-		var sidebarWidth = 150;
 
 		super("Hunter Quest", canvasWidth, canvasHeight, canvas);
 
+		this.sidebarWidth = 150;
 		this.windowWidth = utils.getWidth();
 		this.windowHeight = utils.getHeight();
 		this.canvasWidth = canvasWidth;
@@ -28,31 +27,51 @@ class HunterQuest extends Game {
 		window.addEventListener("click", onClick, true);
 		this.mouse = utils.captureMouse(canvas);
 
+		this.initialize();
+	}
+
+	update(pressedKeys) {
+		super.update(pressedKeys);
+
+		this.tweenJuggler.nextFrame();
+	}
+
+	draw(context) {
+		context.clearRect(0, 0, this.width, this.height);
+		super.draw(context);
+
+		if (this.questManager.coinPickedUp) {
+			write(context, "black", "20px Georgia", "You picked up a coin!", 15, 25);
+		}
+	}
+
+	restart() {
+		// Remove all children from Game.
+		this.removeAll();
+
+		this.initialize();
+	}
+
+	initialize() {
 		// Events
 		this.questManager = new QuestManager();
-		// this.coin.eventDispatcher.addEventListener(this.questManager, "COIN_PICKED_UP");
 
 		// Tweens
 		this.tweenJuggler = new TweenJuggler();
-		
-		// this.marioTween = new Tween(this.mario);
-		// this.marioTween.animate("alpha", 0, 1, 1000);
-
-		// TweenJuggler.add(this.marioTween);
 
 		// Hunter Quest
-		this.gamescreen = new GameScreen("gamescreen", this, sidebarWidth, 0, this.canvasWidth - sidebarWidth, this.canvasHeight);
+		this.gamescreen = new GameScreen("gamescreen", this, this.sidebarWidth, 0, this.canvasWidth - this.sidebarWidth, this.canvasHeight);
 
 		this.mario = new Character("character", "spritesheet.png", marioSprites, this.gamescreen);
 		this.mario.ischaracter = true;
-		this.mario.xMaxBound = this.canvasWidth - sidebarWidth;
+		this.mario.xMaxBound = this.canvasWidth - this.sidebarWidth;
 		this.mario.yMaxBound = this.canvasHeight;
 		this.mario.position = this.gamescreen.getCenter();
 
 		this.enemy1 = new Monster("enemy1", "spritesheet.png", marioSprites, this.gamescreen);
 		this.enemy1.position = (new Point(0.5*this.canvasWidth, 50)).minus(new Point(0.5*this.mario.getUnscaledWidth(), 0));
 
-		this.sidebar = new Sidebar("sidebar", "", this, sidebarWidth, this.canvasHeight);
+		this.sidebar = new Sidebar("sidebar", "", this, this.sidebarWidth, this.canvasHeight);
 		// this.opponent = new PhysicsSprite
 
 		this.projectiles = new ArrayList();
@@ -61,7 +80,7 @@ class HunterQuest extends Game {
 	update(pressedKeys) {
 		super.update(pressedKeys);
 
-		if(pressedKeys.indexOf(74) !== -1) {
+		if(pressedKeys.indexOf(74) !== -1) { //Press key = j
 			var rX = Math.random() * this.canvasWidth + 50;
 			var rY = Math.random() * this.canvasHeight + 50;
 			this.enemy1 = new Monster("enemy1", "spritesheet.png", marioSprites, this.gamescreen);

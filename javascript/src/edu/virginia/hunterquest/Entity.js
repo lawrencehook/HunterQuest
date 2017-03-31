@@ -43,8 +43,9 @@ class Entity extends AnimatedSprite {
 		this.hp -= damage;
 
 		// Entity dies
-		if (this.hp < 0) {
+		if (this.hp <= 0) {
 			this.hp = 0;
+
 			this.die();
 		}
 		// Full health
