@@ -50,7 +50,7 @@ class HunterQuest extends Game {
 		this.mario.position = this.gamescreen.getCenter();
 
 		this.enemy1 = new Monster("enemy1", "spritesheet.png", marioSprites, this.gamescreen);
-		this.enemy1.position = (new Point(0.5*this.canvasWidth, 0)).minus(new Point(0.5*this.mario.getUnscaledWidth(), 0));
+		this.enemy1.position = (new Point(0.5*this.canvasWidth, 50)).minus(new Point(0.5*this.mario.getUnscaledWidth(), 0));
 
 		this.sidebar = new Sidebar("sidebar", "", this, sidebarWidth, this.canvasHeight);
 		// this.opponent = new PhysicsSprite
