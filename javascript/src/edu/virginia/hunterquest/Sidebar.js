@@ -8,7 +8,6 @@ class Sidebar extends DisplayObjectContainer {
 
 		this.hp;
 		this.exp;
-		this.gold = 0;
 		this.weapon1;
 		this.weapon2;
 		this.stats = {
@@ -48,8 +47,10 @@ class Sidebar extends DisplayObjectContainer {
 		context.fillText("Health", 5, 15);
 
 		// Experience bar
-		context.fillStyle = "#ffff1c";
+		context.fillStyle = "#666768";
 		context.fillRect(5, 45, this.width - 20, 13);
+		context.fillStyle = "#ffff1c";
+		context.fillRect(5, 45, Character.getInstance().exp/100 * (this.width - 20), 13);
 		context.fillStyle = "#000000";
 		context.font = "15px Times New Roman";
 		context.fillText("Experience", 5, 45);
@@ -57,6 +58,6 @@ class Sidebar extends DisplayObjectContainer {
 		// Gold
 		context.fillStyle = "#000000";
 		context.font = "15px Times New Roman";
-		context.fillText(this.gold + " Gold", 5, 85);
+		context.fillText(Character.getInstance().gold + " Gold", 5, 85);
 	}
 }

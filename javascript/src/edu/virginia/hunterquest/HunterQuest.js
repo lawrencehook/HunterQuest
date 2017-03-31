@@ -76,6 +76,28 @@ class HunterQuest extends Game {
 
 		this.projectiles = new ArrayList();
 	}
+
+	update(pressedKeys) {
+		super.update(pressedKeys);
+
+		if(pressedKeys.indexOf(74) !== -1) { //Press key = j
+			var rX = Math.random() * this.canvasWidth + 50;
+			var rY = Math.random() * this.canvasHeight + 50;
+			this.enemy1 = new Monster("enemy1", "spritesheet.png", marioSprites, this.gamescreen);
+			this.enemy1.position = (new Point(rX, rY)).minus(new Point(0.5*this.mario.getUnscaledWidth(), 0));
+		}
+
+		this.tweenJuggler.nextFrame();
+	}
+
+	draw(context) {
+		context.clearRect(0, 0, this.width, this.height);
+		super.draw(context);
+
+		if (this.questManager.coinPickedUp) {
+			write(context, "black", "20px Georgia", "You picked up a coin!", 15, 25);
+		}
+	}
 }
 
 /**
