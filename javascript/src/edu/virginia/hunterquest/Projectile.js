@@ -3,7 +3,7 @@
 "use strict";
 
 class Projectile extends DisplayObjectContainer {
-	constructor(x, y, width, height, vx, vy, damage, color="#2f4d2f", parentObj=null) {
+	constructor(x, y, width, height, vx, vy, damage, color="#2f4d2f", friendly, parentObj=null) {
 		super("projectile", "", parentObj);
 		this.position = new Point(x, y);
 		this.width = width;
@@ -14,6 +14,8 @@ class Projectile extends DisplayObjectContainer {
 		this.fillColor = color;
 
 		this.collidable = true;
+
+		this.isFriendly = friendly;
 
 		Game.getInstance().projectiles.add(this);
 		/*Game.getInstance().projectiles.contents.forEach(function(p) {

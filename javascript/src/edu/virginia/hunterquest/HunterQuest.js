@@ -43,15 +43,14 @@ class HunterQuest extends Game {
 		// Hunter Quest
 		this.gamescreen = new GameScreen("gamescreen", this, sidebarWidth, 0, this.canvasWidth - sidebarWidth, this.canvasHeight);
 
-		this.mario = new Character("mario", "spritesheet.png", marioSprites, this.gamescreen);
+		this.mario = new Character("character", "spritesheet.png", marioSprites, this.gamescreen);
 		this.mario.ischaracter = true;
 		this.mario.xMaxBound = this.canvasWidth - sidebarWidth;
 		this.mario.yMaxBound = this.canvasHeight;
 		this.mario.position = this.gamescreen.getCenter();
-		console.log(this.mario.position);
 
 		this.enemy1 = new Monster("enemy1", "spritesheet.png", marioSprites, this.gamescreen);
-		this.enemy1.position = (new Point(0.5*this.canvasWidth, 0)).minus(new Point(0.5*this.mario.getUnscaledWidth(), 0));
+		this.enemy1.position = (new Point(0.5*this.canvasWidth, 50)).minus(new Point(0.5*this.mario.getUnscaledWidth(), 0));
 
 		this.sidebar = new Sidebar("sidebar", "", this, sidebarWidth, this.canvasHeight);
 		// this.opponent = new PhysicsSprite
