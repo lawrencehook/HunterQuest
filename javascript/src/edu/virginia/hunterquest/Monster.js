@@ -23,7 +23,7 @@ class Monster extends Entity {
 		if (this.frameCounter % this.attackSpeed == 0) {
 			// ATTACK!
 			var character = Character.getInstance();
-			var diffPosition = character.position.minus(this.position);
+			var diffPosition = character.getHitboxCenter().minus(this.position);
 			var dx = diffPosition.x;
 			var dy = diffPosition.y;
 			var angle = Math.atan2(dy,dx);
@@ -42,10 +42,6 @@ class Monster extends Entity {
 		if (this.id == "enemy1") {
 			this.attack1();
 		}
-	}
-
-	getPercentHealth() {
-		return this.hp / this.maxHealth;
 	}
 
 }

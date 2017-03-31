@@ -4,6 +4,9 @@ class Entity extends AnimatedSprite {
 
 	constructor(id, spriteSheet, jsonSprites, parentObj=null) {
 		super(id, spriteSheet, jsonSprites, parentObj);
+
+		this.hp;
+		this.maxHealth;
 	}
 
 	update(pressedKeys) {
@@ -17,13 +20,32 @@ class Entity extends AnimatedSprite {
 				if (this.id === "character" ^ projectile.isFriendly) {
 					if (this.xCollides(projectile)) {
 						if (this.yCollides(projectile)) {
-							this.eventDispatcher.dispatchEvent(new StatusEvent("DAMAGE_TAKEN", projectile, projectile.damage));
+							// this.eventDispatcher.dispatchEvent(new StatusEvent("DAMAGE_TAKEN", projectile, projectile.damage));
+							this.updateHealth(projectile.damage);
 							projectile.destroy();
 							
 						}
 					}
 				}
 			}
+		}
+	}
+
+	getPercentHealth() {
+		console.log(this.hp, this.maxHealth);
+		return this.hp / this.maxHealth;
+	}
+
+	updateHealth(damage) {
+		this.hp -= damage;
+
+		// Entity dies
+		if (this.hp < 0) {
+			this.hp = 0;
+		}
+		// Full health
+		if (this.hp > this.maxHealth) {
+			this.hp = this.maxHealth;
 		}
 	}
 }

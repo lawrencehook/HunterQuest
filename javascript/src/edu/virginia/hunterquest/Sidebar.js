@@ -35,13 +35,13 @@ class Sidebar extends DisplayObjectContainer {
 		super.draw(context);
 
 		// Background color
-		context.fillStyle = "#5decf0";
+		context.fillStyle = "#708a98";
 		context.fillRect(this.x, this.y, this.width, this.height);
 
 		// Health bar
-		context.fillStyle = "#000000";
-		context.fillRect(5, 15, (this.width - 20), 13);
 		context.fillStyle = "#fc0008";
+		context.fillRect(5, 15, (this.width - 20), 13);
+		context.fillStyle = "#00ff08";
 		context.fillRect(5, 15, Character.getInstance().getPercentHealth() * (this.width - 20), 13);
 		context.fillStyle = "#000000";
 		context.font = "15px Times New Roman";

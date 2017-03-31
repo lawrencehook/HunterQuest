@@ -13,7 +13,7 @@ class Character extends Entity {
 		this.yMinBound = 0;
 		this.yMaxBound;
 
-		this.health = 20;
+		this.hp = 20;
 		this.maxHealth = 20;
 	}
 
@@ -102,10 +102,6 @@ class Character extends Entity {
 		} else {
 			this.block.down = false;
 		}
-	}
-
-	getPercentHealth() {
-		return this.health / this.maxHealth;
 	}
 
 }
