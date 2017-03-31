@@ -32,7 +32,6 @@ class Entity extends AnimatedSprite {
 	}
 
 	getPercentHealth() {
-		console.log(this.hp, this.maxHealth);
 		return this.hp / this.maxHealth;
 	}
 
