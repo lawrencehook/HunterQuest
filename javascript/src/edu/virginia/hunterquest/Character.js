@@ -81,7 +81,7 @@ class Character extends Entity {
 	}
 
 	attack1(direction) {
-		var projectileSpeed = 1;
+		var projectileSpeed = 5;
 		var projectileSize = 10;
 		var projectileDamage = 2;
 		var projectileColor = "#ff0000";
