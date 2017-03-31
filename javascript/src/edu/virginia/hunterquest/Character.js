@@ -106,6 +106,7 @@ class Character extends Entity {
 					break;
 			}
 		}
+
 		if(this.cooldown <= 0) {
 			this.cooldown = projectileSpeed;
 		}
