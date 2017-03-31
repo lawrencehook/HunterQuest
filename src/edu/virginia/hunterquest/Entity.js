@@ -60,6 +60,8 @@ class Entity extends AnimatedSprite {
 		}
 		else {
 			this.parent.removeChild(this);
+			this.parent = undefined;
+
 			Character.getInstance().enemyDefeated(this.gold, this.exp);
 		}
 	}
