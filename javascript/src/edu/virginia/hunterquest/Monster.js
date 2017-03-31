@@ -65,8 +65,6 @@ class Monster extends Entity {
 		// Health bar
 		context.fillStyle = "#fc0008";
 		context.fillRect(0, -20, this.getUnscaledWidth(), 5);
-		console.log("draw");
-
 		context.fillStyle = "#00ff08";
 		context.fillRect(0, -20, this.getPercentHealth() * this.getUnscaledWidth(), 5);
 		//context.fillStyle = "#000000";

@@ -91,7 +91,7 @@ class Character extends Entity {
 		if (this.cooldown <= 0) {
 			// ATTACK!
 			var center = this.getHitboxCenter();
-			var projectile = new Projectile(this.position.x - 10, center.y - 5, 10, 10, -20, 0, 2, "#2f4d2f", this.parent);
+			var projectile = new Projectile(this.position.x - 10, center.y - 5, 10, 10, -20, 0, 2, "#2f4d2f", true, this.parent);
 		}
 		if(this.cooldown <= 0) {
 			this.cooldown = projectileSpeed;

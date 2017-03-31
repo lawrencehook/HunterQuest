@@ -67,6 +67,5 @@ class Projectile extends DisplayObjectContainer {
 	destroy() {
 		Game.getInstance().projectiles.remove(this);
 		this.parent.removeChild(this);
-		console.log("projectile destroyed");
 	}
 }
