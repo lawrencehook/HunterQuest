@@ -17,15 +17,16 @@ class Monster extends Entity {
 		this.exp = 10;
 
 		this.speed = 2;
+
+		this.projectileSpeed = 10;
+		this.projectileSize = 10;
+		this.projectileDamage = 2;
+		this.projectileColor = "#2f4d2f";
 	}
 
 	attack1() {
 		var projectileX = this.getHitboxCenter().x;
 		var projectileY = this.getHitboxCenter().y;
-		var projectileSpeed = 10;
-		var projectileSize = 10;
-		var projectileDamage = 2;
-		var projectileColor = "#2f4d2f";
 
 		if (this.frameCounter % this.attackSpeed == 0) {
 			// ATTACK!
@@ -35,9 +36,9 @@ class Monster extends Entity {
 			var dy = diffPosition.y;
 			var angle = Math.atan2(dy,dx);
 			// console.log(angle);
-			var vx = projectileSpeed * Math.cos(angle);
-			var vy = projectileSpeed * Math.sin(angle);
-			var projectile = new Projectile(projectileX, projectileY, projectileSize, projectileSize, vx, vy, projectileDamage, projectileColor, false, this.parent);
+			var vx = this.projectileSpeed * Math.cos(angle);
+			var vy = this.projectileSpeed * Math.sin(angle);
+			var projectile = new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, this.parent);
 		}
 	}
 
