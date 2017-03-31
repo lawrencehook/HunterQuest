@@ -65,19 +65,19 @@ class Character extends Entity {
 		// Up projectile
 		if (pressedKeys.indexOf(38) != -1) {
 			var center = this.getHitboxCenter();
-			var projectile = new Projectile(center.x - 5, this.position.y - 10, 10, 10, 0, -20, 2, "#2f4d2f", true, this.parent);
+			this.attack1("up");
 		}
 		// Right projectile
 		if (pressedKeys.indexOf(39) != -1) {
 			var center = this.getHitboxCenter();
-			var projectile = new Projectile(this.position.x + this.getUnscaledWidth(), center.y - 5, 10, 10, 20, 0, 2, "#2f4d2f", true, this.parent);
+			this.attack1("right");
 		}
 		// Down projectile
 		if (pressedKeys.indexOf(40) != -1) {
 			var center = this.getHitboxCenter();
-			var projectile = new Projectile(center.x - 5, this.position.y + this.getUnscaledHeight(), 10, 10, 0, 20, 2, "#2f4d2f", true, this.parent);
+			this.attack1("down");
 		}
-		console.log(this.parent.children.size());
+		//console.log(this.parent.children.size());
 	}
 
 	attack1(direction) {
@@ -86,12 +86,25 @@ class Character extends Entity {
 		var projectileDamage = 2;
 		var projectileColor = "#ff0000";
 
-		console.log("cooldown is: " + this.cooldown)
-
 		if (this.cooldown <= 0) {
 			// ATTACK!
 			var center = this.getHitboxCenter();
-			var projectile = new Projectile(this.position.x - 10, center.y - 5, 10, 10, -20, 0, 2, "#2f4d2f", true, this.parent);
+			switch(direction) {
+				case "left":
+					var projectile = new Projectile(this.position.x - 10, center.y - 5, 10, 10, -20, 0, 2, "#2f4d2f", true, this.parent);
+					break;
+				case "right":
+					var projectile = new Projectile(this.position.x + this.getUnscaledWidth(), center.y - 5, 10, 10, 20, 0, 2, "#2f4d2f", true, this.parent);
+					break;
+				case "up":
+					var projectile = new Projectile(center.x - 5, this.position.y - 10, 10, 10, 0, -20, 2, "#2f4d2f", true, this.parent);
+					break;
+				case "down":
+					var projectile = new Projectile(center.x - 5, this.position.y + this.getUnscaledHeight(), 10, 10, 0, 20, 2, "#2f4d2f", true, this.parent);
+					break;
+				default:
+					break;
+			}
 		}
 		if(this.cooldown <= 0) {
 			this.cooldown = projectileSpeed;
@@ -125,6 +138,12 @@ class Character extends Entity {
 		} else {
 			this.block.down = false;
 		}
+	}
+
+	enemyDefeated(gold, exp) {
+		console.log("Gold: " + gold + " | Exp: " + exp);
+		this.gold += gold;
+		this.exp += exp;
 	}
 
 }
