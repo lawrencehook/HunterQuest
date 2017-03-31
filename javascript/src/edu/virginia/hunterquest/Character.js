@@ -77,10 +77,7 @@ class Character extends Entity {
 			var center = this.getHitboxCenter();
 			this.attack1("down");
 		}
-<<<<<<< HEAD
-=======
 		//console.log(this.parent.children.size());
->>>>>>> 325b00c187b1e4b26ec4b6f35eeb8524996e3625
 	}
 
 	attack1(direction) {
