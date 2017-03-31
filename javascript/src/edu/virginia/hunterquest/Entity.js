@@ -7,6 +7,9 @@ class Entity extends AnimatedSprite {
 
 		this.hp;
 		this.maxHealth;
+
+		this.gold = 0;
+		this.exp = 0;
 	}
 
 	update(pressedKeys) {
@@ -32,7 +35,7 @@ class Entity extends AnimatedSprite {
 	}
 
 	getPercentHealth() {
-		console.log(this.hp, this.maxHealth);
+		//console.log(this.hp, this.maxHealth);
 		return this.hp / this.maxHealth;
 	}
 
@@ -56,6 +59,7 @@ class Entity extends AnimatedSprite {
 		}
 		else {
 			this.parent.removeChild(this);
+			Character.getInstance().enemyDefeated(this.gold, this.exp);
 		}
 	}
 }
