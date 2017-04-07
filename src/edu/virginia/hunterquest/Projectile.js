@@ -15,6 +15,8 @@ class Projectile extends DisplayObjectContainer {
 
 		this.collidable = true;
 
+		this.lifetime = 9999; //Decreases by 1 per frame
+
 		this.isFriendly = friendly;
 
 		Game.getInstance().projectiles.add(this);
@@ -34,6 +36,10 @@ class Projectile extends DisplayObjectContainer {
 	update(pressedKeys) {
 		super.update(pressedKeys);
 
+		this.lifetime -= 1;
+		if(this.lifetime < 0) {
+			this.destroy();
+		}
 		this.position.x += this.vx;
 		this.position.y += this.vy;
 		if(this.isOffscreen()) this.destroy();

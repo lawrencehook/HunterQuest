@@ -87,13 +87,21 @@ class Entity extends AnimatedSprite {
 
 	die() {
 		if (this.id === "character") {
-			// game over
+			// game over - reset level
+			Character.getInstance().reset();
+			Game.getInstance().restartLevel();
 		}
 		else {
-			this.parent.removeChild(this);
-			this.parent = undefined;
+			// this.parent.removeChild(this);
+			// this.parent = undefined;
+			this.destroy();
 
 			Character.getInstance().enemyDefeated(this.gold, this.exp);
 		}
+	}
+
+	destroy() {
+		this.parent.removeChild(this);
+		this.parent = undefined;
 	}
 }

@@ -10,8 +10,8 @@ class Monster extends Entity {
 		this.frameCounter = 0;
 		this.attackSpeed = 50; // Lower is faster
 
-		this.hp = 20;
-		this.maxHealth = 20;
+		this.hp = 5;
+		this.maxHealth = 5;
 
 		this.gold = 100;
 		this.exp = 10;
