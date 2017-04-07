@@ -59,5 +59,10 @@ class Sidebar extends DisplayObjectContainer {
 		context.fillStyle = "#000000";
 		context.font = "15px Times New Roman";
 		context.fillText(Character.getInstance().gold + " Gold", 5, 85);
+
+		// Level
+		context.fillStyle = "#000000";
+		context.font = "15px Times New Roman";
+		context.fillText("Power Level " + Character.getInstance().level, 5, 105);
 	}
 }

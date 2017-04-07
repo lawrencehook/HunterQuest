@@ -52,6 +52,11 @@ class HunterQuest extends Game {
 		this.initialize();
 	}
 
+	restartLevel() {
+		this.levels[this.currentLevel].emptyLevel();
+		this.levels[this.currentLevel].initialize();
+	}
+
 	initialize() {
 		// Events
 		this.questManager = new QuestManager();
@@ -84,6 +89,9 @@ class HunterQuest extends Game {
 		// this.levels[8] = new LevelNine();
 		// this.levels[9] = new LevelTen();
 		this.currentLevel = 0;
+		this.levelComplete = false;
+		this.completeMessage = "";
+		this.messageDelay = 200;
 
 		this.levels[this.currentLevel].initialize();
 	}
@@ -95,12 +103,23 @@ class HunterQuest extends Game {
 		//	Tween it up
 		if (this.levels[this.currentLevel].isCompleted()) {
 			if (this.currentLevel < this.levels.length - 1) {
+				this.levelComplete = true;
 				console.log("Level " + (this.currentLevel + 1) + " completed!");
+				this.completeMessage = "Level " + (this.currentLevel + 1) + " completed!";
 				this.currentLevel += 1;
 				this.levels[this.currentLevel].initialize();
 			} else {
 				console.log("You beat Hunter Quest!");
+				this.completeMessage = "You beat Hunter Quest!";
+				this.levelComplete = true;
 				this.pause();
+			}
+		} else {
+			if(this.messageDelay <= 0) {
+				this.levelComplete = false;
+				this.messageDelay = 200;
+			} else {
+				this.messageDelay -= 1;
 			}
 		}
 
@@ -117,6 +136,11 @@ class HunterQuest extends Game {
 	draw(context) {
 		context.clearRect(0, 0, this.width, this.height);
 		super.draw(context);
+
+		if(this.levelComplete === true) {
+			console.log("Hi");
+			write(context, "black", "20px Georgia", this.completeMessage, 200, 100);
+		}
 
 		if (this.questManager.coinPickedUp) {
 			write(context, "black", "20px Georgia", "You picked up a coin!", 15, 25);

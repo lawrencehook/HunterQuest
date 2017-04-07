@@ -13,4 +13,12 @@ class Level {
 
 		return isCompleted;
 	}
+
+	emptyLevel() {
+		this.monsters.forEach(function(monster) {
+			//console.log(monster);
+			if(monster.parent != undefined) monster.destroy();
+		});
+		this.monsters = [];
+	}
 }

@@ -16,6 +16,7 @@ class Character extends Entity {
 		this.cooldown = 0;
 
 		this.hp = 20;
+		this.level = 1;
 		this.maxHealth = 20;
 	}
 
@@ -141,10 +142,21 @@ class Character extends Entity {
 		}
 	}
 
+	reset() {
+		this.hp = this.maxHealth;
+		this.position.y = 500;
+		this.position.x = 500;
+	}
+
 	enemyDefeated(gold, exp) {
 		console.log("Gold: " + gold + " | Exp: " + exp);
 		this.gold += gold;
 		this.exp += exp;
+		if(this.exp >= 100) {
+			this.exp -= 100;
+			this.level += 1;
+			this.maxHealth += 5;
+		}
 	}
 
 }
