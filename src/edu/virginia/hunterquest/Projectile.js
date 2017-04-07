@@ -23,6 +23,14 @@ class Projectile extends DisplayObjectContainer {
 		})*/
 	}
 
+	getVx() {
+		return this.vx;
+	}
+
+	getVy() {
+		return this.vy;
+	}
+
 	update(pressedKeys) {
 		super.update(pressedKeys);
 

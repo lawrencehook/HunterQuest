@@ -17,6 +17,8 @@ class Character extends Entity {
 
 		this.hp = 20;
 		this.maxHealth = 20;
+
+		this.flinchable = true;
 	}
 
 	static getInstance() {
