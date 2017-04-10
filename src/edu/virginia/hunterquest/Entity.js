@@ -18,22 +18,17 @@ class Entity extends AnimatedSprite {
 	update(pressedKeys) {
 		super.update(pressedKeys);
 
-		if (this.hitboxActive) {
-			// Check for projectiles
-			var projectiles = Game.getInstance().projectiles;
-			if (projectiles) {
-				for (var i = projectiles.size()-1; i >= 0; i--) {
-					var projectile = projectiles.get(i);
-					if (this.id === "character" ^ projectile.isFriendly) {
-						if (this.xCollides(projectile)) {
-							if (this.yCollides(projectile)) {
-								// this.eventDispatcher.dispatchEvent(new StatusEvent("DAMAGE_TAKEN", projectile, projectile.damage));
-								this.updateHealth(projectile.damage);
-								if (this.flinchable)
-									this.flinch(projectile);
-								projectile.destroy();
-							}
-						}
+		// Check for projectiles
+		var projectiles = Game.getInstance().projectiles;
+		if (projectiles) {
+			for (var i = projectiles.size()-1; i >= 0; i--) {
+				var projectile = projectiles.get(i);
+				if (this.id === "character" ^ projectile.isFriendly) {
+					if (this.hitboxActive && this.xCollides(projectile) && this.yCollides(projectile)) {
+						// this.eventDispatcher.dispatchEvent(new StatusEvent("DAMAGE_TAKEN", projectile, projectile.damage));
+						this.updateHealth(projectile.damage);
+						if (this.flinchable) this.flinch(projectile);
+						projectile.destroy();
 					}
 				}
 			}
@@ -78,11 +73,14 @@ class Entity extends AnimatedSprite {
 		tween.displayObject.eventDispatcher.addEventListener(this, "TWEEN_COMPLETE_EVENT");
 		tween.animate("x", this.position.x, this.position.x + 50*Math.cos(angle), 100);
 		tween.animate("y", this.position.y, this.position.y + 50*Math.sin(angle), 100);
+		this.hitboxActive = false;
+
 	}
 
 	handleEvent(event) {
-		if (event.getEventType() === "TWEEN_COMPLETE_EVENT" && !this.hitboxActive)
+		if (event.getEventType() === "TWEEN_COMPLETE_EVENT" && !this.hitboxActive) {
 			this.hitboxActive = true;
+		}
 	}
 
 	die() {

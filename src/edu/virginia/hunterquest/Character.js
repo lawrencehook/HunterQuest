@@ -8,6 +8,8 @@ class Character extends Entity {
 		super(id, spriteSheet, jsonSprites, parentObj);
 		Character.instance = this;
 
+		this.sword = new Sprite("sword", "sword.png", this);
+
 		this.xMinBound = 0;
 		this.xMaxBound;
 		this.yMinBound = 0;
@@ -20,6 +22,17 @@ class Character extends Entity {
 		this.maxHealth = 20;
 
 		this.flinchable = true;
+		this.weapon = 1;
+
+
+		this.projectileSpeed 	= 5;
+		this.projectileSize 	= 10;
+		this.projectileDamage 	= 2;
+		this.projectileColor 	= "#ff0000";
+		this.projectileWidth 	= 10;
+		this.projectileHeight	= 10;
+		this.projectileDamage 	= 2;
+		this.projectileColor	= "#2f4d2f";
 	}
 
 	static getInstance() {
@@ -81,39 +94,60 @@ class Character extends Entity {
 			this.attack1("down");
 		}
 		//console.log(this.parent.children.size());
+
+		if(this.cooldown <= 0) {
+			this.cooldown = this.projectileSpeed;
+		} else {
+			this.cooldown -= 1;
+		}
 	}
 
 	attack1(direction) {
-		var projectileSpeed = 5;
-		var projectileSize = 10;
-		var projectileDamage = 2;
-		var projectileColor = "#ff0000";
+		// var projectileSpeed = this.projectileSpeed;
+		// var projectileSize 	= this.projectileSize;
+		// var projectileDamage = this.projectileDamage;
+		// var projectileColor = this.projectileColor;
+
+		var x, y, vx, vy, badDirection=false;
 
 		if (this.cooldown <= 0) {
 			// ATTACK!
 			var center = this.getHitboxCenter();
 			switch(direction) {
 				case "left":
-					var projectile = new Projectile(this.position.x - 10, center.y - 5, 10, 10, -20, 0, 2, "#2f4d2f", true, this.parent);
+					x = this.position.x - 10;
+					y = center.y - 5;
+					vx = -20;
+					vy = 0;
 					break;
 				case "right":
-					var projectile = new Projectile(this.position.x + this.getUnscaledWidth(), center.y - 5, 10, 10, 20, 0, 2, "#2f4d2f", true, this.parent);
+					x = this.position.x + this.getUnscaledWidth();
+					y = center.y - 5;
+					vx = 20;
+					vy = 0;
 					break;
 				case "up":
-					var projectile = new Projectile(center.x - 5, this.position.y - 10, 10, 10, 0, -20, 2, "#2f4d2f", true, this.parent);
+					x = center.x - 5;
+					y = this.position.y - 10;
+					vx = -20;
+					vy = 0;
 					break;
 				case "down":
-					var projectile = new Projectile(center.x - 5, this.position.y + this.getUnscaledHeight(), 10, 10, 0, 20, 2, "#2f4d2f", true, this.parent);
+					x = center.x - 5;
+					y = this.position.y + this.getUnscaledHeight();
+					vx = 0;
+					vy = 20;
 					break;
 				default:
-					break;
+					console.log("Bad projectile direction" + direction);
+					badDirection = true;
+			}
+
+			if (!badDirection) {
+				new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, this.parent);
 			}
 		}
 
-		if(this.cooldown <= 0) {
-			this.cooldown = projectileSpeed;
-		}
-		this.cooldown -= 1;
 	}
 
 	checkBounds() {
