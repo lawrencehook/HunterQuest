@@ -138,7 +138,6 @@ class HunterQuest extends Game {
 		super.draw(context);
 
 		if(this.levelComplete === true) {
-			console.log("Hi");
 			write(context, "black", "20px Georgia", this.completeMessage, 200, 100);
 		}
 

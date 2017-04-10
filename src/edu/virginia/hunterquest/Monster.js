@@ -22,6 +22,7 @@ class Monster extends Entity {
 		this.projectileSize = 10;
 		this.projectileDamage = 2;
 		this.projectileColor = "#2f4d2f";
+		this.projectileTracking = 0;
 	}
 
 	attack1() {
@@ -38,7 +39,7 @@ class Monster extends Entity {
 			// console.log(angle);
 			var vx = this.projectileSpeed * Math.cos(angle);
 			var vy = this.projectileSpeed * Math.sin(angle);
-			var projectile = new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, this.parent);
+			var projectile = new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, this.projectileTracking);
 		}
 	}
 
