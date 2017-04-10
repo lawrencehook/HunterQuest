@@ -16,7 +16,6 @@ class Tween {
 	animate(fieldToAnimate, startVal, endVal, time, transition=null) {
 		var tweenParam = new TweenParam(fieldToAnimate, startVal, endVal, time, transition);
 		this.tweenParams.add(tweenParam);
-		
 	}
 
 	// Invoked once per frame by TweenJuggler
@@ -67,7 +66,7 @@ class Tween {
 			if (!tweenParam.ended && tweenParam.isComplete()) {
 				tweenParam.ended = true;
 
-				this.displayObject.eventDispatcher.dispatchEvent(new TweenEvent("TWEEN_COMPLETE_EVENT", this.displayObject, tweenParam)
+				this.displayObject.eventDispatcher.dispatchEvent(new TweenEvent("TWEEN_COMPLETE_EVENT", this.displayObject, tweenParam)	
 				);
 			}
 		}

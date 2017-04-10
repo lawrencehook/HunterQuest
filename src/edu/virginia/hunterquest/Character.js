@@ -19,6 +19,8 @@ class Character extends Entity {
 		this.level = 1;
 		this.maxHealth = 20;
 		this.attackType = 1;
+
+		this.flinchable = true;
 	}
 
 	static getInstance() {
@@ -57,52 +59,57 @@ class Character extends Entity {
 
 		this.moving = this.movingDown || this.movingRight || this.movingUp || this.movingLeft;
 
-		// Left projectile
-		if (pressedKeys.indexOf(37) != -1) {
-			var center = this.getHitboxCenter();
-			// var projectile = new Projectile(this.position.x - 10, center.y - 5, 10, 10, -20, 0, 2, "#2f4d2f", this.parent);
-			this.attack1("left");
-			//Game.getInstance().projectiles.push(projectile);
+		var direction;
+		for (var i = pressedKeys.size(); i >= 0; i--) {
+			// Left projectile
+			if (pressedKeys.get(i) == 37) {
+				direction = "left";
+				break;
+			}
+			// Up projectile
+			else if (pressedKeys.get(i) == 38) {
+				direction = "up";
+				break;
+			}
+			// Right projectile
+			else if (pressedKeys.get(i) == 39) {
+				direction = "right";
+				break;
+			}
+			// Down projectile
+			else if (pressedKeys.get(i) == 40) {
+				direction = "down";
+				break;
+			}
 		}
-		// Up projectile
-		if (pressedKeys.indexOf(38) != -1) {
-			var center = this.getHitboxCenter();
-			this.attack1("up");
+		if (direction) {
+			this.attack1(direction);
+			// TODO: implement support for attack2, attack3, etc.
 		}
-		// Right projectile
-		if (pressedKeys.indexOf(39) != -1) {
-			var center = this.getHitboxCenter();
-			this.attack1("right");
-		}
-		// Down projectile
-		if (pressedKeys.indexOf(40) != -1) {
-			var center = this.getHitboxCenter();
-			this.attack1("down");
-		}
-		//console.log(this.parent.children.size());
 	}
 
 	attack1(direction) {
-		var projectileSpeed = 5;
-		var projectileSize = 10;
-		var projectileDamage = 2;
-		var projectileColor = "#ff0000";
+		var speed = 20;
+		var size = 10;
+		var damage = 2;
+		//var color = "#ff0000";
+		var color = "#2f4d2f";
 
 		if (this.cooldown <= 0) {
 			// ATTACK!
 			var center = this.getHitboxCenter();
 			switch(direction) {
 				case "left":
-					var projectile = new Projectile(this.position.x - 10, center.y - 5, 10, 10, -20, 0, 2, "#2f4d2f", true, this.parent);
+					var projectile = new Projectile(this.position.x - size, center.y - size/2, size, size, -speed, 0, damage, color, true);
 					break;
 				case "right":
-					var projectile = new Projectile(this.position.x + this.getUnscaledWidth(), center.y - 5, 10, 10, 20, 0, 2, "#2f4d2f", true, this.parent);
+					var projectile = new Projectile(this.position.x + this.getUnscaledWidth(), center.y - size/2, size, size, speed, 0, damage, color, true);
 					break;
 				case "up":
-					var projectile = new Projectile(center.x - 5, this.position.y - 10, 10, 10, 0, -20, 2, "#2f4d2f", true, this.parent);
+					var projectile = new Projectile(center.x - size/2, this.position.y - size, size, size, 0, -speed, damage, color, true);
 					break;
 				case "down":
-					var projectile = new Projectile(center.x - 5, this.position.y + this.getUnscaledHeight(), 10, 10, 0, 20, 2, "#2f4d2f", true, this.parent);
+					var projectile = new Projectile(center.x - size/2, this.position.y + this.getUnscaledHeight(), size, size, 0, speed, damage, color, true);
 					break;
 				default:
 					break;
@@ -110,7 +117,7 @@ class Character extends Entity {
 		}
 
 		if(this.cooldown <= 0) {
-			this.cooldown = projectileSpeed;
+			this.cooldown = 5;
 		}
 		this.cooldown -= 1;
 	}

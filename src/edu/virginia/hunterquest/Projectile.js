@@ -3,8 +3,8 @@
 "use strict";
 
 class Projectile extends DisplayObjectContainer {
-	constructor(x, y, width, height, vx, vy, damage, color="#2f4d2f", friendly, parentObj=null) {
-		super("projectile", "", parentObj);
+	constructor(x, y, width, height, vx, vy, damage, color="#2f4d2f", friendly, tracking=0) {
+		super("projectile", "", Game.getInstance().gamescreen);
 		this.position = new Point(x, y);
 		this.width = width;
 		this.height = height;
@@ -12,6 +12,7 @@ class Projectile extends DisplayObjectContainer {
 		this.vy = vy;
 		this.damage = damage;
 		this.fillColor = color;
+		this.tracking = tracking;
 
 		this.collidable = true;
 
@@ -25,6 +26,14 @@ class Projectile extends DisplayObjectContainer {
 		})*/
 	}
 
+	getVx() {
+		return this.vx;
+	}
+
+	getVy() {
+		return this.vy;
+	}
+
 	update(pressedKeys) {
 		super.update(pressedKeys);
 
@@ -32,9 +41,25 @@ class Projectile extends DisplayObjectContainer {
 		if(this.lifetime < 0) {
 			this.destroy();
 		}
+
+		if(this.isOffscreen()) this.destroy();
+
+		if(this.tracking != 0) {
+			var speed = Math.sqrt(this.vx*this.vx + this.vy*this.vy);
+			var thisPos = this.getHitboxCenter();
+			var playerPos = Character.getInstance().getHitboxCenter();
+
+			var vectorAngle = Math.atan2(playerPos.y - thisPos.y, playerPos.x - thisPos.x);
+			var vectorX = speed * Math.cos(vectorAngle) * this.tracking;
+			var vectorY = speed * Math.sin(vectorAngle) * this.tracking;
+
+			var newAngle = Math.atan2(this.vy + vectorY, this.vx + vectorX);
+			this.vx = speed * Math.cos(newAngle);
+			this.vy = speed * Math.sin(newAngle);
+		}
+
 		this.position.x += this.vx;
 		this.position.y += this.vy;
-		if(this.isOffscreen()) this.destroy();
 	}
 
 	draw(context) {
@@ -67,7 +92,7 @@ class Projectile extends DisplayObjectContainer {
 	}
 
 	isOffscreen() {
-		return (this.position.x < 0 || this.position.x > Game.getInstance().gamescreen.width) || (this.position.y < 0 || this.position.y > Game.getInstance().gamescreen.width);
+		return (this.position.x < 0 || this.position.x > Game.getInstance().gamescreen.width || this.position.y < 0 || this.position.y > Game.getInstance().gamescreen.height);
 	}
 
 	destroy() {
