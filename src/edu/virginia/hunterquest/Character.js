@@ -20,10 +20,10 @@ class Character extends Entity {
 		this.hp = 20;
 		this.level = 1;
 		this.maxHealth = 20;
-		this.attackType = 1;
 
 		this.flinchable = true;
 		this.weapon = 1;
+		this.attackType = "attack1";
 
 
 		this.projectileSpeed 	= 5;
@@ -41,6 +41,22 @@ class Character extends Entity {
 	}
 
 	updateCharacter(pressedKeys) {
+		//Weapon cycling
+		if(pressedKeys.indexOf(81) != -1) { //Press Q
+			this.weapon -= 1;
+			if(this.weapon <= 0) {
+				this.weapon = 2;
+			}
+			this.attackType = "attack" + this.weapon;
+		}
+		if(pressedKeys.indexOf(69) != -1) { //Press E
+			this.weapon += 1;
+			if(this.weapon >= 3) {
+				this.weapon = 1;
+			}
+			this.attackType = "attack" + this.weapon;
+		}
+
 		// left
 		if (pressedKeys.indexOf(65) != -1 && !this.block.left) {
 			this.position.x -= this.speed;
@@ -96,7 +112,9 @@ class Character extends Entity {
 			}
 		}
 		if (direction) {
-			this.attack1(direction);
+			console.log(this.attackType);
+			//this.attack1(direction); default attack
+			Character.getInstance()[this.attackType](direction);
 			// TODO: implement support for attack2, attack3, etc.
 		}
 
