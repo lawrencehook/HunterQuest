@@ -150,6 +150,7 @@ class Character extends Entity {
 			if (!badDirection) {
 				new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, this.parent);
 			}
+		}
 
 	}
 

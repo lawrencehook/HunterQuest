@@ -64,5 +64,10 @@ class Sidebar extends DisplayObjectContainer {
 		context.fillStyle = "#000000";
 		context.font = "15px Times New Roman";
 		context.fillText("Power Level " + Character.getInstance().level, 5, 105);
+
+		// Weapon choices
+		context.fillStyle = "#666768";
+		context.fillRect(5, 85, this.width - 20, 13);
+
 	}
 }
