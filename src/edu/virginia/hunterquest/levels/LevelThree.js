@@ -16,6 +16,7 @@ class LevelThree extends Level {
 		bigMonster.projectileSize = 15;
 		bigMonster.projectileDamage = 6;
 		bigMonster.projectileColor = "#963c2b";
+		bigMonster.projectileTracking = 0.035;
 
 		bigMonster.hp = 50;
 		bigMonster.maxHealth = 50;

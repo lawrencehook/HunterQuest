@@ -71,29 +71,33 @@ class Character extends Entity {
 
 		this.moving = this.movingDown || this.movingRight || this.movingUp || this.movingLeft;
 
-		// Left projectile
-		if (pressedKeys.indexOf(37) != -1) {
-			var center = this.getHitboxCenter();
-			// var projectile = new Projectile(this.position.x - 10, center.y - 5, 10, 10, -20, 0, 2, "#2f4d2f", this.parent);
-			this.attack1("left");
-			//Game.getInstance().projectiles.push(projectile);
+		var direction;
+		for (var i = pressedKeys.size(); i >= 0; i--) {
+			// Left projectile
+			if (pressedKeys.get(i) == 37) {
+				direction = "left";
+				break;
+			}
+			// Up projectile
+			else if (pressedKeys.get(i) == 38) {
+				direction = "up";
+				break;
+			}
+			// Right projectile
+			else if (pressedKeys.get(i) == 39) {
+				direction = "right";
+				break;
+			}
+			// Down projectile
+			else if (pressedKeys.get(i) == 40) {
+				direction = "down";
+				break;
+			}
 		}
-		// Up projectile
-		if (pressedKeys.indexOf(38) != -1) {
-			var center = this.getHitboxCenter();
-			this.attack1("up");
+		if (direction) {
+			this.attack1(direction);
+			// TODO: implement support for attack2, attack3, etc.
 		}
-		// Right projectile
-		if (pressedKeys.indexOf(39) != -1) {
-			var center = this.getHitboxCenter();
-			this.attack1("right");
-		}
-		// Down projectile
-		if (pressedKeys.indexOf(40) != -1) {
-			var center = this.getHitboxCenter();
-			this.attack1("down");
-		}
-		//console.log(this.parent.children.size());
 
 		if(this.cooldown <= 0) {
 			this.cooldown = this.projectileSpeed;
@@ -146,7 +150,6 @@ class Character extends Entity {
 			if (!badDirection) {
 				new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, this.parent);
 			}
-		}
 
 	}
 

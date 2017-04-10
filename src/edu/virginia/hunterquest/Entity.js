@@ -60,11 +60,10 @@ class Entity extends AnimatedSprite {
 		var p1 = this.getHitboxCenter();
 		var p2 = source.getHitboxCenter();
 
-		if (source.getId() === "projectile")
+		//if (source.getId() === "projectile")
 			var angle = Math.atan2(source.getVy(), source.getVx());
-		else
-			var angle = Math.atan(p2.y-p1.y, p2.x-p1.x) + Math.PI;
-		console.log(angle*180/Math.PI);
+
+		//console.log(angle*180/Math.PI);
 
 		this.hitboxActive = false;
 
