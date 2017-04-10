@@ -130,6 +130,11 @@ class HunterQuest extends Game {
 			this.enemy1.position = (new Point(rX, rY)).minus(new Point(0.5*this.mario.getUnscaledWidth(), 0));
 		}
 
+		if(pressedKeys.indexOf(75) !== -1) { //Press key = k
+			console.log("Kill");
+			this.pause();
+		}
+
 		this.tweenJuggler.nextFrame();
 	}
 

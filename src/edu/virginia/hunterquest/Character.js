@@ -134,8 +134,8 @@ class Character extends Entity {
 				case "up":
 					x = center.x - 5;
 					y = this.position.y - 10;
-					vx = -20;
-					vy = 0;
+					vx = 0;
+					vy = -20;
 					break;
 				case "down":
 					x = center.x - 5;
@@ -149,7 +149,7 @@ class Character extends Entity {
 			}
 
 			if (!badDirection) {
-				new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, this.parent);
+				new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true);
 			}
 		}
 
