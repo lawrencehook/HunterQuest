@@ -20,6 +20,7 @@ class Character extends Entity {
 		this.hp = 20;
 		this.level = 1;
 		this.maxHealth = 20;
+		this.attackType = 1;
 
 		this.flinchable = true;
 		this.weapon = 1;
