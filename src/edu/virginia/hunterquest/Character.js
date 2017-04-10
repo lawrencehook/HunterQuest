@@ -24,6 +24,7 @@ class Character extends Entity {
 		this.flinchable = true;
 		this.weapon = 1;
 		this.attackType = "attack1";
+		this.weaponChangeCooldown = false;
 
 
 		this.projectileSpeed 	= 5;
@@ -43,19 +44,29 @@ class Character extends Entity {
 	updateCharacter(pressedKeys) {
 		//Weapon cycling
 		if(pressedKeys.indexOf(81) != -1) { //Press Q
-			this.weapon -= 1;
-			if(this.weapon <= 0) {
-				this.weapon = 2;
+			if(!this.weaponChangeCooldown) {
+				this.weapon -= 1;
+				if(this.weapon <= 0) {
+					this.weapon = 2;
+				}
+				this.attackType = "attack" + this.weapon;
+				this.weaponChangeCooldown = true;
 			}
-			this.attackType = "attack" + this.weapon;
-		}
-		if(pressedKeys.indexOf(69) != -1) { //Press E
-			this.weapon += 1;
-			if(this.weapon >= 3) {
-				this.weapon = 1;
+		} else if(pressedKeys.indexOf(69) != -1) { //Press E
+			if(!this.weaponChangeCooldown) {
+				this.weapon += 1;
+				if(this.weapon >= 3) {
+					this.weapon = 1;
+				}
+				this.attackType = "attack" + this.weapon;
+				this.weaponChangeCooldown = true;
 			}
-			this.attackType = "attack" + this.weapon;
+		} else {
+			this.weaponChangeCooldown = false;
 		}
+
+
+		console.log(this.attackType);
 
 		// left
 		if (pressedKeys.indexOf(65) != -1 && !this.block.left) {
@@ -112,7 +123,6 @@ class Character extends Entity {
 			}
 		}
 		if (direction) {
-			console.log(this.attackType);
 			//this.attack1(direction); default attack
 			Character.getInstance()[this.attackType](direction);
 			// TODO: implement support for attack2, attack3, etc.
@@ -126,11 +136,6 @@ class Character extends Entity {
 	}
 
 	attack1(direction) {
-		// var projectileSpeed = this.projectileSpeed;
-		// var projectileSize 	= this.projectileSize;
-		// var projectileDamage = this.projectileDamage;
-		// var projectileColor = this.projectileColor;
-
 		var x, y, vx, vy, badDirection=false;
 
 		if (this.cooldown <= 0) {
@@ -170,7 +175,60 @@ class Character extends Entity {
 				new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true);
 			}
 		}
+	}
 
+	attack2(direction) {
+		var x, y, vx, vy, angle=Math.PI/6, badDirection=false;
+
+		if (this.cooldown <= 0) {
+			// ATTACK!
+			var center = this.getHitboxCenter();
+			switch(direction) {
+				case "left":
+					x = this.position.x - 10;
+					y = center.y - 5;
+					vx = -20 * Math.cos(angle);
+					vy = 20 * Math.sin(angle);
+					break;
+				case "right":
+					x = this.position.x + this.getUnscaledWidth();
+					y = center.y - 5;
+					vx = 20 * Math.cos(angle);
+					vy = 20 * Math.sin(angle);
+					break;
+				case "up":
+					x = center.x - 5;
+					y = this.position.y - 10;
+					vx = 20 * Math.sin(angle);
+					vy = -20 * Math.cos(angle);
+					break;
+				case "down":
+					x = center.x - 5;
+					y = this.position.y + this.getUnscaledHeight();
+					vx = 20 * Math.sin(angle);
+					vy = 20 * Math.cos(angle);
+					break;
+				default:
+					console.log("Bad projectile direction " + direction);
+					badDirection = true;
+			}
+
+			if (!badDirection) {
+				switch(direction) {
+					case "left":
+					case "right":
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, -vy, this.projectileDamage, this.projectileColor, true);
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true);
+						break;
+					case "up":
+					case "down":
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, -vx, vy, this.projectileDamage, this.projectileColor, true);
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true);
+						break;
+					default:
+				}
+			}
+		}
 	}
 
 	checkBounds() {
