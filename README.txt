@@ -35,4 +35,5 @@ Key				Action
  Arrow left 	Shoot left
  Arrow right 	Shoot right
  Arrow down 	Shoot down
- J 				Spawn new enemy (to be removed)
+ Q 				Switch Weapons (up)
+ E 				Switch Weapons (down)
