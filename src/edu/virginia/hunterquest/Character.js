@@ -8,8 +8,6 @@ class Character extends Entity {
 		super(id, spriteSheet, jsonSprites, parentObj);
 		Character.instance = this;
 
-		this.sword = new Sprite("sword", "sword.png", this);
-
 		this.xMinBound = 0;
 		this.xMaxBound;
 		this.yMinBound = 0;

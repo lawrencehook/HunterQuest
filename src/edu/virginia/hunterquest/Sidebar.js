@@ -39,18 +39,18 @@ class Sidebar extends DisplayObjectContainer {
 
 		// Health bar
 		context.fillStyle = "#fc0008";
-		context.fillRect(5, 15, (this.width - 20), 13);
+		context.fillRect(5, 15, (0.8*this.width), 13);
 		context.fillStyle = "#00ff08";
-		context.fillRect(5, 15, Character.getInstance().getPercentHealth() * (this.width - 20), 13);
+		context.fillRect(5, 15, Character.getInstance().getPercentHealth() * (0.8*this.width), 13);
 		context.fillStyle = "#000000";
 		context.font = "15px Times New Roman";
 		context.fillText("Health", 5, 15);
 
 		// Experience bar
 		context.fillStyle = "#666768";
-		context.fillRect(5, 45, this.width - 20, 13);
+		context.fillRect(5, 45, 0.8*this.width, 13);
 		context.fillStyle = "#ffff1c";
-		context.fillRect(5, 45, Character.getInstance().exp/100 * (this.width - 20), 13);
+		context.fillRect(5, 45, Character.getInstance().exp/100 * (0.8*this.width), 13);
 		context.fillStyle = "#000000";
 		context.font = "15px Times New Roman";
 		context.fillText("Experience", 5, 45);
@@ -65,9 +65,14 @@ class Sidebar extends DisplayObjectContainer {
 		context.font = "15px Times New Roman";
 		context.fillText("Power Level " + Character.getInstance().level, 5, 105);
 
-		// Weapon choices
+		// Weapons
 		context.fillStyle = "#666768";
-		context.fillRect(5, 85, this.width - 20, 13);
+		context.fillRect(0.05*this.width, 125, 0.3*this.width, 50);
+		context.fillRect(0.505*this.width, 125, 0.3*this.width, 50);
 
+		context.fillStyle = "#000000";
+		context.fillRect(0.175*this.width, 130, 0.05*this.width, 40);
+		context.fillRect(0.58*this.width, 130, 0.05*this.width, 40);		
+		context.fillRect(0.68*this.width, 130, 0.05*this.width, 40);		
 	}
 }
