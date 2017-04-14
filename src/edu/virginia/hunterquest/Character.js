@@ -31,6 +31,14 @@ class Character extends Entity {
 		this.projectileHeight	= 10;
 		this.projectileDamage 	= 2;
 		this.projectileColor	= "#2f4d2f";
+
+		this.singleShot = false;
+		this.burstShot = true;
+		this.machineShot = false;
+
+		this.burst = 3;
+		this.burstCount;
+		this.recentlyShot = false;
 	}
 
 	static getInstance() {
@@ -95,7 +103,7 @@ class Character extends Entity {
 
 		this.moving = this.movingDown || this.movingRight || this.movingUp || this.movingLeft;
 
-		var direction;
+		var direction = "";
 		for (var i = pressedKeys.size(); i >= 0; i--) {
 			// Left projectile
 			if (pressedKeys.get(i) == 37) {
@@ -118,17 +126,41 @@ class Character extends Entity {
 				break;
 			}
 		}
-		if (direction) {
-			//this.attack1(direction); default attack
-			Character.getInstance()[this.attackType](direction);
-			// TODO: implement support for attack2, attack3, etc.
+
+		if (this.singleShot) {
+			if (direction != "") {
+				if (!this.recentlyShot) {
+					Character.getInstance()[this.attackType](direction);
+					this.recentlyShot = true;
+				}
+			} else {
+				this.recentlyShot = false;
+			}
+		} else if (this.burstShot) {
+			if (direction != "") {
+				if (!this.recentlyShot) {
+					this.burstCount = this.burst;
+					this.recentlyShot = true;
+				}
+				if (this.burstCount > 0) {
+					Character.getInstance()[this.attackType](direction);
+					this.burstCount -= 1;
+				}
+			} else {
+				this.recentlyShot = false;
+			}
+		} else if (this.machineShot) {
+			if (direction != "") {
+				Character.getInstance()[this.attackType](direction);
+			}
+
+			if(this.cooldown <= 0) {
+				this.cooldown = this.projectileSpeed;
+			} else {
+				this.cooldown -= 1;
+			}
 		}
 
-		if(this.cooldown <= 0) {
-			this.cooldown = this.projectileSpeed;
-		} else {
-			this.cooldown -= 1;
-		}
 	}
 
 	attack1(direction) {
