@@ -81,7 +81,7 @@ class HunterQuest extends Game {
 		this.levels[0] = new LevelOne();
 		this.levels[1] = new LevelTwo();
 		this.levels[2] = new LevelThree();
-		// this.levels[3] = new LevelFour();
+		this.levels[3] = new LevelFour();
 		// this.levels[4] = new LevelFive();
 		// this.levels[5] = new LevelSix();
 		// this.levels[6] = new LevelSeven();
