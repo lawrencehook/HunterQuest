@@ -66,21 +66,36 @@ class Sidebar extends DisplayObjectContainer {
 		context.fillText("Power Level " + Character.getInstance().level, 5, 105);
 
 		// Weapons
-		if (Character.getInstance().weapon == 1) {
+		var curWep = Character.getInstance().weapon;
+		if (curWep == 1) {
 			context.fillStyle = "#ffff0a";
 			context.fillRect(0.05*this.width, 125, 0.3*this.width, 50);
 			context.fillStyle = "#666768";
 			context.fillRect(0.505*this.width, 125, 0.3*this.width, 50);
+			context.fillStyle = "#666768";
+			context.fillRect(0.05*this.width, 205, 0.3*this.width, 50);
+		} else if(curWep == 2) {
+			context.fillStyle = "#666768";
+			context.fillRect(0.05*this.width, 125, 0.3*this.width, 50);
+			context.fillStyle = "#ffff0a";
+			context.fillRect(0.505*this.width, 125, 0.3*this.width, 50);
+			context.fillStyle = "#666768";
+			context.fillRect(0.05*this.width, 205, 0.3*this.width, 50);
 		} else {
 			context.fillStyle = "#666768";
 			context.fillRect(0.05*this.width, 125, 0.3*this.width, 50);
-			context.fillStyle = "#ffff0a";
+			context.fillStyle = "#666768";
 			context.fillRect(0.505*this.width, 125, 0.3*this.width, 50);
+			context.fillStyle = "#ffff0a";
+			context.fillRect(0.05*this.width, 205, 0.3*this.width, 50);
 		}
 
 		context.fillStyle = "#000000";
 		context.fillRect(0.175*this.width, 130, 0.05*this.width, 40);
 		context.fillRect(0.58*this.width, 130, 0.05*this.width, 40);		
-		context.fillRect(0.68*this.width, 130, 0.05*this.width, 40);		
+		context.fillRect(0.68*this.width, 130, 0.05*this.width, 40);
+		context.fillRect(0.1*this.width, 210, 0.05*this.width, 40);		
+		context.fillRect(0.175*this.width, 210, 0.05*this.width, 40);		
+		context.fillRect(0.25*this.width, 210, 0.05*this.width, 40);		
 	}
 }

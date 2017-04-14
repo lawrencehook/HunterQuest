@@ -27,8 +27,6 @@ class Character extends Entity {
 
 		this.projectileSpeed 	= 5;
 		this.projectileSize 	= 10;
-		this.projectileDamage 	= 2;
-		this.projectileColor 	= "#ff0000";
 		this.projectileWidth 	= 10;
 		this.projectileHeight	= 10;
 		this.projectileDamage 	= 2;
@@ -45,7 +43,7 @@ class Character extends Entity {
 			if(!this.weaponChangeCooldown) {
 				this.weapon -= 1;
 				if(this.weapon <= 0) {
-					this.weapon = 2;
+					this.weapon = 3;
 				}
 				this.attackType = "attack" + this.weapon;
 				this.weaponChangeCooldown = true;
@@ -53,7 +51,7 @@ class Character extends Entity {
 		} else if(pressedKeys.indexOf(69) != -1) { //Press E
 			if(!this.weaponChangeCooldown) {
 				this.weapon += 1;
-				if(this.weapon >= 3) {
+				if(this.weapon >= 4) {
 					this.weapon = 1;
 				}
 				this.attackType = "attack" + this.weapon;
@@ -64,7 +62,7 @@ class Character extends Entity {
 		}
 
 
-		console.log(this.attackType);
+		//console.log(this.attackType);
 
 		// left
 		if (pressedKeys.indexOf(65) != -1 && !this.block.left) {
@@ -225,6 +223,48 @@ class Character extends Entity {
 						break;
 					default:
 				}
+			}
+		}
+	}
+
+	attack3(direction) {
+		var x, y, vx, vy, badDirection=false;
+
+		if (this.cooldown <= 0) {
+			// ATTACK!
+			var center = this.getHitboxCenter();
+			switch(direction) {
+				case "left":
+					x = this.position.x - 10;
+					y = center.y - 5;
+					vx = -20;
+					vy = 0;
+					break;
+				case "right":
+					x = this.position.x + this.getUnscaledWidth();
+					y = center.y - 5;
+					vx = 20;
+					vy = 0;
+					break;
+				case "up":
+					x = center.x - 5;
+					y = this.position.y - 10;
+					vx = 0;
+					vy = -20;
+					break;
+				case "down":
+					x = center.x - 5;
+					y = this.position.y + this.getUnscaledHeight();
+					vx = 0;
+					vy = 20;
+					break;
+				default:
+					console.log("Bad projectile direction" + direction);
+					badDirection = true;
+			}
+
+			if (!badDirection) {
+				new SplitProjectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true);
 			}
 		}
 	}
