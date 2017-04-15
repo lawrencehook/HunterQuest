@@ -99,26 +99,7 @@ class DisplayObject {
 			this.updateCharacter(pressedKeys);
 		}
 
-		if (this.movingLeft && !this.flipped) {
-			this.flip = true;
-		}
-		if (this.movingRight && this.flip) {
-			this.flip = false;
-		}
-
-		if (this.centered) {
-			this.pivotState.translate(...this.pivotPoint.toA());
-			this.pivotState.rotate(this.angle);
-			this.pivotState.scale(this.scaleX, this.scaleY);
-			if (this.flip && !this.flipped) {
-				this.pivotState.flipX();
-				this.flipped = true;
-			} else if (!this.flip && this.flipped) {
-				this.pivotState.flipX();
-				this.flipped = false;
-			}
-			this.pivotState.translate(...this.pivotPoint.inverseA());
-		} else {
+		if (!this.centered) {
 			this.centerPivotPoint();
 		}
 
@@ -127,7 +108,7 @@ class DisplayObject {
 		this.saveState.multiply(this.pivotState);
 	}
 
-	updateCharacter(pressedKeys) {
+	updateCharacter(pressedKeys) {		
 		// left
 		if (pressedKeys.indexOf(37) != -1 && !this.block.left) {
 			this.position.x -= this.speed;

@@ -29,6 +29,12 @@ class Sidebar extends DisplayObjectContainer {
 		this.height = height;
 	}
 
+	onClick(e) {
+		var game = Game.getInstance();
+		console.log(e);
+		console.log(game.mouse);
+	}
+
 
 	draw(context) {
 		super.draw(context);

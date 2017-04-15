@@ -61,15 +61,10 @@ class Monster extends Entity {
 
 		if (this.id == "enemy1") {
 			this.attack1();
-			// var character = Character.getInstance();
-			// var diffPosition = character.getHitboxCenter().minus(this.getHitboxCenter());
-			// var dx = diffPosition.x;
-			// var dy = diffPosition.y;
-			// var angle = Math.atan2(dy,dx);
-			// var vx = this.speed * Math.cos(angle);
-			// var vy = this.speed * Math.sin(angle);
-			// this.position.x += vx;
-			// this.position.y += vy;
+		}
+
+		if (this.id == "finalBoss") {
+			this.attack1();
 		}
 	}
 

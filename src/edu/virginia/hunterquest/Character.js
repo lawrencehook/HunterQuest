@@ -46,7 +46,9 @@ class Character extends Entity {
 	}
 
 	updateCharacter(pressedKeys) {
-		//Weapon cycling
+		var oldPosition = this.position.clone();
+
+		// Weapon cycling
 		if(pressedKeys.indexOf(81) != -1) { //Press Q
 			if(!this.weaponChangeCooldown) {
 				this.weapon -= 1;
@@ -69,8 +71,6 @@ class Character extends Entity {
 			this.weaponChangeCooldown = false;
 		}
 
-
-		//console.log(this.attackType);
 
 		// left
 		if (pressedKeys.indexOf(65) != -1 && !this.block.left) {
@@ -103,6 +103,9 @@ class Character extends Entity {
 
 		this.moving = this.movingDown || this.movingRight || this.movingUp || this.movingLeft;
 
+		/*
+		 * Shooting projectiles
+		 */
 		var direction = "";
 		for (var i = pressedKeys.size(); i >= 0; i--) {
 			// Left projectile
@@ -127,6 +130,9 @@ class Character extends Entity {
 			}
 		}
 
+		/*
+		 * Shooting modes: single shot, burst shot, machine
+		 */
 		if (this.singleShot) {
 			if (direction != "") {
 				if (!this.recentlyShot) {
@@ -159,6 +165,15 @@ class Character extends Entity {
 			} else {
 				this.cooldown -= 1;
 			}
+		}
+
+		/*
+		 * Rotate to moving direction
+		 */
+		if (direction) {
+			this.setAngle(Math.PI / 2 - utils.parseDirection(direction));
+		} else if (!this.position.equals(oldPosition)) {
+			this.setAngle(utils.upAngle + this.position.getAngle(oldPosition));
 		}
 
 	}

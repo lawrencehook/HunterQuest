@@ -243,3 +243,16 @@ window.utils.getHeight = function() {
     || document.documentElement.clientHeight
     || document.body.clientHeight;
 };
+
+window.utils.parseDirection = function(direction) {
+  directionLC = direction.toLowerCase();
+  if (directionLC === "up") return window.utils.upAngle;
+  if (directionLC === "down") return window.utils.downAngle;
+  if (directionLC === "left") return window.utils.leftAngle;
+  if (directionLC === "right") return window.utils.rightAngle;
+}
+
+window.utils.upAngle = Math.PI / 2;
+window.utils.downAngle = -Math.PI / 2;
+window.utils.leftAngle = Math.PI;
+window.utils.rightAngle = 0;
