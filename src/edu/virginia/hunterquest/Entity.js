@@ -98,7 +98,9 @@ class Entity extends AnimatedSprite {
 	}
 
 	destroy() {
-		this.parent.removeChild(this);
-		this.parent = undefined;
+		if (this.parent) {
+			this.parent.removeChild(this);
+			this.parent = undefined;
+		}
 	}
 }
