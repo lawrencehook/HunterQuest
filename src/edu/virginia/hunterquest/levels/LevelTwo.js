@@ -6,6 +6,7 @@ class LevelTwo extends Level {
 	}
 
 	initialize() {
+		super.initialize();
 		var game = Game.getInstance();
 		var screenWidth = game.gamescreen.width - 50;
 		var screenHeight = game.gamescreen.height - 50;
