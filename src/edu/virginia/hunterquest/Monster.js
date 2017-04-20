@@ -42,7 +42,7 @@ class Monster extends Entity {
 			// console.log(angle);
 			var vx = this.projectileSpeed * Math.cos(angle);
 			var vy = this.projectileSpeed * Math.sin(angle);
-			new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, this.projectileTracking);
+			new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, "", this.projectileTracking);
 		}
 
 		if(this.maxACooldown !== 0 && this.attackCooldown <= 0) {
