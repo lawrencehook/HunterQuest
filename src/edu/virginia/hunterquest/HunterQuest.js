@@ -30,6 +30,10 @@ class HunterQuest extends Game {
 		this.initialize();
 	}
 
+	onClick(e) {
+		this.sidebar.onClick(e);
+	}
+
 	update(pressedKeys) {
 		super.update(pressedKeys);
 
@@ -69,25 +73,28 @@ class HunterQuest extends Game {
 
 		this.sidebar = new Sidebar("sidebar", "", this, this.sidebarWidth, this.canvasHeight);
 
-		this.mario = new Character("character", "spritesheet.png", marioSprites, this.gamescreen);
-		this.mario.ischaracter = true;
-		this.mario.xMaxBound = this.canvasWidth - this.sidebarWidth;
-		this.mario.yMaxBound = this.canvasHeight;
-		this.mario.position = this.gamescreen.getCenter();
+		this.hunter = new Character("character", "hunter/hunter.png", hunterSprites, this.gamescreen);
+		this.hunter.ischaracter = true;
+		this.hunter.xMaxBound = this.canvasWidth - this.sidebarWidth;
+		this.hunter.yMaxBound = this.canvasHeight;
+		this.hunter.position = this.gamescreen.getCenter();
 
 		this.projectiles = new ArrayList();
 
-		this.levels = new Array();
-		this.levels[0] = new LevelOne();
-		this.levels[1] = new LevelTwo();
-		this.levels[2] = new LevelThree();
-		// this.levels[3] = new LevelFour();
-		// this.levels[4] = new LevelFive();
-		// this.levels[5] = new LevelSix();
-		// this.levels[6] = new LevelSeven();
-		// this.levels[7] = new LevelEight();
-		// this.levels[8] = new LevelNine();
-		// this.levels[9] = new LevelTen();
+		this.levels = [];
+		this.levels.push(new EmptyLevel());
+		this.levels.push(new LevelOne());
+		this.levels.push(new LevelTwo());
+		this.levels.push(new LevelThree());
+		this.levels.push(new LevelFour());
+
+		// this.levels.push(new LevelFive());
+		// this.levels.push(new LevelSix());
+		// this.levels.push(new LevelSeven());
+		// this.levels.push(new LevelEight());
+		// this.levels.push(new LevelNine());
+		this.levels.push(new FinalBoss());
+
 		this.currentLevel = 0;
 		this.levelComplete = false;
 		this.completeMessage = "";
@@ -123,11 +130,16 @@ class HunterQuest extends Game {
 			}
 		}
 
+		this.tweenJuggler.nextFrame();
+
+		/*
+		 * Debugging utilities
+		 */
 		if(pressedKeys.indexOf(74) !== -1) { //Press key = j
 			var rX = Math.random() * this.canvasWidth;
 			var rY = Math.random() * this.canvasHeight + 50;
 			this.enemy1 = new Monster("enemy1", "spritesheet.png", marioSprites, this.gamescreen);
-			this.enemy1.position = (new Point(rX, rY)).minus(new Point(0.5*this.mario.getUnscaledWidth(), 0));
+			this.enemy1.position = (new Point(rX, rY)).minus(new Point(0.5*this.hunter.getUnscaledWidth(), 0));
 		}
 
 		if(pressedKeys.indexOf(75) !== -1) { //Press key = k
@@ -135,7 +147,10 @@ class HunterQuest extends Game {
 			this.pause();
 		}
 
-		this.tweenJuggler.nextFrame();
+		if (pressedKeys.indexOf(32) != -1) {
+			if (this.levels[this.currentLevel].empty) this.levels[this.currentLevel].completed = true;
+		}
+
 	}
 
 	draw(context) {
@@ -144,10 +159,6 @@ class HunterQuest extends Game {
 
 		if(this.levelComplete === true) {
 			write(context, "black", "20px Georgia", this.completeMessage, 200, 100);
-		}
-
-		if (this.questManager.coinPickedUp) {
-			write(context, "black", "20px Georgia", "You picked up a coin!", 15, 25);
 		}
 	}
 }
@@ -169,7 +180,9 @@ if(drawingCanvas.getContext) {
 }
 
 // Necessary for proper "this" object
-function onClick(e) {}
+function onClick(e) {
+	game.onClick(e);
+}
 
 function write(context, style, font, text, x, y) {
 	context.fillStyle = style;

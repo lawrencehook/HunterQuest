@@ -6,6 +6,7 @@ class LevelThree extends Level {
 	}
 
 	initialize() {
+		super.initialize();
 		var game = Game.getInstance();
 		var bigMonster = new Monster("enemy1", "spritesheet.png", marioSprites, game.gamescreen)
 

@@ -35,4 +35,12 @@ class Point {
 	clone() {
 		return new Point(this.x, this.y);
 	}
+
+	getAngle(p) {
+		return Math.atan2(this.y - p.y, this.x - p.x);
+	}
+
+	equals(p) {
+		return this.x == p.x && this.y == p.y;
+	}
 }

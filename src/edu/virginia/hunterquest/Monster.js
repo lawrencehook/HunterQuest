@@ -4,7 +4,7 @@
 
 class Monster extends Entity {
 
-	constructor(id, spriteSheet, jsonSprites, parentObj=null) {
+	constructor(id, spriteSheet, jsonSprites, parentObj=null, attackCooldown = 0) {
 		super(id, spriteSheet, jsonSprites, parentObj);
 
 		this.frameCounter = 0;
@@ -17,6 +17,9 @@ class Monster extends Entity {
 		this.exp = 10;
 
 		this.speed = 2;
+		this.attackCooldown = attackCooldown;
+		this.maxACooldown = attackCooldown;
+		this.attackPhase = true;
 
 		this.projectileSpeed = 10;
 		this.projectileSize = 10;
@@ -29,7 +32,7 @@ class Monster extends Entity {
 		var projectileX = this.getHitboxCenter().x;
 		var projectileY = this.getHitboxCenter().y;
 
-		if (this.frameCounter % this.attackSpeed == 0) {
+		if (this.attackPhase && this.frameCounter % this.attackSpeed == 0) {
 			// ATTACK!
 			var character = Character.getInstance();
 			var diffPosition = character.getHitboxCenter().minus(this.getHitboxCenter());
@@ -41,6 +44,14 @@ class Monster extends Entity {
 			var vy = this.projectileSpeed * Math.sin(angle);
 			new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, "", this.projectileTracking);
 		}
+
+		if(this.maxACooldown !== 0 && this.attackCooldown <= 0) {
+			this.attackPhase = !this.attackPhase;
+			this.attackCooldown = this.maxACooldown;
+			//console.log("Phase change!");
+		} else {
+			this.attackCooldown -= 1;
+		}
 	}
 
 	update(pressedKeys) {
@@ -50,15 +61,10 @@ class Monster extends Entity {
 
 		if (this.id == "enemy1") {
 			this.attack1();
-			// var character = Character.getInstance();
-			// var diffPosition = character.getHitboxCenter().minus(this.getHitboxCenter());
-			// var dx = diffPosition.x;
-			// var dy = diffPosition.y;
-			// var angle = Math.atan2(dy,dx);
-			// var vx = this.speed * Math.cos(angle);
-			// var vy = this.speed * Math.sin(angle);
-			// this.position.x += vx;
-			// this.position.y += vy;
+		}
+
+		if (this.id == "finalBoss") {
+			this.attack1();
 		}
 	}
 

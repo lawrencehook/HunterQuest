@@ -9,10 +9,19 @@ class AnimatedSprite extends Sprite {
 	constructor(id, spriteSheet, jsonSprites, parentObj=null) {
 		super(id, spriteSheet, parentObj);
 
-		this.frames = jsonSprites;
+		this.frames = jsonSprites ? jsonSprites : null;
 		this.currentFrameIndex = 0;
 		this.currentAnimation = "Default";
-		this.currentFrame = this.frames[this.currentAnimation][this.currentFrameIndex];
+		this.currentFrame = this.frames ? this.frames[this.currentAnimation][this.currentFrameIndex] : null;
+
+		if (!this.currentFrame) {
+			this.currentFrame = {
+				x : 0,
+				y : 0,
+				sw : super.getUnscaledWidth(),
+				sh : super.getUnscaledHeight()
+			}
+		}
 
 		this.sx = this.currentFrame.x;
 		this.sy = this.currentFrame.y;
@@ -49,20 +58,22 @@ class AnimatedSprite extends Sprite {
 		}
 
 		// Sprite animation
-		this.frameCounter += 1;
-		if (this.frameCounter % this.animationSpeedFactor == 0) {
-			this.currentFrameIndex += 1;
-		}
-		if (this.currentFrameIndex >= this.frames[this.currentAnimation].length) {
-			this.currentFrameIndex = 0;
-		}
+		if (this.frames) {
+			this.frameCounter += 1;
+			if (this.frameCounter % this.animationSpeedFactor == 0) {
+				this.currentFrameIndex += 1;
+			}
+			if (this.currentFrameIndex >= this.frames[this.currentAnimation].length) {
+				this.currentFrameIndex = 0;
+			}
 
-		this.currentFrame = this.frames[this.currentAnimation][this.currentFrameIndex];
+			this.currentFrame = this.frames[this.currentAnimation][this.currentFrameIndex];
 
-		this.sx = this.currentFrame.x;
-		this.sy = this.currentFrame.y;
-		this.sw = this.currentFrame.width;
-		this.sh = this.currentFrame.height;
+			this.sx = this.currentFrame.x;
+			this.sy = this.currentFrame.y;
+			this.sw = this.currentFrame.width;
+			this.sh = this.currentFrame.height;
+		}
 	}
 
 	/**
@@ -72,11 +83,6 @@ class AnimatedSprite extends Sprite {
 		if(this.displayImage && this.visible) {
 			this.applyTransformations(context);
 			if(this.loaded) {
-				// console.log(this.flipped);
-				// console.log(context.mozCurrentTransform);
-				// context.scale(-1, 1);
-				// console.log(context.mozCurrentTransform);
-				// debugger;
 				context.drawImage(
 					this.displayImage,
 					this.sx, this.sy, this.sw, this.sh,
