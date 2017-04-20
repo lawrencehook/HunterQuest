@@ -12,7 +12,7 @@ class FinalBoss extends Level {
 		finalBoss.maxHealth = 250;
 
 		finalBoss.gold = 1000;
-		finalBoss.exp = 150;
+		finalBoss.exp = 0;
 
 		finalBoss.projectileSpeed = 20;
 		finalBoss.projectileSize = 30;
