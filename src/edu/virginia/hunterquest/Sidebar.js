@@ -97,11 +97,20 @@ class Sidebar extends DisplayObjectContainer {
 		}
 
 		context.fillStyle = "#000000";
+		
+		// Weapon I
 		context.fillRect(0.175*this.width, 130, 0.05*this.width, 40);
+
+		// Weapon II
 		context.fillRect(0.58*this.width, 130, 0.05*this.width, 40);		
 		context.fillRect(0.68*this.width, 130, 0.05*this.width, 40);
+		
+		// Weapon III
 		context.fillRect(0.1*this.width, 210, 0.05*this.width, 40);		
 		context.fillRect(0.175*this.width, 210, 0.05*this.width, 40);		
-		context.fillRect(0.25*this.width, 210, 0.05*this.width, 40);		
+		context.fillRect(0.25*this.width, 210, 0.05*this.width, 40);
+
+
+			
 	}
 }

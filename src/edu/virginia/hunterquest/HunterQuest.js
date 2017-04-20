@@ -75,8 +75,8 @@ class HunterQuest extends Game {
 
 		this.hunter = new Character("character", "hunter/hunter.png", hunterSprites, this.gamescreen);
 		this.hunter.ischaracter = true;
-		this.hunter.xMaxBound = this.canvasWidth - this.sidebarWidth;
-		this.hunter.yMaxBound = this.canvasHeight;
+		this.hunter.xMaxBound = this.canvasWidth - this.sidebarWidth - 8;
+		this.hunter.yMaxBound = this.canvasHeight - 8;
 		this.hunter.position = this.gamescreen.getCenter();
 
 		this.projectiles = new ArrayList();
