@@ -168,7 +168,7 @@ class Character extends Entity {
 			}
 
 			if (!badDirection) {
-				new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true);
+				new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "fireball.png");
 			}
 		}
 	}
@@ -213,13 +213,13 @@ class Character extends Entity {
 				switch(direction) {
 					case "left":
 					case "right":
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, -vy, this.projectileDamage, this.projectileColor, true);
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true);
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, -vy, this.projectileDamage, this.projectileColor, true, "fireball.png");
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "fireball.png");
 						break;
 					case "up":
 					case "down":
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, -vx, vy, this.projectileDamage, this.projectileColor, true);
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true);
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, -vx, vy, this.projectileDamage, this.projectileColor, true, "fireball.png");
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "fireball.png");
 						break;
 					default:
 				}

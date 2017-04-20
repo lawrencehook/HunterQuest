@@ -22,7 +22,11 @@ class DisplayObjectContainer extends DisplayObject {
 		// if (this.displayImage && this.visible) {
 		if (this.visible) {
 			super.applyTransformations(context);
-			if(this.loaded) context.drawImage(this.displayImage, 0, 0);
+			if(this.loaded) {
+				context.drawImage(this.displayImage, 0, 0);
+				if (this.getId() == 'projectile' && this.isFriendly)
+					console.log(context.x, context.y);
+			}
 			this.children.contents.forEach(function(child) {
 				child.draw(context);
 			});

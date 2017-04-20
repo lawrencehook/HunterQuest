@@ -3,8 +3,8 @@
 "use strict";
 
 class Projectile extends DisplayObjectContainer {
-	constructor(x, y, width, height, vx, vy, damage, color="#2f4d2f", friendly, tracking=0) {
-		super("projectile", "", Game.getInstance().gamescreen);
+	constructor(x, y, width, height, vx, vy, damage, color="#2f4d2f", friendly, filename="", tracking=0) {
+		super("projectile", filename, Game.getInstance().gamescreen);
 		this.position = new Point(x, y);
 		this.width = width;
 		this.height = height;
@@ -20,10 +20,12 @@ class Projectile extends DisplayObjectContainer {
 
 		this.isFriendly = friendly;
 
+		if (this.displayImage) {
+			this.setScaleX(this.width / this.displayImage.width);
+			this.setScaleY(this.height / this.displayImage.height);
+		}
+
 		Game.getInstance().projectiles.add(this);
-		/*Game.getInstance().projectiles.contents.forEach(function(p) {
-			console.log(p);
-		})*/
 	}
 
 	getVx() {
@@ -63,16 +65,22 @@ class Projectile extends DisplayObjectContainer {
 	}
 
 	draw(context) {
-		this.applyTransformations(context);
-		context.beginPath();
-		context.rect(0, 0, this.width, this.height);
-		
-		context.fillStyle = this.fillColor;
-		context.fill();
-		
-		context.strokeStyle = this.fillColor;
-		context.stroke();
-		this.reverseTransformations(context);
+		super.draw(context);
+
+		if (!this.displayImage) {
+			this.applyTransformations(context);
+
+			context.beginPath();
+			context.rect(0, 0, this.width, this.height);
+			
+			context.fillStyle = this.fillColor;
+			context.fill();
+			
+			context.strokeStyle = this.fillColor;
+			context.stroke();
+
+			this.reverseTransformations(context);
+		}
 	}
 
 	applyTransformations(context) {
