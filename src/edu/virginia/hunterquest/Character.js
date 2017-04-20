@@ -32,8 +32,8 @@ class Character extends Entity {
 		this.projectileDamage 	= 2;
 		this.projectileColor	= "#2f4d2f";
 
-		this.singleShot = false;
-		this.burstShot = true;
+		this.singleShot = true;
+		this.burstShot = false;
 		this.machineShot = false;
 
 		this.burst = 3;
