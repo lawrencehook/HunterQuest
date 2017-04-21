@@ -4,8 +4,8 @@
 
 class Monster extends Entity {
 
-	constructor(id, spriteSheet, jsonSprites, parentObj=null, attackCooldown = 0) {
-		super(id, spriteSheet, jsonSprites, parentObj);
+	constructor(id, filename, jsonSprites, parentObj=null, attackCooldown = 0) {
+		super(id, filename, jsonSprites, parentObj);
 
 		this.frameCounter = 0;
 		this.attackSpeed = 50; // Lower is faster
@@ -31,7 +31,6 @@ class Monster extends Entity {
 	}
 
 	attack1() {
-		console.log("attack1");
 		var projectileX = this.getHitboxCenter().x;
 		var projectileY = this.getHitboxCenter().y;
 

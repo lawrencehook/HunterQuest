@@ -2,8 +2,8 @@
 
 class Entity extends AnimatedSprite {
 
-	constructor(id, spriteSheet, jsonSprites, parentObj=null) {
-		super(id, spriteSheet, jsonSprites, parentObj);
+	constructor(id, filename, jsonSprites, parentObj=null) {
+		super(id, filename, jsonSprites, parentObj);
 
 		this.hp;
 		this.maxHealth;

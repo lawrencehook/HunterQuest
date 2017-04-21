@@ -154,13 +154,13 @@ class Sidebar extends DisplayObjectContainer {
 				} else if (pressedKeys.indexOf(50) != -1) {
 					this.upgrading = true;
 					char.skillPoints -= 1;
-					char.projectileSpeed += 3;
+					// char.cooldown += 3;
 					char.spSpent[1] += 1;
 
 				} else if (pressedKeys.indexOf(51) != -1) {
 					this.upgrading = true;
 					char.skillPoints -= 1;
-					char.cooldown += 5;
+					char.projectileDamage += 5;
 					char.spSpent[2] += 1;
 
 				} else if (pressedKeys.indexOf(52) != -1) {

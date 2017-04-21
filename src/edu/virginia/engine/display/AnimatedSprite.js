@@ -6,8 +6,8 @@
  * */
 class AnimatedSprite extends Sprite {
 	
-	constructor(id, spriteSheet, jsonSprites, parentObj=null) {
-		super(id, spriteSheet, parentObj);
+	constructor(id, filename, jsonSprites, parentObj=null) {
+		super(id, filename, parentObj);
 
 		this.frames = jsonSprites ? jsonSprites : null;
 		this.currentFrameIndex = 0;
@@ -72,8 +72,14 @@ class AnimatedSprite extends Sprite {
 			this.sx = this.currentFrame.x;
 			this.sy = this.currentFrame.y;
 			this.sw = this.currentFrame.width;
-			this.sh = this.currentFrame.height;
+			this.sh = this.currentFrame.height
 		}
+
+		if (!this.sw || !this.sh) {
+			this.sw = super.getUnscaledWidth();
+			this.sh = super.getUnscaledHeight();
+		}
+
 	}
 
 	/**
