@@ -127,7 +127,7 @@ class Sidebar extends DisplayObjectContainer {
 		context.fillText("2 Cooldown", 10, ft + ts);
 		context.fillText("3 Attack Damage", 10, ft + 2*ts);
 		context.fillText("4 Poison Damage", 10, ft + 3*ts);
-		context.fillText("5 Magic Damage", 10, ft + 4*ts);
+		context.fillText("5 Life Steal", 10, ft + 4*ts);
 		// context.fillText("6 Max Health", 10, 420);
 
 		// Skills points spent
@@ -154,13 +154,13 @@ class Sidebar extends DisplayObjectContainer {
 				} else if (pressedKeys.indexOf(50) != -1) {
 					this.upgrading = true;
 					char.skillPoints -= 1;
-					char.projectileSpeed += 3;
+					// char.cooldown += 3;
 					char.spSpent[1] += 1;
 
 				} else if (pressedKeys.indexOf(51) != -1) {
 					this.upgrading = true;
 					char.skillPoints -= 1;
-					char.cooldown += 5;
+					char.projectileDamage += 5;
 					char.spSpent[2] += 1;
 
 				} else if (pressedKeys.indexOf(52) != -1) {
@@ -172,7 +172,7 @@ class Sidebar extends DisplayObjectContainer {
 				} else if (pressedKeys.indexOf(53) != -1) {
 					this.upgrading = true;
 					char.skillPoints -= 1;
-					char.magicDamage += 2;
+					char.lifeSteal += .1;
 					char.spSpent[4] += 1;
 				}
 			}
