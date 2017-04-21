@@ -4,9 +4,15 @@
 
 class Character extends Entity {
 
-	constructor(id, spriteSheet, jsonSprites, parentObj=null) {
-		super(id, spriteSheet, jsonSprites, parentObj);
+	constructor(id, filename, jsonSprites, parentObj=null) {
+
+		super(id, filename, jsonSprites, parentObj);
 		Character.instance = this;
+
+		// preload projectile images
+		this.loadImage("weapons/fireball.png");
+		// Set proper character image
+		this.loadImage(filename);
 
 		this.xMinBound = 0;
 		this.xMaxBound;
@@ -51,6 +57,9 @@ class Character extends Entity {
 		this.skillPoints = 1;
 
 		this.spSpent = [0,0,0,0,0];
+
+
+		this.loadImage(filename);
 	}
 
 	static getInstance() {
