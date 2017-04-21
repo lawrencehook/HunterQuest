@@ -28,8 +28,65 @@ class Monster extends Entity {
 		this.projectileDamage = 2;
 		this.projectileColor = "#2f4d2f";
 		this.projectileTracking = 0;
+
+		this.poisoned = false;
+		this.poisonDamage;
+		this.poisonRemaining;
 	}
 
+	update(pressedKeys) {
+		super.update(pressedKeys);
+
+		this.frameCounter += 1;
+
+		if (this.id == "enemy1") {
+			this.attack1();
+		}
+
+		if (this.id == "finalBoss") {
+			if(this.attackType == 1) {
+				this.attack1();
+			} else if(this.attackType == 2) {
+				this.attack2();
+			} else {
+				this.attack1();
+			}
+		}
+
+		if (this.poisoned) {
+			this.hp -= this.poisonDamage;
+			this.poisonRemaining -= 1;
+			if (this.poisonRemaining <= 0) {
+				this.poisoned = false;
+			}
+		}
+
+		if (this.hp <= 0) {
+			this.die();
+		}
+	}
+
+	draw(context) {
+		super.draw(context);
+
+		this.applyTransformations(context);
+
+		// Health bar
+		context.fillStyle = "#fc0008";
+		context.fillRect(0, -20, this.getUnscaledWidth(), 5);
+		context.fillStyle = "#00ff08";
+		context.fillRect(0, -20, this.getPercentHealth() * this.getUnscaledWidth(), 5);
+		//context.fillStyle = "#000000";
+		//context.font = "15px Times New Roman";
+		//context.fillText("Health", 5, 15);
+
+		this.reverseTransformations(context);
+	}
+
+
+	/*
+	 * Attacks
+	 */
 	attack1() {
 		var projectileX = this.getHitboxCenter().x;
 		var projectileY = this.getHitboxCenter().y;
@@ -98,41 +155,5 @@ class Monster extends Entity {
 		}
 	}
 
-	update(pressedKeys) {
-		super.update(pressedKeys);
-
-		this.frameCounter += 1;
-
-		if (this.id == "enemy1") {
-			this.attack1();
-		}
-
-		if (this.id == "finalBoss") {
-			if(this.attackType == 1) {
-				this.attack1();
-			} else if(this.attackType == 2) {
-				this.attack2();
-			} else {
-				this.attack1();
-			}
-		}
-	}
-
-	draw(context) {
-		super.draw(context);
-
-		this.applyTransformations(context);
-
-		// Health bar
-		context.fillStyle = "#fc0008";
-		context.fillRect(0, -20, this.getUnscaledWidth(), 5);
-		context.fillStyle = "#00ff08";
-		context.fillRect(0, -20, this.getPercentHealth() * this.getUnscaledWidth(), 5);
-		//context.fillStyle = "#000000";
-		//context.font = "15px Times New Roman";
-		//context.fillText("Health", 5, 15);
-
-		this.reverseTransformations(context);
-	}
 
 }

@@ -153,7 +153,6 @@ class Sidebar extends DisplayObjectContainer {
 					char.spSpent[0] += 1;
 					SoundManager.getInstance().playSound("purchase");
 				}
-
 			} else if (pressedKeys.indexOf(50) != -1) {
 				if (!this.upgrading) {
 					this.upgrading = true;
@@ -162,7 +161,6 @@ class Sidebar extends DisplayObjectContainer {
 					char.spSpent[1] += 1;
 					SoundManager.getInstance().playSound("purchase");
 				}
-
 			} else if (pressedKeys.indexOf(51) != -1) {
 				if (!this.upgrading) {
 					this.upgrading = true;
@@ -170,8 +168,7 @@ class Sidebar extends DisplayObjectContainer {
 					char.projectileDamage += 5;
 					char.spSpent[2] += 1;
 					SoundManager.getInstance().playSound("purchase");
-			}
-
+				}
 			} else if (pressedKeys.indexOf(52) != -1) {
 				if (!this.upgrading) {
 					this.upgrading = true;
@@ -180,7 +177,6 @@ class Sidebar extends DisplayObjectContainer {
 					char.spSpent[3] += 1;
 					SoundManager.getInstance().playSound("purchase");
 				}
-
 			} else if (pressedKeys.indexOf(53) != -1) {
 				if (!this.upgrading) {
 					this.upgrading = true;
@@ -189,10 +185,12 @@ class Sidebar extends DisplayObjectContainer {
 					char.spSpent[4] += 1;
 					SoundManager.getInstance().playSound("purchase");
 				}
-
 			} else {
 				this.upgrading = false;
 			}
-		} 
+
+		} else {
+			this.upgrading = false;
+		}
 	}
 }
