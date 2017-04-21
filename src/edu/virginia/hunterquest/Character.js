@@ -20,7 +20,7 @@ class Character extends Entity {
 		this.yMaxBound;
 
 
-		this.hp = 200;
+		this.hp = 30;
 
 		this.flinchable = true;
 		this.weapon = 1;
@@ -38,7 +38,7 @@ class Character extends Entity {
 		 * Store upgrades
 		 */
 		this.level = 1;
-		this.maxHealth = 200;
+		this.maxHealth = 30;
 		this.cooldown = 0;
 		this.projectileSize 	= 10;
 		this.projectileDamage 	= 0.5;
