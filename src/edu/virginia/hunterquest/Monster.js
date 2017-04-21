@@ -208,9 +208,8 @@ class Monster extends Entity {
 
 	tweenMoveRandom() {
 		var tween = new Tween(this);
-		var x = Math.random() * (Game.getInstance().gamescreen.width*0.8 + this.getUnscaledWidth());
-		var y = Math.random() * (Game.getInstance().gamescreen.height*0.8 + this.getUnscaledHeight());
-		console.log("x: " + x + " | y: " + y);
+		var x = Math.random() * (Game.getInstance().gamescreen.width*0.8 - this.getUnscaledWidth());
+		var y = Math.random() * (Game.getInstance().gamescreen.height*0.8 - this.getUnscaledHeight());
 		TweenJuggler.add(tween);
 		tween.displayObject.eventDispatcher.addEventListener(this, "TWEEN_COMPLETE_EVENT");
 		tween.animate("x", this.position.x, x, 100);
@@ -219,9 +218,8 @@ class Monster extends Entity {
 
 	tweenMoveRandomSpeed(tweenTime) {
 		var tween = new Tween(this);
-		var x = Math.random() * (Game.getInstance().gamescreen.width*0.8 + this.getUnscaledWidth());
-		var y = Math.random() * (Game.getInstance().gamescreen.height*0.8 + this.getUnscaledHeight());
-		console.log("x: " + x + " | y: " + y);
+		var x = Math.random() * (Game.getInstance().gamescreen.width*0.8 - this.getUnscaledWidth());
+		var y = Math.random() * (Game.getInstance().gamescreen.height*0.8 - this.getUnscaledHeight());
 		TweenJuggler.add(tween);
 		tween.displayObject.eventDispatcher.addEventListener(this, "TWEEN_COMPLETE_EVENT");
 		tween.animate("x", this.position.x, x, tweenTime);
