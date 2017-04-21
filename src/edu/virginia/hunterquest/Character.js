@@ -13,7 +13,6 @@ class Character extends Entity {
 		this.yMinBound = 0;
 		this.yMaxBound;
 
-		this.cooldown = 0;
 
 		this.hp = 20;
 
@@ -24,6 +23,7 @@ class Character extends Entity {
 
 		this.projectileWidth 	= 10;
 		this.projectileHeight	= 10;
+		this.projectileSpeed 	= 5;
 
 		this.burstCount;
 		this.recentlyShot = false;
@@ -33,7 +33,7 @@ class Character extends Entity {
 		 */
 		this.level = 1;
 		this.maxHealth = 20;
-		this.projectileSpeed 	= 5;
+		this.cooldown = 0;
 		this.projectileSize 	= 10;
 		this.projectileDamage 	= 2;
 		this.projectileColor	= "#2f4d2f";

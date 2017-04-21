@@ -124,7 +124,7 @@ class Sidebar extends DisplayObjectContainer {
 		context.fillRect(5, 300, (0.85*this.width), 5*ts + 10);
 		context.fillStyle = "#000000";
 		context.fillText("1 Max Health", 10, ft);
-		context.fillText("2 Attack Speed", 10, ft + ts);
+		context.fillText("2 Cooldown", 10, ft + ts);
 		context.fillText("3 Attack Damage", 10, ft + 2*ts);
 		context.fillText("4 Poison Damage", 10, ft + 3*ts);
 		context.fillText("5 Magic Damage", 10, ft + 4*ts);
@@ -160,7 +160,7 @@ class Sidebar extends DisplayObjectContainer {
 				} else if (pressedKeys.indexOf(51) != -1) {
 					this.upgrading = true;
 					char.skillPoints -= 1;
-					char.projectileDamage += 5;
+					char.cooldown += 5;
 					char.spSpent[2] += 1;
 
 				} else if (pressedKeys.indexOf(52) != -1) {
