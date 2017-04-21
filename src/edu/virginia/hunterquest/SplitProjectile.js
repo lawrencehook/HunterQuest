@@ -3,8 +3,8 @@
 "use strict";
 
 class SplitProjectile extends DisplayObjectContainer {
-	constructor(x, y, width, height, vx, vy, damage, color="#2f4d2f", friendly, tracking=0) {
-		super("splitprojectile", "", Game.getInstance().gamescreen);
+	constructor(x, y, width, height, vx, vy, damage, color="#2f4d2f", friendly, filename="", tracking=0) {
+		super("splitprojectile", filename, Game.getInstance().gamescreen);
 		this.position = new Point(x, y);
 		this.width = width;
 		this.height = height;
@@ -13,6 +13,7 @@ class SplitProjectile extends DisplayObjectContainer {
 		this.damage = damage;
 		this.fillColor = color;
 		this.tracking = tracking;
+		this.filename = filename;
 
 		this.collidable = true;
 
@@ -22,10 +23,12 @@ class SplitProjectile extends DisplayObjectContainer {
 
 		this.isFriendly = friendly;
 
+		if (this.displayImage) {
+			this.setScaleX(this.width / this.displayImage.width);
+			this.setScaleY(this.height / this.displayImage.height);
+		}
+
 		Game.getInstance().projectiles.add(this);
-		/*Game.getInstance().projectiles.contents.forEach(function(p) {
-			console.log(p);
-		})*/
 	}
 
 	getVx() {
@@ -53,8 +56,8 @@ class SplitProjectile extends DisplayObjectContainer {
 			} else {
 				vx = 0;
 			}
-			new Projectile(this.position.x, this.position.y, this.width, this.height, -vx, -vy, this.damage, this.color, true);
-			new Projectile(this.position.x, this.position.y, this.width, this.height, vx, vy, this.damage, this.color, true);
+			new Projectile(this.position.x, this.position.y, this.width, this.height, -vx, -vy, this.damage, this.color, true, this.filename);
+			new Projectile(this.position.x, this.position.y, this.width, this.height, vx, vy, this.damage, this.color, true, this.filename);
 			this.destroy();
 		} else {
 			this.splitTimer -= 1;
@@ -81,16 +84,22 @@ class SplitProjectile extends DisplayObjectContainer {
 	}
 
 	draw(context) {
-		this.applyTransformations(context);
-		context.beginPath();
-		context.rect(0, 0, this.width, this.height);
-		
-		context.fillStyle = this.fillColor;
-		context.fill();
-		
-		context.strokeStyle = this.fillColor;
-		context.stroke();
-		this.reverseTransformations(context);
+		super.draw(context);
+
+		if (!this.displayImage) {
+			this.applyTransformations(context);
+
+			context.beginPath();
+			context.rect(0, 0, this.width, this.height);
+			
+			context.fillStyle = this.fillColor;
+			context.fill();
+			
+			context.strokeStyle = this.fillColor;
+			context.stroke();
+
+			this.reverseTransformations(context);
+		}
 	}
 
 	applyTransformations(context) {

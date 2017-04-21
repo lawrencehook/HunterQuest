@@ -27,7 +27,10 @@ class Entity extends AnimatedSprite {
 					if (this.hitboxActive && this.xCollides(projectile) && this.yCollides(projectile)) {
 						// this.eventDispatcher.dispatchEvent(new StatusEvent("DAMAGE_TAKEN", projectile, projectile.damage));
 						this.updateHealth(projectile.damage);
-						if (this.flinchable) this.flinch(projectile);
+						if (this.flinchable) {
+							this.flinch(projectile);
+							Game.getInstance().soundManager.playSound("grunt");
+						}
 						projectile.destroy();
 					}
 				}

@@ -16,29 +16,37 @@ class Character extends Entity {
 		this.cooldown = 0;
 
 		this.hp = 20;
-		this.level = 1;
-		this.maxHealth = 20;
 
 		this.flinchable = true;
 		this.weapon = 1;
 		this.attackType = "attack1";
 		this.weaponChangeCooldown = false;
 
-
-		this.projectileSpeed 	= 5;
-		this.projectileSize 	= 10;
 		this.projectileWidth 	= 10;
 		this.projectileHeight	= 10;
+
+		this.burstCount;
+		this.recentlyShot = false;
+
+		/*
+		 * Store upgrades
+		 */
+		this.level = 1;
+		this.maxHealth = 20;
+		this.projectileSpeed 	= 5;
+		this.projectileSize 	= 10;
 		this.projectileDamage 	= 2;
 		this.projectileColor	= "#2f4d2f";
 
 		this.singleShot = true;
 		this.burstShot = false;
 		this.machineShot = false;
-
 		this.burst = 3;
-		this.burstCount;
-		this.recentlyShot = false;
+
+		this.poisonDamage = 0;
+		this.poisonDuration = 0;
+
+		this.skillPoints = 1;
 	}
 
 	static getInstance() {
@@ -215,7 +223,7 @@ class Character extends Entity {
 			}
 
 			if (!badDirection) {
-				new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "fireball.png");
+				new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
 			}
 		}
 	}
@@ -260,13 +268,13 @@ class Character extends Entity {
 				switch(direction) {
 					case "left":
 					case "right":
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, -vy, this.projectileDamage, this.projectileColor, true, "fireball.png");
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "fireball.png");
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, -vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
 						break;
 					case "up":
 					case "down":
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, -vx, vy, this.projectileDamage, this.projectileColor, true, "fireball.png");
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "fireball.png");
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, -vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
 						break;
 					default:
 				}
@@ -311,7 +319,7 @@ class Character extends Entity {
 			}
 
 			if (!badDirection) {
-				new SplitProjectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true);
+				new SplitProjectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
 			}
 		}
 	}
