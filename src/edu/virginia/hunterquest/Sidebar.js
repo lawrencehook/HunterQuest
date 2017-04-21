@@ -6,23 +6,6 @@ class Sidebar extends DisplayObjectContainer {
 	constructor(id, filename, parentObj=null, width, height) {
 		super(id, filename, parentObj);
 
-		this.hp;
-		this.exp;
-		this.weapon1;
-		this.weapon2;
-		this.stats = {
-			"vitality" : 0,
-			"strength" : 0,
-			"dexterity" : 0,
-			"luck" : 0
-		};
-		this.skills = {
-			"sword" : 0,
-			"bow" : 0,
-			"fire" : 0,
-			"auto" : 0
-		};
-
 		this.x = -5;
 		this.y = -5;
 		this.width = width;
