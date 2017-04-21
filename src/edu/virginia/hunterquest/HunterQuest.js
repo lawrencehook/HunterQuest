@@ -109,6 +109,9 @@ class HunterQuest extends Game {
 		// this.levels.push(new LevelNine());
 		this.levels.push(new FinalBoss());
 
+		// empty level at the end
+		this.levels.push(new EmptyLevel());
+
 		this.currentLevel = 0;
 		this.levelComplete = false;
 		this.completeMessage = "";
