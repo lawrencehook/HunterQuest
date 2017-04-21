@@ -88,7 +88,7 @@ class HunterQuest extends Game {
 		this.levels.push(new LevelThree());
 		this.levels.push(new LevelFour());
 
-		// this.levels.push(new LevelFive());
+		this.levels.push(new LevelFive());
 		// this.levels.push(new LevelSix());
 		// this.levels.push(new LevelSeven());
 		// this.levels.push(new LevelEight());
