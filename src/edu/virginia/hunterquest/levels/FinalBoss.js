@@ -3,12 +3,23 @@
 class FinalBoss extends Level {
 	constructor() {
 		super();
+		this.finalBossHealth = 250;
+	}
+
+	//Special for not resetting final boss health
+	emptyLevel() {
+		this.finalBossHealth = this.monsters[0].hp;
+		this.monsters.forEach(function(monster) {
+			//console.log(monster);
+			if(monster.parent != undefined) monster.destroy();
+		});
+		this.monsters = [];
 	}
 
 	initialize() {
 		var game = Game.getInstance();
 		var finalBoss = new Monster("finalBoss", "monster/boss.png", bossSprites, game.gamescreen, 50)
-		finalBoss.hp = 250;
+		finalBoss.hp = this.finalBossHealth;
 		finalBoss.maxHealth = 250;
 
 		finalBoss.gold = 1000;
