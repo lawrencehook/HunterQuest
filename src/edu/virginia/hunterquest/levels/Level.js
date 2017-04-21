@@ -23,6 +23,7 @@ class Level {
 	}
 
 	initialize() {
+		this.emptyLevel();
 		Game.getInstance().gamescreen.getChildren().contents.forEach(function(entity) {
 			//console.log("Entity id: " + entity.id);
 			if(entity.id.includes("projectile")) {

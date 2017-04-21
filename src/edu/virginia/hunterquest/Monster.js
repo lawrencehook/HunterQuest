@@ -40,7 +40,7 @@ class Monster extends Entity {
 		this.frameCounter += 1;
 
 		if (this.id == "enemy1") {
-			this.attack1();
+			this.attack3();
 		}
 
 		if (this.id == "finalBoss") {
@@ -49,7 +49,7 @@ class Monster extends Entity {
 			} else if(this.attackType == 2) {
 				this.attack2();
 			} else {
-				this.attack1();
+				this.attack3();
 			}
 		}
 
@@ -111,6 +111,8 @@ class Monster extends Entity {
 				if(this.phaseChange) {
 					this.attackType = 2;
 					this.phaseChange = false;
+					// this.tweenMove(Math.random()*Game.getInstance().canvasWidth, Math.random()*Game.getInstance().canvasHeight);
+					this.tweenMoveRandom();
 				} else {
 					this.phaseChange = true;
 				}
@@ -144,8 +146,10 @@ class Monster extends Entity {
 			this.attackCooldown = this.maxACooldown;
 			if(this.id === "finalBoss") {
 				if(this.phaseChange) {
-					this.attackType = 1;
+					this.attackType = 3;
 					this.phaseChange = false;
+					// this.tweenMove(Math.random()*Game.getInstance().canvasWidth, Math.random()*Game.getInstance().canvasHeight);
+					this.tweenMoveRandom();
 				} else {
 					this.phaseChange = true;
 				}
@@ -155,5 +159,58 @@ class Monster extends Entity {
 		}
 	}
 
+	attack3() {
+		var projectileX = this.getHitboxCenter().x;
+		var projectileY = this.getHitboxCenter().y;
 
+		if (this.attackPhase && this.frameCounter % this.attackSpeed == 0) {
+			// ATTACK!
+			var character = Character.getInstance();
+			var diffPosition = character.getHitboxCenter().minus(this.getHitboxCenter());
+			var dx = diffPosition.x;
+			var dy = diffPosition.y;
+			var angle = Math.atan2(dy,dx);
+			// console.log(angle);
+			for(var i = 0; i < 24; i++) {
+				var vx = this.projectileSpeed * Math.cos(angle - 1.571 + (15 * i * Math.PI/180));
+				var vy = this.projectileSpeed * Math.sin(angle - 1.571 + (15 * i * Math.PI/180));
+				new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, "", this.projectileTracking);
+			}
+		}
+
+		if(this.maxACooldown !== 0 && this.attackCooldown <= 0) {
+			this.attackPhase = !this.attackPhase;
+			this.attackCooldown = this.maxACooldown;
+			if(this.id === "finalBoss") {
+				if(this.phaseChange) {
+					this.attackType = 1;
+					this.phaseChange = false;
+					this.tweenMove(0.5*Game.getInstance().canvasWidth - 0.5*this.getUnscaledWidth(), 50);
+					//this.position = (new Point(0.5*Game.getInstance().canvasWidth, 50)).minus(new Point(0.5*this.getUnscaledWidth(), 0));
+				} else {
+					this.phaseChange = true;
+				}
+			}
+		} else {
+			this.attackCooldown -= 1;
+		}
+	}
+
+	tweenMove(x, y) {
+		var tween = new Tween(this);
+		TweenJuggler.add(tween);
+		tween.displayObject.eventDispatcher.addEventListener(this, "TWEEN_COMPLETE_EVENT");
+		tween.animate("x", this.position.x, x, 100);
+		tween.animate("y", this.position.y, y, 100);
+	}
+
+	tweenMoveRandom() {
+		var tween = new Tween(this);
+		var x = Math.random() * (Game.getInstance().canvasWidth - this.getUnscaledWidth());
+		var y = Math.random() * (Game.getInstance().canvasHeight - this.getUnscaledHeight());
+		TweenJuggler.add(tween);
+		tween.displayObject.eventDispatcher.addEventListener(this, "TWEEN_COMPLETE_EVENT");
+		tween.animate("x", this.position.x, x, 100);
+		tween.animate("y", this.position.y, y, 100);
+	}
 }

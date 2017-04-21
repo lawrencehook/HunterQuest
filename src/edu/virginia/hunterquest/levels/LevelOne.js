@@ -8,7 +8,7 @@ class LevelOne extends Level {
 	initialize() {
 		super.initialize();
 		var game = Game.getInstance();
-		this.monsters = [new Monster("enemy1", "spritesheet.png", marioSprites, game.gamescreen)];
+		this.monsters = [new Monster("enemy1", "spritesheet.png", marioSprites, game.gamescreen, 50)];
 		this.monsters[0].position = (new Point(0.5*game.canvasWidth, 50)).minus(new Point(0.5*game.hunter.getUnscaledWidth(), 0));
 		SoundManager.getInstance().transitionBackgroundMusic("level0", "level1");
 	}
