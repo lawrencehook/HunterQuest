@@ -44,7 +44,7 @@ class Character extends Entity {
 		this.burst = 3;
 
 		this.poisonDamage = 0;
-		this.poisonDuration = 0;
+		this.poisonDuration = 30;
 
 		this.lifeSteal = 0;
 
