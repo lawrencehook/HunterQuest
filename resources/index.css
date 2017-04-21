@@ -7,7 +7,7 @@ body {
 canvas {
 	background-color: #FFFFFF;
 	/*background-color: #000000;*/
-	background-image: url("background_tile.png");
+	background-image: url("background/background_tile.png");
 	background-repeat: repeat;
 	display: block;
 	margin: auto;
