@@ -41,7 +41,7 @@ class Character extends Entity {
 		this.maxHealth = 20;
 		this.cooldown = 0;
 		this.projectileSize 	= 10;
-		this.projectileDamage 	= 2;
+		this.projectileDamage 	= 0.5;
 		this.projectileColor	= "#2f4d2f";
 
 		this.singleShot = true;
@@ -50,16 +50,12 @@ class Character extends Entity {
 		this.burst = 3;
 
 		this.poisonDamage = 0;
-		this.poisonDuration = 30;
+		this.poisonDuration = 300;
 
 		this.lifeSteal = 0;
 
 		this.skillPoints = 1;
-
 		this.spSpent = [0,0,0,0,0];
-
-
-		this.loadImage(filename);
 	}
 
 	static getInstance() {

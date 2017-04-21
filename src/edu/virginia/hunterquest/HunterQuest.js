@@ -176,7 +176,7 @@ class HunterQuest extends Game {
 
 		if(this.levelComplete === true) {
 			write(context, "black", "20px Georgia", this.completeMessage, 200, 100);
-		}
+		}		
 	}
 }
 

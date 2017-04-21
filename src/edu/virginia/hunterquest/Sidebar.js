@@ -144,15 +144,16 @@ class Sidebar extends DisplayObjectContainer {
 		var char = Character.getInstance();
 
 		if (char.skillPoints) {
-			// 1
+			// Max Health
 			if (pressedKeys.indexOf(49) != -1) {
 				if (!this.upgrading) {
 					this.upgrading = true;
 					char.skillPoints -= 1;
-					char.maxHealth += 20;
+					char.maxHealth += 5;
 					char.spSpent[0] += 1;
 					SoundManager.getInstance().playSound("purchase");
 				}
+			// Cooldown reduction
 			} else if (pressedKeys.indexOf(50) != -1) {
 				if (!this.upgrading) {
 					this.upgrading = true;
@@ -161,27 +162,30 @@ class Sidebar extends DisplayObjectContainer {
 					char.spSpent[1] += 1;
 					SoundManager.getInstance().playSound("purchase");
 				}
+			// Projectile Damage
 			} else if (pressedKeys.indexOf(51) != -1) {
 				if (!this.upgrading) {
 					this.upgrading = true;
 					char.skillPoints -= 1;
-					char.projectileDamage += 5;
+					char.projectileDamage += 0.5;
 					char.spSpent[2] += 1;
 					SoundManager.getInstance().playSound("purchase");
 				}
+			// Poison Damage
 			} else if (pressedKeys.indexOf(52) != -1) {
 				if (!this.upgrading) {
 					this.upgrading = true;
 					char.skillPoints -= 1;
-					char.poisonDamage += 2;
+					char.poisonDamage += .02;
 					char.spSpent[3] += 1;
 					SoundManager.getInstance().playSound("purchase");
 				}
+			// Life Steal
 			} else if (pressedKeys.indexOf(53) != -1) {
 				if (!this.upgrading) {
 					this.upgrading = true;
 					char.skillPoints -= 1;
-					char.lifeSteal += .1;
+					char.lifeSteal += .07;
 					char.spSpent[4] += 1;
 					SoundManager.getInstance().playSound("purchase");
 				}
