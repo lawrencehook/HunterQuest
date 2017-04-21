@@ -65,7 +65,7 @@ class Entity extends AnimatedSprite {
 		if (this.hp <= 0) {
 			this.hp = 0;
 
-			//this.die();
+			this.die();
 		}
 		// Full health
 		if (this.hp > this.maxHealth) {
@@ -109,9 +109,10 @@ class Entity extends AnimatedSprite {
 		else {
 			// this.parent.removeChild(this);
 			// this.parent = undefined;
-			this.destroy();
-
-			Character.getInstance().enemyDefeated(this.gold, this.exp);
+			if (this.parent) {	// if this entity has not already been destroyed during this frame
+				this.destroy();
+				Character.getInstance().enemyDefeated(this.gold, this.exp);
+			}
 		}
 	}
 
