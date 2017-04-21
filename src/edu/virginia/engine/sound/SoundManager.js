@@ -24,7 +24,16 @@ class SoundManager {
 		this.sounds[id].currentTime = 0;
 	}
 
-	loopSound(id) {
+	stopAllSounds() {
+		/*
+		this.sounds.forEach( function(sound) {
+			sound.pause();
+			sound.currentTime = 0;
+		});
+		*/
+	}
+
+	loopSound(id, startTime=0) {
 		// http://stackoverflow.com/questions/3273552/html5-audio-looping
 		if (typeof this.sounds[id].loop == 'boolean') {
 		    this.sounds[id].loop = true;
@@ -35,7 +44,21 @@ class SoundManager {
 		        this.play();
 		    }, false);
 		}
+		if (startTime != 0)
+			this.sounds[id].currentTime = startTime;
 		this.sounds[id].play();
+	}
+
+	changeMusic(id1, id2, keepCurrentTime=false) {
+		if (keepCurrentTime) {
+			var currentTime = this.sounds[id1].currentTime;
+			this.stopSound(id1);
+			this.loopSound(id2, currentTime);
+		}
+		else {
+			this.stopSound(id1);
+			this.loopSound(id2);
+		}
 	}
 
 	addSound(id, audio) {

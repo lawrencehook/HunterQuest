@@ -73,6 +73,8 @@ class HunterQuest extends Game {
 		this.soundManager.addSound("laser", new Audio("resources/sound/laser.wav"));
 		this.soundManager.addSound("grunt", new Audio("resources/sound/grunt.ogg"));
 		this.soundManager.addSound("death", new Audio("resources/sound/death.ogg"));
+		this.soundManager.addSound("level0", new Audio("resources/music/level1_basic.wav"));
+		this.soundManager.addSound("level1", new Audio("resources/music/level1.wav"));
 
 		// Hunter Quest
 		this.gamescreen = new GameScreen("gamescreen", this, this.sidebarWidth, 0, this.canvasWidth - this.sidebarWidth, this.canvasHeight);

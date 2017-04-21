@@ -52,6 +52,7 @@ class Game extends DisplayObjectContainer {
 
 	pause() {
 		this.playing = false;
+		this.soundManager.stopAllSounds();
 	}
 
 

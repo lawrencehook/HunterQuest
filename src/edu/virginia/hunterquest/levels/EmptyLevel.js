@@ -11,6 +11,8 @@ class EmptyLevel extends Level {
 		return this.completed;
 	}
 
-	initialize() {}
+	initialize() {
+		SoundManager.getInstance().loopSound("level0");
+	}
 
 }
