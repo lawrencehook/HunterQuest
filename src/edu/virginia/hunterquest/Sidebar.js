@@ -129,31 +129,53 @@ class Sidebar extends DisplayObjectContainer {
 		context.fillText("4 Poison Damage", 10, ft + 3*ts);
 		context.fillText("5 Magic Damage", 10, ft + 4*ts);
 		// context.fillText("6 Max Health", 10, 420);
+
+		// Skills points spent
+		for (var i = 0; i < char.spSpent.length; i++) {
+			for (var j = 0; j < char.spSpent[i]; j++) {
+				context.fillText(".", 20 + (5*j), (5) + (ft + i*ts));
+			}
+		}
 		
 	}
 
 	update(pressedKeys) {
 		super.update(pressedKeys);
+		var char = Character.getInstance();
 
-		// 1
-		if (pressedKeys.indexOf(49) != -1) {
-			this.upgrading = true;
+		if (!this.upgrading) {
+			if (char.skillPoints) {
+				// 1
+				if (pressedKeys.indexOf(49) != -1) {
+					this.upgrading = true;
+					char.skillPoints -= 1;
+					char.maxHealth += 20;
+					char.spSpent[0] += 1;
+				} else if (pressedKeys.indexOf(50) != -1) {
+					this.upgrading = true;
+					char.skillPoints -= 1;
+					char.projectileSpeed += 3;
+					char.spSpent[1] += 1;
 
-		} else if (pressedKeys.indexOf(50) != -1) {
-			this.upgrading = true;
+				} else if (pressedKeys.indexOf(51) != -1) {
+					this.upgrading = true;
+					char.skillPoints -= 1;
+					char.projectileDamage += 5;
+					char.spSpent[2] += 1;
 
-		} else if (pressedKeys.indexOf(51) != -1) {
-			this.upgrading = true;
+				} else if (pressedKeys.indexOf(52) != -1) {
+					this.upgrading = true;
+					char.skillPoints -= 1;
+					char.poisonDamage += 2;
+					char.spSpent[3] += 1;
 
-		} else if (pressedKeys.indexOf(52) != -1) {
-			this.upgrading = true;
-
-		} else if (pressedKeys.indexOf(53) != -1) {
-			this.upgrading = true;
-
-		} else if (pressedKeys.indexOf(54) != -1) {
-			this.upgrading = true;
-
+				} else if (pressedKeys.indexOf(53) != -1) {
+					this.upgrading = true;
+					char.skillPoints -= 1;
+					char.magicDamage += 2;
+					char.spSpent[4] += 1;
+				}
+			}
 		} else {
 			this.upgrading = false;
 		}

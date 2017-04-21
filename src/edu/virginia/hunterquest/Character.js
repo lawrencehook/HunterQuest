@@ -47,6 +47,8 @@ class Character extends Entity {
 		this.poisonDuration = 0;
 
 		this.skillPoints = 1;
+
+		this.spSpent = [0,0,0,0,0];
 	}
 
 	static getInstance() {
@@ -365,6 +367,7 @@ class Character extends Entity {
 		if(this.exp >= 100) {
 			this.exp -= 100;
 			this.level += 1;
+			this.skillPoints += 1;
 			this.maxHealth += 5;
 		}
 	}
