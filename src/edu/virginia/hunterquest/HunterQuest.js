@@ -68,6 +68,10 @@ class HunterQuest extends Game {
 		// Tweens
 		this.tweenJuggler = new TweenJuggler();
 
+		// Sounds
+		this.soundManager = new SoundManager();
+		this.soundManager.addSound("grunt", new Audio("resources/sound/grunt.ogg"));
+
 		// Hunter Quest
 		this.gamescreen = new GameScreen("gamescreen", this, this.sidebarWidth, 0, this.canvasWidth - this.sidebarWidth, this.canvasHeight);
 

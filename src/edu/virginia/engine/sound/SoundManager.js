@@ -14,8 +14,14 @@ class SoundManager {
 	}
 
 	playSound(id) {
-		// console.log(this.sounds[id]);
+		if (this.sounds[id].paused == false)
+			this.stopSound(id);
 		this.sounds[id].play();
+	}
+
+	stopSound(id) {
+		this.sounds[id].pause();
+		this.sounds[id].currentTime = 0;
 	}
 
 	loopSound(id) {
