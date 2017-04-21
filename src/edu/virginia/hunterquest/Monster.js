@@ -40,10 +40,10 @@ class Monster extends Entity {
 		this.frameCounter += 1;
 
 		if (this.id == "enemy1") {
+			this.attack1();
+		} else if(this.id == "enemy3") {
 			this.attack3();
-		}
-
-		if (this.id == "finalBoss") {
+		} else if (this.id == "finalBoss") {
 			if(this.attackType == 1) {
 				this.attack1();
 			} else if(this.attackType == 2) {
@@ -190,6 +190,8 @@ class Monster extends Entity {
 				} else {
 					this.phaseChange = true;
 				}
+			} else if (this.id === "enemy3") {
+				this.tweenMoveRandomSpeed(500);
 			}
 		} else {
 			this.attackCooldown -= 1;
@@ -206,11 +208,23 @@ class Monster extends Entity {
 
 	tweenMoveRandom() {
 		var tween = new Tween(this);
-		var x = Math.random() * (Game.getInstance().canvasWidth - this.getUnscaledWidth());
-		var y = Math.random() * (Game.getInstance().canvasHeight - this.getUnscaledHeight());
+		var x = Math.random() * (Game.getInstance().gamescreen.width*0.8 + this.getUnscaledWidth());
+		var y = Math.random() * (Game.getInstance().gamescreen.height*0.8 + this.getUnscaledHeight());
+		console.log("x: " + x + " | y: " + y);
 		TweenJuggler.add(tween);
 		tween.displayObject.eventDispatcher.addEventListener(this, "TWEEN_COMPLETE_EVENT");
 		tween.animate("x", this.position.x, x, 100);
 		tween.animate("y", this.position.y, y, 100);
+	}
+
+	tweenMoveRandomSpeed(tweenTime) {
+		var tween = new Tween(this);
+		var x = Math.random() * (Game.getInstance().gamescreen.width*0.8 + this.getUnscaledWidth());
+		var y = Math.random() * (Game.getInstance().gamescreen.height*0.8 + this.getUnscaledHeight());
+		console.log("x: " + x + " | y: " + y);
+		TweenJuggler.add(tween);
+		tween.displayObject.eventDispatcher.addEventListener(this, "TWEEN_COMPLETE_EVENT");
+		tween.animate("x", this.position.x, x, tweenTime);
+		tween.animate("y", this.position.y, y, tweenTime);
 	}
 }
