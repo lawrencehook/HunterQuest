@@ -16,29 +16,37 @@ class Character extends Entity {
 		this.cooldown = 0;
 
 		this.hp = 20;
-		this.level = 1;
-		this.maxHealth = 20;
 
 		this.flinchable = true;
 		this.weapon = 1;
 		this.attackType = "attack1";
 		this.weaponChangeCooldown = false;
 
-
-		this.projectileSpeed 	= 5;
-		this.projectileSize 	= 10;
 		this.projectileWidth 	= 10;
 		this.projectileHeight	= 10;
+
+		this.burstCount;
+		this.recentlyShot = false;
+
+		/*
+		 * Store upgrades
+		 */
+		this.level = 1;
+		this.maxHealth = 20;
+		this.projectileSpeed 	= 5;
+		this.projectileSize 	= 10;
 		this.projectileDamage 	= 2;
 		this.projectileColor	= "#2f4d2f";
 
 		this.singleShot = true;
 		this.burstShot = false;
 		this.machineShot = false;
-
 		this.burst = 3;
-		this.burstCount;
-		this.recentlyShot = false;
+
+		this.poisonDamage = 0;
+		this.poisonDuration = 0;
+
+		this.skillPoints = 1;
 	}
 
 	static getInstance() {

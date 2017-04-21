@@ -77,7 +77,7 @@ class DisplayObject {
 	 * Loads the image, sets a flag called 'loaded' when the image is ready to be drawn
 	 */
 	loadImage(filename) {
-		console.log("load " + filename);
+		// console.log("load " + filename);
 		var t = this;
 		this.displayImage = new Image();
   		this.displayImage.onload = function(){
