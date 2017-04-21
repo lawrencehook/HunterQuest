@@ -46,6 +46,8 @@ class Character extends Entity {
 		this.poisonDamage = 0;
 		this.poisonDuration = 0;
 
+		this.lifeSteal = 0;
+
 		this.skillPoints = 1;
 
 		this.spSpent = [0,0,0,0,0];
@@ -373,6 +375,14 @@ class Character extends Entity {
 			this.level += 1;
 			this.skillPoints += 1;
 			this.maxHealth += 5;
+		}
+	}
+
+	regainHealth(amount) {
+		if (this.hp + amount > this.maxHealth) {
+			this.hp = this.maxHealth;
+		} else {
+			this.hp = this.hp + amount;
 		}
 	}
 
