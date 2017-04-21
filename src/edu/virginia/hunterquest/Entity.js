@@ -23,13 +23,13 @@ class Entity extends AnimatedSprite {
 		if (projectiles) {
 			for (var i = projectiles.size()-1; i >= 0; i--) {
 				var projectile = projectiles.get(i);
-				if (this.id === "character" ^ projectile.isFriendly) {
+				if (projectile != undefined && this.id === "character" ^ projectile.isFriendly) {
 					if (this.hitboxActive && this.xCollides(projectile) && this.yCollides(projectile)) {
 						// this.eventDispatcher.dispatchEvent(new StatusEvent("DAMAGE_TAKEN", projectile, projectile.damage));
 						this.updateHealth(projectile.damage);
 						if (this.flinchable) {
 							this.flinch(projectile);
-							Game.getInstance().soundManager.playSound("grunt");
+							SoundManager.getInstance().playSound("grunt");
 						}
 						projectile.destroy();
 					}
@@ -88,6 +88,7 @@ class Entity extends AnimatedSprite {
 	die() {
 		if (this.id === "character") {
 			// game over - reset level
+			SoundManager.getInstance().playSound("death");
 			Character.getInstance().reset();
 			Game.getInstance().restartLevel();
 		}

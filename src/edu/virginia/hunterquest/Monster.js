@@ -20,6 +20,8 @@ class Monster extends Entity {
 		this.attackCooldown = attackCooldown;
 		this.maxACooldown = attackCooldown;
 		this.attackPhase = true;
+		this.phaseChange = false;
+		this.attackType = 1;
 
 		this.projectileSpeed = 10;
 		this.projectileSize = 10;
@@ -29,6 +31,7 @@ class Monster extends Entity {
 	}
 
 	attack1() {
+		console.log("attack1");
 		var projectileX = this.getHitboxCenter().x;
 		var projectileY = this.getHitboxCenter().y;
 
@@ -48,7 +51,50 @@ class Monster extends Entity {
 		if(this.maxACooldown !== 0 && this.attackCooldown <= 0) {
 			this.attackPhase = !this.attackPhase;
 			this.attackCooldown = this.maxACooldown;
-			//console.log("Phase change!");
+			if(this.id === "finalBoss") {
+				if(this.phaseChange) {
+					this.attackType = 2;
+					this.phaseChange = false;
+				} else {
+					this.phaseChange = true;
+				}
+			}
+		} else {
+			this.attackCooldown -= 1;
+		}
+	}
+
+	attack2() {
+		console.log("attack2");
+		var projectileX = this.getHitboxCenter().x;
+		var projectileY = this.getHitboxCenter().y;
+
+		if (this.attackPhase && this.frameCounter % this.attackSpeed == 0) {
+			// ATTACK!
+			var character = Character.getInstance();
+			var diffPosition = character.getHitboxCenter().minus(this.getHitboxCenter());
+			var dx = diffPosition.x;
+			var dy = diffPosition.y;
+			var angle = Math.atan2(dy,dx);
+			// console.log(angle);
+			for(var i = 0; i < 12; i++) {
+				var vx = this.projectileSpeed * Math.cos(angle - 1.571 + (15 * i * Math.PI/180));
+				var vy = this.projectileSpeed * Math.sin(angle - 1.571 + (15 * i * Math.PI/180));
+				new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, "", this.projectileTracking);
+			}
+		}
+
+		if(this.maxACooldown !== 0 && this.attackCooldown <= 0) {
+			this.attackPhase = !this.attackPhase;
+			this.attackCooldown = this.maxACooldown;
+			if(this.id === "finalBoss") {
+				if(this.phaseChange) {
+					this.attackType = 1;
+					this.phaseChange = false;
+				} else {
+					this.phaseChange = true;
+				}
+			}
 		} else {
 			this.attackCooldown -= 1;
 		}
@@ -64,7 +110,13 @@ class Monster extends Entity {
 		}
 
 		if (this.id == "finalBoss") {
-			this.attack1();
+			if(this.attackType == 1) {
+				this.attack1();
+			} else if(this.attackType == 2) {
+				this.attack2();
+			} else {
+				this.attack1();
+			}
 		}
 	}
 
