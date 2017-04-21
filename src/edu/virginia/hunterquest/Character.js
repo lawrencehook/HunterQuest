@@ -224,6 +224,7 @@ class Character extends Entity {
 
 			if (!badDirection) {
 				new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
+				SoundManager.getInstance().playSound("laser");
 			}
 		}
 	}
@@ -270,11 +271,13 @@ class Character extends Entity {
 					case "right":
 						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, -vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
 						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
+						SoundManager.getInstance().playSound("laser");
 						break;
 					case "up":
 					case "down":
 						new Projectile(x, y, this.projectileWidth, this.projectileHeight, -vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
 						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
+						SoundManager.getInstance().playSound("laser");
 						break;
 					default:
 				}
@@ -320,6 +323,7 @@ class Character extends Entity {
 
 			if (!badDirection) {
 				new SplitProjectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
+				SoundManager.getInstance().playSound("laser");
 			}
 		}
 	}

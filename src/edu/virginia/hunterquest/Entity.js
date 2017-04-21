@@ -29,7 +29,7 @@ class Entity extends AnimatedSprite {
 						this.updateHealth(projectile.damage);
 						if (this.flinchable) {
 							this.flinch(projectile);
-							Game.getInstance().soundManager.playSound("grunt");
+							SoundManager.getInstance().playSound("grunt");
 						}
 						projectile.destroy();
 					}
@@ -88,6 +88,7 @@ class Entity extends AnimatedSprite {
 	die() {
 		if (this.id === "character") {
 			// game over - reset level
+			SoundManager.getInstance().playSound("death");
 			Character.getInstance().reset();
 			Game.getInstance().restartLevel();
 		}
