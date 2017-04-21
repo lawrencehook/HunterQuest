@@ -16,7 +16,7 @@ class LevelFour extends Level {
 		bigMonster.projectileSpeed = 5;
 		bigMonster.projectileSize = 5;
 		bigMonster.projectileDamage = 1;
-		bigMonster.projectileColor = "#f4df42";
+		bigMonster.projectileColor = "#130951";
 
 		bigMonster.hp = 25;
 		bigMonster.maxHealth = 25;
@@ -29,7 +29,7 @@ class LevelFour extends Level {
 		bigMonster2.projectileSpeed = 5;
 		bigMonster2.projectileSize = 5;
 		bigMonster2.projectileDamage = 1;
-		bigMonster2.projectileColor = "#f4df42";
+		bigMonster2.projectileColor = "#130951";
 
 		bigMonster2.hp = 25;
 		bigMonster2.maxHealth = 25;
