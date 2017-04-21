@@ -143,41 +143,48 @@ class Sidebar extends DisplayObjectContainer {
 		super.update(pressedKeys);
 		var char = Character.getInstance();
 
-		if (!this.upgrading) {
+			console.log(this.upgrading);
 			if (char.skillPoints) {
 				// 1
 				if (pressedKeys.indexOf(49) != -1) {
-					this.upgrading = true;
-					char.skillPoints -= 1;
-					char.maxHealth += 20;
-					char.spSpent[0] += 1;
+					if (!this.upgrading) {
+						this.upgrading = true;
+						char.skillPoints -= 1;
+						char.maxHealth += 20;
+						char.spSpent[0] += 1;
+					}
 				} else if (pressedKeys.indexOf(50) != -1) {
-					this.upgrading = true;
-					char.skillPoints -= 1;
-					// char.cooldown += 3;
-					char.spSpent[1] += 1;
-
+					if (!this.upgrading) {
+						this.upgrading = true;
+						char.skillPoints -= 1;
+						// char.cooldown += 3;
+						char.spSpent[1] += 1;
+					}
 				} else if (pressedKeys.indexOf(51) != -1) {
-					this.upgrading = true;
-					char.skillPoints -= 1;
-					char.projectileDamage += 5;
-					char.spSpent[2] += 1;
-
+					if (!this.upgrading) {
+						this.upgrading = true;
+						char.skillPoints -= 1;
+						char.projectileDamage += 5;
+						char.spSpent[2] += 1;
+					}
 				} else if (pressedKeys.indexOf(52) != -1) {
-					this.upgrading = true;
-					char.skillPoints -= 1;
-					char.poisonDamage += 2;
-					char.spSpent[3] += 1;
-
+					if (!this.upgrading) {
+						this.upgrading = true;
+						char.skillPoints -= 1;
+						char.poisonDamage += 2;
+						char.spSpent[3] += 1;
+					}
 				} else if (pressedKeys.indexOf(53) != -1) {
-					this.upgrading = true;
-					char.skillPoints -= 1;
-					char.lifeSteal += .1;
-					char.spSpent[4] += 1;
+					if (!this.upgrading) {
+						this.upgrading = true;
+						char.skillPoints -= 1;
+						char.lifeSteal += .1;
+						char.spSpent[4] += 1;
+					}
+				} else {
+					this.upgrading = false;
 				}
 			}
-		} else {
-			this.upgrading = false;
-		}
+
 	}
 }
