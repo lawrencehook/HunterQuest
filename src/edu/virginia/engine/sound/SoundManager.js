@@ -30,6 +30,10 @@ class SoundManager {
 
 	stopAllSounds() {
 		for (var id in this.sounds) {
+			if (typeof this.sounds[id].loop == 'boolean')
+		    	if (!this.sounds[id].loop)
+		    		continue;
+		    
 			this.stopSound(id);
 		}
 	}

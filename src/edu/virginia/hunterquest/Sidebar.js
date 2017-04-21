@@ -143,41 +143,56 @@ class Sidebar extends DisplayObjectContainer {
 		super.update(pressedKeys);
 		var char = Character.getInstance();
 
-		if (!this.upgrading) {
-			if (char.skillPoints) {
-				// 1
-				if (pressedKeys.indexOf(49) != -1) {
+		if (char.skillPoints) {
+			// 1
+			if (pressedKeys.indexOf(49) != -1) {
+				if (!this.upgrading) {
 					this.upgrading = true;
 					char.skillPoints -= 1;
 					char.maxHealth += 20;
 					char.spSpent[0] += 1;
-				} else if (pressedKeys.indexOf(50) != -1) {
+					SoundManager.getInstance().playSound("purchase");
+				}
+
+			} else if (pressedKeys.indexOf(50) != -1) {
+				if (!this.upgrading) {
 					this.upgrading = true;
 					char.skillPoints -= 1;
 					// char.cooldown += 3;
 					char.spSpent[1] += 1;
+					SoundManager.getInstance().playSound("purchase");
+				}
 
-				} else if (pressedKeys.indexOf(51) != -1) {
+			} else if (pressedKeys.indexOf(51) != -1) {
+				if (!this.upgrading) {
 					this.upgrading = true;
 					char.skillPoints -= 1;
 					char.projectileDamage += 5;
 					char.spSpent[2] += 1;
+					SoundManager.getInstance().playSound("purchase");
+			}
 
-				} else if (pressedKeys.indexOf(52) != -1) {
+			} else if (pressedKeys.indexOf(52) != -1) {
+				if (!this.upgrading) {
 					this.upgrading = true;
 					char.skillPoints -= 1;
 					char.poisonDamage += 2;
 					char.spSpent[3] += 1;
+					SoundManager.getInstance().playSound("purchase");
+				}
 
-				} else if (pressedKeys.indexOf(53) != -1) {
+			} else if (pressedKeys.indexOf(53) != -1) {
+				if (!this.upgrading) {
 					this.upgrading = true;
 					char.skillPoints -= 1;
 					char.lifeSteal += .1;
 					char.spSpent[4] += 1;
+					SoundManager.getInstance().playSound("purchase");
 				}
+
+			} else {
+				this.upgrading = false;
 			}
-		} else {
-			this.upgrading = false;
-		}
+		} 
 	}
 }

@@ -375,6 +375,7 @@ class Character extends Entity {
 			this.level += 1;
 			this.skillPoints += 1;
 			this.maxHealth += 5;
+			SoundManager.getInstance().playSound("levelup");
 		}
 	}
 

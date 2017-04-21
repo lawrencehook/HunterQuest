@@ -64,7 +64,6 @@ class Monster extends Entity {
 	}
 
 	attack2() {
-		console.log("attack2");
 		var projectileX = this.getHitboxCenter().x;
 		var projectileY = this.getHitboxCenter().y;
 
