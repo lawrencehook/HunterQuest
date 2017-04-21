@@ -44,5 +44,6 @@ class LevelFive extends Level {
 
 		this.monsters.push(bigMonster);
 		this.monsters.push(bigMonster2);
+
 	}
 }

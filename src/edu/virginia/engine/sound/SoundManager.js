@@ -13,8 +13,12 @@ class SoundManager {
 		return SoundManager.instance;
 	}
 
+	addSound(id, audio) {
+		(this.sounds)[id] = audio;
+	}
+
 	playSound(id) {
-		if (this.sounds[id].paused == false)
+		if (!this.sounds[id].paused)
 			this.stopSound(id);
 		this.sounds[id].play();
 	}
@@ -25,12 +29,9 @@ class SoundManager {
 	}
 
 	stopAllSounds() {
-		/*
-		this.sounds.forEach( function(sound) {
-			sound.pause();
-			sound.currentTime = 0;
-		});
-		*/
+		for (var id in this.sounds) {
+			this.stopSound(id);
+		}
 	}
 
 	loopSound(id, startTime=0) {
@@ -49,19 +50,18 @@ class SoundManager {
 		this.sounds[id].play();
 	}
 
-	changeMusic(id1, id2, keepCurrentTime=false) {
-		if (keepCurrentTime) {
+	setBackgroundMusic(id) {
+		if (this.sounds[id].paused) {
+			this.stopAllSounds();
+			this.loopSound(id);
+		}
+	}
+
+	transitionBackgroundMusic(id1, id2) {
+		if (!this.sounds[id1].paused) {
 			var currentTime = this.sounds[id1].currentTime;
 			this.stopSound(id1);
 			this.loopSound(id2, currentTime);
 		}
-		else {
-			this.stopSound(id1);
-			this.loopSound(id2);
-		}
-	}
-
-	addSound(id, audio) {
-		(this.sounds)[id] = audio;
 	}
 }

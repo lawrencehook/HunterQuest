@@ -35,5 +35,7 @@ class LevelFour extends Level {
 		bigMonster2.maxHealth = 25;
 
 		this.monsters = [bigMonster, bigMonster2];
+
+		SoundManager.getInstance().setBackgroundMusic("level3");
 	}
 }

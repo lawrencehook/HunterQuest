@@ -22,6 +22,8 @@ class FinalBoss extends Level {
 		finalBoss.position = (new Point(0.5*game.canvasWidth, 50)).minus(new Point(0.5*finalBoss.getUnscaledWidth(), 0));
 
 		this.monsters = [finalBoss];
+
+		SoundManager.getInstance().setBackgroundMusic("bosslevel");
 	}
 
 }

@@ -15,6 +15,5 @@ class LevelTwo extends Level {
 			this.monsters[i] = new Monster("enemy1", "spritesheet.png", marioSprites, game.gamescreen);
 			this.monsters[i].position = (new Point(Math.random() * screenWidth, Math.random() * screenHeight));
 		}
-
 	}
 }

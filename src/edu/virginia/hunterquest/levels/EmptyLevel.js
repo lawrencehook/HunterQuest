@@ -12,7 +12,7 @@ class EmptyLevel extends Level {
 	}
 
 	initialize() {
-		SoundManager.getInstance().loopSound("level0");
+		SoundManager.getInstance().setBackgroundMusic("level0");
 	}
 
 }
