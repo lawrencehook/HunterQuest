@@ -14,7 +14,7 @@ class Monster extends Entity {
 		this.maxHealth = 5;
 
 		this.gold = 100;
-		this.exp = 10;
+		this.exp = 75;
 
 		this.speed = 2;
 		this.attackCooldown = attackCooldown;
