@@ -1,6 +1,6 @@
 "use strict";
 
-class LevelFive extends Level {
+class LevelEight extends Level {
 	constructor() {
 		super();
 	}

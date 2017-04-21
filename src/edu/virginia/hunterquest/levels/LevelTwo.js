@@ -12,7 +12,7 @@ class LevelTwo extends Level {
 		var screenHeight = game.gamescreen.height - 50;
 		
 		for (var i = 0; i < 3; i++) {
-			this.monsters[i] = new Monster("enemy1", "spritesheet.png", marioSprites, game.gamescreen);
+			this.monsters[i] = new Monster("enemy1", "monster/wyatt.png", null, game.gamescreen);
 			this.monsters[i].position = (new Point(Math.random() * screenWidth, Math.random() * screenHeight));
 		}
 	}
