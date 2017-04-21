@@ -8,9 +8,10 @@ class LevelThree extends Level {
 	initialize() {
 		super.initialize();
 		var game = Game.getInstance();
-		var bigMonster = new Monster("enemy1", "spritesheet.png", marioSprites, game.gamescreen)
+		var bigMonster = new Monster("enemy1", "monster/steve.png", null, game.gamescreen);
 
-		bigMonster.position = game.midPoint.minus(bigMonster.getHitboxCenter());
+		// bigMonster.position = game.midPoint.minus(bigMonster.getHitboxCenter());
+		bigMonster.position = game.midPoint;
 
 		bigMonster.attackSpeed = 100;
 		bigMonster.projectileSpeed = 5;
