@@ -34,7 +34,7 @@ class Character extends Entity {
 
 		this.projectileWidth 	= 10;
 		this.projectileHeight	= 10;
-		this.projectileSpeed 	= 5;
+		this.projectileSpeed 	= 20;
 
 		this.burstCount;
 		this.recentlyShot = false;
@@ -407,7 +407,7 @@ class Character extends Entity {
 		for(var i = 0; i < 24; i++) {
 				var vx = this.projectileSpeed * Math.cos(noise*1.571 + (15 * i * Math.PI/180));
 				var vy = this.projectileSpeed * Math.sin(noise*1.571 + (15 * i * Math.PI/180));
-				new Projectile(this.getHitboxCenter().x, this.getHitboxCenter().y, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
+				new Projectile(this.getHitboxCenter().x, this.getHitboxCenter().y, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
 			}
 		}
 

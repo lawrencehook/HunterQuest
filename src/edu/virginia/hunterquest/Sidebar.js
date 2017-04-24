@@ -72,13 +72,6 @@ class Sidebar extends DisplayObjectContainer {
 			context.fillRect(0.505*this.width, 125, 0.3*this.width, 50);
 			context.fillStyle = "whitesmoke";
 			context.fillRect(0.05*this.width, 195, 0.3*this.width, 50);
-		} else {
-			context.fillStyle = "whitesmoke";
-			context.fillRect(0.05*this.width, 125, 0.3*this.width, 50);
-			context.fillStyle = "whitesmoke";
-			context.fillRect(0.505*this.width, 125, 0.3*this.width, 50);
-			context.fillStyle = "gold";
-			context.fillRect(0.05*this.width, 195, 0.3*this.width, 50);
 		} else if (curWep == 4) {
 			context.fillStyle = "#666768";
 			context.fillRect(0.05*this.width, 125, 0.3*this.width, 50);
@@ -88,6 +81,13 @@ class Sidebar extends DisplayObjectContainer {
 			context.fillRect(0.05*this.width, 195, 0.3*this.width, 50);
 			context.fillStyle = "#ffff0a";
 			context.fillRect(0.505*this.width, 195, 0.3*this.width, 50);
+		} else {
+			context.fillStyle = "whitesmoke";
+			context.fillRect(0.05*this.width, 125, 0.3*this.width, 50);
+			context.fillStyle = "whitesmoke";
+			context.fillRect(0.505*this.width, 125, 0.3*this.width, 50);
+			context.fillStyle = "gold";
+			context.fillRect(0.05*this.width, 195, 0.3*this.width, 50);
 
 		}
 
