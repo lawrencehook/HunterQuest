@@ -193,6 +193,9 @@ class HunterQuest extends Game {
 			}		
 			else if(this.currentLevel == 0) {
 				write(context, "black", "20px Macondo", "Press Enter to Begin Your Quest", 200, 100);
+			} else if(this.currentLevel == 11) {
+				var finishMessage = "You've defeated the demon!  Congratulations!\nYou've beaten HunterQuest!";
+				write(context, "black", "20px Macondo", finishMessage, 200, 100);
 			}
 		} else {
 			if (!this.pauseWritten) {

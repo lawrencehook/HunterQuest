@@ -131,6 +131,7 @@ class Sidebar extends DisplayObjectContainer {
 					this.upgrading = true;
 					char.skillPoints -= 1;
 					char.maxHealth += 5;
+					char.hp += 5;
 					char.spSpent[0] += 1;
 					SoundManager.getInstance().playSound("purchase");
 				}
