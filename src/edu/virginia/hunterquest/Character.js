@@ -10,9 +10,11 @@ class Character extends Entity {
 		Character.instance = this;
 
 		// preload projectile images
-		this.loadImage("weapons/energyball.png");
-		this.loadImage("weapons/fireball.png");
-		this.loadImage("weapons/superfireball.png");
+		this.loadImage("weapon/energyball.png");
+		this.loadImage("weapon/fireball.png");
+		this.loadImage("weapon/superfireball.png");
+		this.loadImage("weapon/darkball.png");
+		this.loadImage("weapon/solarball.png");
 		// Set proper character image
 		this.loadImage(filename);
 
@@ -46,7 +48,7 @@ class Character extends Entity {
 		this.projectileSize 	= 10;
 		this.projectileDamage 	= 0.5;
 		this.projectileColor	= "#2f4d2f";
-		this.projectileFilename = "weapons/energyball.png";
+		this.projectileFilename = "weapon/energyball.png";
 
 		this.singleShot = true;
 		this.burstShot = false;

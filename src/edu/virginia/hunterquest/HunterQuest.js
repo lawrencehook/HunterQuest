@@ -13,7 +13,6 @@ class HunterQuest extends Game {
 		canvas.width = canvasWidth;
 		canvas.height = canvasHeight;
 
-
 		super("Hunter Quest", canvasWidth, canvasHeight, canvas);
 
 		this.sidebarWidth = 150;

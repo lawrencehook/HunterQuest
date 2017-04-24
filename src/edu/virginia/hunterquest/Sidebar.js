@@ -48,13 +48,13 @@ class Sidebar extends DisplayObjectContainer {
 		context.fillStyle = "#000000";
 		context.fillText("Experience", 5, 43);
 
-		// Deaths
-		context.fillStyle = "#000000";
-		char.deaths == 1 ? context.fillText("1 Death", 5, 85) : context.fillText(char.deaths + " Deaths", 5, 85);
-
 		// Level
 		context.fillStyle = "#000000";
-		context.fillText("Power Level " + char.level, 5, 105);
+		context.fillText("Power Level " + char.level, 5, 85);
+
+		// Deaths
+		context.fillStyle = "#000000";
+		char.deaths == 1 ? context.fillText("1 Death", 5, 105) : context.fillText(char.deaths + " Deaths", 5, 105);
 
 		// Weapons
 		var curWep = char.weapon;
