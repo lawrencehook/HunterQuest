@@ -13,7 +13,10 @@ be able to restart it by refreshing the page.  Our decision to use
 javascript is so that in the future we can embed our game into a website
 and increase the scope of people who can access our game.
 
-The goal of the game is to proceed through the levels 
+The goal of the game is to proceed through the levels and defeat the evil
+demon overlord that is attack your home village.  Only by defeating the
+henchmen of the demon overlord can you power up and gain the strength to
+vanquish him once and for all!
 
 ## Controls
 
