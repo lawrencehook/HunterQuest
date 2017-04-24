@@ -29,7 +29,6 @@ class FinalBoss extends Level {
 		finalBoss.projectileSize = 30;
 		finalBoss.projectileDamage = 35;
 		finalBoss.projectileColor = "#fb00d4";
-		finalBoss.projectileFilename = "weapons/superfireball.png";
 
 		finalBoss.position = (new Point(0.5*game.canvasWidth, 50)).minus(new Point(0.5*finalBoss.getUnscaledWidth(), 0));
 
