@@ -37,6 +37,35 @@ class LevelNine extends Level {
 		simon2.hp = 25;
 		simon2.maxHealth = 25;
 
+		var movingMonster1 = new Monster("enemy3", "monster/simon.png", null, game.gamescreen, 100);
+
+		var screenWidth = game.gamescreen.width - 50;
+		var screenHeight = game.gamescreen.height - 50;
+
+		movingMonster1.position = game.midPoint.minus(new Point(75, 0));
+
+		movingMonster1.attackSpeed = 30;
+		movingMonster1.projectileSpeed = 5;
+		movingMonster1.projectileSize = 5;
+		movingMonster1.projectileDamage = 5;
+		movingMonster1.projectileColor = "#130951";
+
+		movingMonster1.hp = 25;
+		movingMonster1.maxHealth = 25;
+
+		var movingMonster2 = new Monster("enemy3", "monster/simon.png", null, game.gamescreen, 100);
+
+		movingMonster2.position = game.midPoint.plus(new Point(75, 0));
+
+		movingMonster2.attackSpeed = 30;
+		movingMonster2.projectileSpeed = 5;
+		movingMonster2.projectileSize = 5;
+		movingMonster2.projectileDamage =5;
+		movingMonster2.projectileColor = "#130951";
+
+		movingMonster2.hp = 25;
+		movingMonster2.maxHealth = 25;
+
 		var bigMonster = new Monster("enemy1", "monster/steve.png", null, game.gamescreen);
 		bigMonster.position = game.midPoint.minus(new Point(0, (game.gamescreen.height/2)-75));
 
@@ -64,13 +93,17 @@ class LevelNine extends Level {
 		bigMonster2.hp = 50;
 		bigMonster2.maxHealth = 50;
 
-		for (var i = 0; i < 5; i++) {
+		for (var i = 0; i < 3; i++) {
 			this.monsters[i] = new Monster("enemy1", "monster/wyatt.png", null, game.gamescreen);
 			this.monsters[i].position = (new Point(Math.random() * screenWidth, Math.random() * screenHeight));
 		}
 
+		this.monsters.push(bigMonster);
+		this.monsters.push(bigMonster2);
 		this.monsters.push(simon1);
 		this.monsters.push(simon2);
+		this.monsters.push(movingMonster1);
+		this.monsters.push(movingMonster2);
 
 	}
 }
