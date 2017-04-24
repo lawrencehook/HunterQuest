@@ -130,8 +130,9 @@ class Character extends Entity {
 		//this.moving = this.movingDown || this.movingRight || this.movingUp || this.movingLeft;
 		this.moving = pressedKeys.indexOf(65) != -1 || pressedKeys.indexOf(87) != -1 || pressedKeys.indexOf(68) != -1 || pressedKeys.indexOf(83) != -1;
 
+
 		/*
-		 * Shooting projectiles
+		 * Attacking
 		 */
 		var direction = "";
 		for (var i = pressedKeys.size(); i >= 0; i--) {
@@ -163,7 +164,7 @@ class Character extends Entity {
 		if (this.singleShot) {
 			if (direction != "") {
 				if (!this.recentlyShot) {
-					Character.getInstance()[this.attackType](direction);
+					this[this.attackType](direction);
 					this.recentlyShot = true;
 				}
 			} else {
@@ -172,19 +173,19 @@ class Character extends Entity {
 		} else if (this.burstShot) {
 			if (direction != "") {
 				if (!this.recentlyShot) {
-					this.burstCount = this.burst;
 					this.recentlyShot = true;
-				}
-				if (this.burstCount > 0) {
-					Character.getInstance()[this.attackType](direction);
-					this.burstCount -= 1;
+					this.burstCount = this.burst;
 				}
 			} else {
 				this.recentlyShot = false;
 			}
+			if (this.burstCount > 0) {
+				this[this.attackType](direction);
+				this.burstCount -= 1;
+			}
 		} else if (this.machineShot) {
 			if (direction != "") {
-				Character.getInstance()[this.attackType](direction);
+				this[this.attackType](direction);
 			}
 
 			if(this.cooldown <= 0) {
