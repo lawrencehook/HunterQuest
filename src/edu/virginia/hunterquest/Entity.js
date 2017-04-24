@@ -25,7 +25,6 @@ class Entity extends AnimatedSprite {
 				var projectile = projectiles.get(i);
 				if (projectile != undefined && this.id === "character" ^ projectile.isFriendly) {
 					if (this.hitboxActive && this.xCollides(projectile) && this.yCollides(projectile)) {
-						// this.eventDispatcher.dispatchEvent(new StatusEvent("DAMAGE_TAKEN", projectile, projectile.damage));
 						this.updateHealth(projectile.damage);
 						
 						// Only the character is flinchable (so far)
@@ -54,7 +53,6 @@ class Entity extends AnimatedSprite {
 	}
 
 	getPercentHealth() {
-		//console.log(this.hp, this.maxHealth);
 		return this.hp / this.maxHealth;
 	}
 
@@ -77,10 +75,7 @@ class Entity extends AnimatedSprite {
 		var p1 = this.getHitboxCenter();
 		var p2 = source.getHitboxCenter();
 
-		//if (source.getId() === "projectile")
-			var angle = Math.atan2(source.getVy(), source.getVx());
-
-		//console.log(angle*180/Math.PI);
+		var angle = Math.atan2(source.getVy(), source.getVx());
 
 		this.hitboxActive = false;
 
@@ -104,12 +99,11 @@ class Entity extends AnimatedSprite {
 			// game over - reset level
 			SoundManager.getInstance().playSound("death");
 			Character.getInstance().reset();
+			this.deaths += 1;
 			Game.getInstance().restartLevel();
 		}
 		else {
-			// this.parent.removeChild(this);
-			// this.parent = undefined;
-			if (this.parent) {	// if this entity has not already been destroyed during this frame
+			if (this.parent) {	// to prevent destroying twice in one frame, check if parent is still defined
 				this.destroy();
 				Character.getInstance().enemyDefeated(this.gold, this.exp);
 			}
