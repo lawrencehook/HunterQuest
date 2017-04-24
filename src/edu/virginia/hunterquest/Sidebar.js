@@ -137,11 +137,20 @@ class Sidebar extends DisplayObjectContainer {
 			// Cooldown reduction
 			} else if (pressedKeys.indexOf(50) != -1) {
 				if (!this.upgrading) {
-					this.upgrading = true;
-					char.skillPoints -= 1;
-					// char.cooldown += 3;
-					char.spSpent[1] += 1;
-					SoundManager.getInstance().playSound("purchase");
+					var coolDownMax = 2;
+					if (char.spSpent[1] < coolDownMax) {
+						this.upgrading = true;
+						char.skillPoints -= 1;
+						// char.cooldown += 3;
+						char.spSpent[1] += 1;
+						SoundManager.getInstance().playSound("purchase");
+
+						// If cooldown is upgraded 5 times, burst is unlocked!
+						if (char.spSpent[1] >= coolDownMax) {
+							char.burstShot = true;
+							char.singleShot = false;
+						}
+					}
 				}
 			// Projectile Damage
 			} else if (pressedKeys.indexOf(51) != -1) {
@@ -166,7 +175,7 @@ class Sidebar extends DisplayObjectContainer {
 				if (!this.upgrading) {
 					this.upgrading = true;
 					char.skillPoints -= 1;
-					char.lifeSteal += .07;
+					char.lifeSteal += .2;
 					char.spSpent[4] += 1;
 					SoundManager.getInstance().playSound("purchase");
 				}
