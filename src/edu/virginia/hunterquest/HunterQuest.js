@@ -105,6 +105,14 @@ class HunterQuest extends Game {
 		this.paused = false;
 		this.pauseCD = false;
 		this.pausWritten = false;
+
+		// pre-load projectiles
+		// 	no parent, so not in the draw-update tree
+		this.projectile1 = new DisplayObject("projectile1_preload", "weapon/energyball.png");
+		this.projectile2 = new DisplayObject("projectile2_preload", "weapon/fireball.png");
+		this.projectile3 = new DisplayObject("projectile3_preload", "weapon/superfireball.png");
+		this.projectile4 = new DisplayObject("projectile4_preload", "weapon/darkball.png");
+		this.projectile5 = new DisplayObject("projectile5_preload", "weapon/redball.png");
 	}
 
 	update(pressedKeys) {
