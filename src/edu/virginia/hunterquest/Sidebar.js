@@ -16,8 +16,8 @@ class Sidebar extends DisplayObjectContainer {
 
 	onClick(e) {
 		var game = Game.getInstance();
-		console.log(e);
-		console.log(game.mouse);
+		// console.log(e);
+		// console.log(game.mouse);
 	}
 
 

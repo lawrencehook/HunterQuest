@@ -21,6 +21,9 @@ class Game extends DisplayObjectContainer {
 		this.pressedKeys = new ArrayList();
 		this.clickedKeys = {};
 
+		this.paused = false;
+		this.pauseCD = false;
+
 		/* Setup a key listener */
 		window.addEventListener("keydown", onKeyDown, true);
 		window.addEventListener("keyup", onKeyUp, true);

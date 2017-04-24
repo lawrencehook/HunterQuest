@@ -84,7 +84,6 @@ class HunterQuest extends Game {
 
 		// Hunter Quest
 		this.gamescreen = new GameScreen("gamescreen", this, this.sidebarWidth, 0, this.canvasWidth - this.sidebarWidth, this.canvasHeight);
-
 		this.sidebar = new Sidebar("sidebar", "", this, this.sidebarWidth, this.canvasHeight);
 
 		this.hunter = new Character("character", "hunter/hunter.png", hunterSprites, this.gamescreen);
@@ -165,6 +164,19 @@ class HunterQuest extends Game {
 
 		if (pressedKeys.indexOf(32) != -1) {
 			if (this.levels[this.currentLevel].empty) this.levels[this.currentLevel].completed = true;
+		}
+
+		if (pressedKeys.indexOf(80) != -1) {
+			if (!this.pauseCD) {
+				this.paused = !this.paused;
+				this.pauseCD = true;
+			} else {
+				this.pauseCD = false;
+			}
+		}
+
+		if (this.paused) {
+			console.log("Game paused");
 		}
 
 	}
