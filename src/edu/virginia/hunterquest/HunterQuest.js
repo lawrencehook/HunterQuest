@@ -33,21 +33,6 @@ class HunterQuest extends Game {
 		this.sidebar.onClick(e);
 	}
 
-	update(pressedKeys) {
-		super.update(pressedKeys);
-
-		this.tweenJuggler.nextFrame();
-	}
-
-	draw(context) {
-		context.clearRect(0, 0, this.width, this.height);
-		super.draw(context);
-
-		if (this.questManager.coinPickedUp) {
-			write(context, "black", "20px Georgia", "You picked up a coin!", 15, 25);
-		}
-	}
-
 	restart() {
 		// Remove all children from Game.
 		this.removeAll();
