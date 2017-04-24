@@ -168,11 +168,12 @@ class HunterQuest extends Game {
 			this.pause();
 		}
 
-		if (pressedKeys.indexOf(32) != -1) {
+		// Advance from the first level
+		if (pressedKeys.indexOf(13) != -1) {
 			if (this.levels[this.currentLevel].empty) this.levels[this.currentLevel].completed = true;
 		}
 
-		if (pressedKeys.indexOf(80) != -1) {
+		if (pressedKeys.indexOf(32) != -1) {
 			if (!this.pauseCD) {
 				this.paused = !this.paused;
 				this.pauseCD = true;
@@ -206,7 +207,7 @@ class HunterQuest extends Game {
 				write(context, "black", "20px Macondo", this.completeMessage, 200, 100);
 			}		
 			else if(this.currentLevel == 0) {
-				write(context, "black", "20px Macondo", "Press Spacebar to Begin Your Quest", 200, 100);
+				write(context, "black", "20px Macondo", "Press Enter to Begin Your Quest", 200, 100);
 			}
 		} else {
 			if (!this.pauseWritten) {
