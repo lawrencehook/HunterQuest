@@ -49,6 +49,8 @@ class Monster extends Entity {
 
 		if (this.id == "enemy1") {
 			this.attack1();
+		} else if(this.id == "enemy2") {
+			this.attack1();
 		} else if(this.id == "enemy3") {
 			this.attack3();
 		} else if (this.id == "finalBoss") {

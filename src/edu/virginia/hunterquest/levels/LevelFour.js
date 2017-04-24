@@ -8,7 +8,7 @@ class LevelFour extends Level {
 	initialize() {
 		super.initialize();
 		var game = Game.getInstance();
-		var bigMonster = new Monster("enemy2", "monster/simon.png", null, game.gamescreen, 100)
+		var bigMonster = new Monster("enemy2", "monster/laserdude.png", null, game.gamescreen, 100)
 
 		bigMonster.position = game.midPoint.minus(new Point(75, 0));
 
@@ -21,7 +21,7 @@ class LevelFour extends Level {
 		bigMonster.hp = 25;
 		bigMonster.maxHealth = 25;
 
-		var bigMonster2 = new Monster("enemy2", "monster/simon.png", null, game.gamescreen, 100)
+		var bigMonster2 = new Monster("enemy2", "monster/laserdude.png", null, game.gamescreen, 100)
 
 		bigMonster2.position = game.midPoint.plus(new Point(75, 0));
 
