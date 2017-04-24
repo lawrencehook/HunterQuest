@@ -99,6 +99,7 @@ class Entity extends AnimatedSprite {
 			// game over - reset level
 			SoundManager.getInstance().playSound("death");
 			Character.getInstance().reset();
+			this.deaths += 1;
 			Game.getInstance().restartLevel();
 		}
 		else {

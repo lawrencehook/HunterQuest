@@ -22,7 +22,7 @@ instead of a full fledged game.
 ## Controls
 
 | **Key** | **Action** |
-|---|:---:|:---:|
+|:---:|:---:|
 |W|Move up|
 |A|Move left|
 |S|Move down|

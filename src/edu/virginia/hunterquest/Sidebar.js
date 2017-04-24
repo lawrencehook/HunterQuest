@@ -48,9 +48,9 @@ class Sidebar extends DisplayObjectContainer {
 		context.fillStyle = "#000000";
 		context.fillText("Experience", 5, 43);
 
-		// Gold
+		// Deaths
 		context.fillStyle = "#000000";
-		context.fillText(char.gold + " Gold", 5, 85);
+		char.deaths == 1 ? context.fillText("1 Death", 5, 85) : context.fillText(char.deaths + " Deaths", 5, 85);
 
 		// Level
 		context.fillStyle = "#000000";
