@@ -13,11 +13,7 @@ be able to restart it by refreshing the page.  Our decision to use
 javascript is so that in the future we can embed our game into a website
 and increase the scope of people who can access our game.
 
-The goals of the prototype is simply just spawning enemies and defeating
-them to accrue gold and experience.  To do this, you shoot bullets at
-them while dodging the bullets they shoot at you.  There is no end
-condition implemented yet in the game, as it is more of a technical demo
-instead of a full fledged game.
+The goal of the game is to proceed through the levels 
 
 ## Controls
 

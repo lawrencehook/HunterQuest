@@ -130,8 +130,8 @@ class HunterQuest extends Game {
 		if (this.levels[this.currentLevel].isCompleted()) {
 			if (this.currentLevel < this.levels.length - 1) {
 				this.levelComplete = true;
-				console.log("Level " + (this.currentLevel + 1) + " completed!");
-				this.completeMessage = "Level " + (this.currentLevel + 1) + " completed!";
+				console.log("Level " + (this.currentLevel) + " completed!");
+				this.completeMessage = "Level " + (this.currentLevel) + " completed!";
 				this.currentLevel += 1;
 				this.levels[this.currentLevel].initialize();
 			} else {
