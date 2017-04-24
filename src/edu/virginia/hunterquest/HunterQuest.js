@@ -13,7 +13,6 @@ class HunterQuest extends Game {
 		canvas.width = canvasWidth;
 		canvas.height = canvasHeight;
 
-
 		super("Hunter Quest", canvasWidth, canvasHeight, canvas);
 
 		this.sidebarWidth = 150;
@@ -32,21 +31,6 @@ class HunterQuest extends Game {
 
 	onClick(e) {
 		this.sidebar.onClick(e);
-	}
-
-	update(pressedKeys) {
-		super.update(pressedKeys);
-
-		this.tweenJuggler.nextFrame();
-	}
-
-	draw(context) {
-		context.clearRect(0, 0, this.width, this.height);
-		super.draw(context);
-
-		if (this.questManager.coinPickedUp) {
-			write(context, "black", "20px Georgia", "You picked up a coin!", 15, 25);
-		}
 	}
 
 	restart() {
@@ -79,12 +63,11 @@ class HunterQuest extends Game {
 		this.soundManager.addSound("level1", new Audio("resources/music/level1.wav"));
 		this.soundManager.addSound("level2", new Audio("resources/music/level2.wav"));
 		this.soundManager.addSound("level3", new Audio("resources/music/level3.wav"));
-		this.soundManager.addSound("level4", new Audio("resources/music/level4.wav"));
+		this.soundManager.addSound("minibosslevel", new Audio("resources/music/miniboss.wav"));
 		this.soundManager.addSound("bosslevel", new Audio("resources/music/boss.wav"));
 
 		// Hunter Quest
 		this.gamescreen = new GameScreen("gamescreen", this, this.sidebarWidth, 0, this.canvasWidth - this.sidebarWidth, this.canvasHeight);
-
 		this.sidebar = new Sidebar("sidebar", "", this, this.sidebarWidth, this.canvasHeight);
 
 		this.hunter = new Character("character", "hunter/hunter.png", hunterSprites, this.gamescreen);
@@ -117,6 +100,11 @@ class HunterQuest extends Game {
 		this.messageDelay = 200;
 
 		this.levels[this.currentLevel].initialize();
+
+		// Pausing
+		this.paused = false;
+		this.pauseCD = false;
+		this.pausWritten = false;
 	}
 
 	update(pressedKeys) {
@@ -127,8 +115,8 @@ class HunterQuest extends Game {
 		if (this.levels[this.currentLevel].isCompleted()) {
 			if (this.currentLevel < this.levels.length - 1) {
 				this.levelComplete = true;
-				console.log("Level " + (this.currentLevel + 1) + " completed!");
-				this.completeMessage = "Level " + (this.currentLevel + 1) + " completed!";
+				console.log("Level " + (this.currentLevel) + " completed!");
+				this.completeMessage = "Level " + (this.currentLevel) + " completed!";
 				this.currentLevel += 1;
 				this.levels[this.currentLevel].initialize();
 			} else {
@@ -138,11 +126,13 @@ class HunterQuest extends Game {
 				this.pause();
 			}
 		} else {
-			if(this.messageDelay <= 0) {
-				this.levelComplete = false;
-				this.messageDelay = 200;
-			} else {
-				this.messageDelay -= 1;
+			if (!this.paused) {
+				if(this.messageDelay <= 0) {
+					this.levelComplete = false;
+					this.messageDelay = 200;
+				} else {
+					this.messageDelay -= 1;
+				}
 			}
 		}
 
@@ -163,19 +153,53 @@ class HunterQuest extends Game {
 			this.pause();
 		}
 
-		if (pressedKeys.indexOf(32) != -1) {
+		// Advance from the first level
+		if (pressedKeys.indexOf(13) != -1) {
 			if (this.levels[this.currentLevel].empty) this.levels[this.currentLevel].completed = true;
 		}
+
+		if (pressedKeys.indexOf(32) != -1) {
+			if (!this.pauseCD) {
+				this.paused = !this.paused;
+				this.pauseCD = true;
+				if (this.paused) {
+					this.pauseWritten = false;
+					this.removeChild(this.gamescreen);
+				} else {
+					if (!this.contains(this.gamescreen)) {
+						this.addChild(this.gamescreen);
+					}
+				}
+			}
+		} else {
+			this.pauseCD = false;
+		}
+
 
 	}
 
 	draw(context) {
-		context.clearRect(0, 0, this.width, this.height);
+		if (this.paused) {
+			context.clearRect(0, 0, this.sidebar.width, this.sidebar.height);
+		} else {
+			context.clearRect(0, 0, this.width, this.height);
+		}
+
 		super.draw(context);
 
-		if(this.levelComplete === true) {
-			write(context, "black", "20px Georgia", this.completeMessage, 200, 100);
-		}		
+		if (!this.paused) {
+			if(this.levelComplete === true) {
+				write(context, "black", "20px Macondo", this.completeMessage, 200, 100);
+			}		
+			else if(this.currentLevel == 0) {
+				write(context, "black", "20px Macondo", "Press Enter to Begin Your Quest", 200, 100);
+			}
+		} else {
+			if (!this.pauseWritten) {
+				write(context, "black", "20px Macondo", "Paused!", this.width - 200, 100);
+				this.pauseWritten = true;
+			}
+		}
 	}
 }
 

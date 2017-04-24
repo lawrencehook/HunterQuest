@@ -14,12 +14,12 @@ class Monster extends Entity {
 		this.maxHealth = 5;
 
 		this.gold = 100;
-		this.exp = 75;
+		this.exp = 50;
 
 		this.speed = 2;
 		this.attackCooldown = attackCooldown;
 		this.maxACooldown = attackCooldown;
-		this.attackPhase = true;
+		this.attackPhase = false;
 		this.phaseChange = false;
 		this.attackType = 1;
 
@@ -28,6 +28,14 @@ class Monster extends Entity {
 		this.projectileDamage = 2;
 		this.projectileColor = "#2f4d2f";
 		this.projectileTracking = 0;
+		if (id == "finalBoss")
+			this.projectileFilename = "weapon/superfireball.png";
+		else if (id == "enemy2")
+			this.projectileFilename = "weapon/redball.png";
+		else if (id == "enemy3")
+			this.projectileFilename = "weapon/darkball.png";
+		else
+			this.projectileFilename = "weapon/fireball.png"
 
 		this.poisoned = false;
 		this.poisonDamage;
@@ -40,6 +48,8 @@ class Monster extends Entity {
 		this.frameCounter += 1;
 
 		if (this.id == "enemy1") {
+			this.attack1();
+		} else if(this.id == "enemy2") {
 			this.attack1();
 		} else if(this.id == "enemy3") {
 			this.attack3();
@@ -101,7 +111,7 @@ class Monster extends Entity {
 			// console.log(angle);
 			var vx = this.projectileSpeed * Math.cos(angle);
 			var vy = this.projectileSpeed * Math.sin(angle);
-			new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, "", this.projectileTracking);
+			new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, this.projectileFilename, this.projectileTracking);
 		}
 
 		if(this.maxACooldown !== 0 && this.attackCooldown <= 0) {
@@ -117,6 +127,8 @@ class Monster extends Entity {
 					this.phaseChange = true;
 				}
 			}
+		} else if(this.maxACooldown === 0) {
+			this.attackPhase = true;
 		} else {
 			this.attackCooldown -= 1;
 		}
@@ -137,7 +149,7 @@ class Monster extends Entity {
 			for(var i = 0; i < 12; i++) {
 				var vx = this.projectileSpeed * Math.cos(angle - 1.571 + (15 * i * Math.PI/180));
 				var vy = this.projectileSpeed * Math.sin(angle - 1.571 + (15 * i * Math.PI/180));
-				new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, "", this.projectileTracking);
+				new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, this.projectileFilename, this.projectileTracking);
 			}
 		}
 
@@ -174,7 +186,7 @@ class Monster extends Entity {
 			for(var i = 0; i < 24; i++) {
 				var vx = this.projectileSpeed * Math.cos(angle - 1.571 + (15 * i * Math.PI/180));
 				var vy = this.projectileSpeed * Math.sin(angle - 1.571 + (15 * i * Math.PI/180));
-				new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, "", this.projectileTracking);
+				new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, this.projectileFilename, this.projectileTracking);
 			}
 		}
 

@@ -16,8 +16,8 @@ class Sidebar extends DisplayObjectContainer {
 
 	onClick(e) {
 		var game = Game.getInstance();
-		console.log(e);
-		console.log(game.mouse);
+		// console.log(e);
+		// console.log(game.mouse);
 	}
 
 
@@ -26,8 +26,10 @@ class Sidebar extends DisplayObjectContainer {
 
 		var char = Character.getInstance();
 
+		context.font = "bold 15px Macondo";
+
 		// Background color
-		context.fillStyle = "#708a98";
+		context.fillStyle = "silver";
 		context.fillRect(this.x, this.y, this.width, this.height);
 
 		// Health bar
@@ -36,50 +38,46 @@ class Sidebar extends DisplayObjectContainer {
 		context.fillStyle = "#00ff08";
 		context.fillRect(5, 15, char.getPercentHealth() * (0.8*this.width), 13);
 		context.fillStyle = "#000000";
-		context.font = "15px Times New Roman";
 		context.fillText("Health", 5, 13);
 
 		// Experience bar
-		context.fillStyle = "#666768";
+		context.fillStyle = "whitesmoke";
 		context.fillRect(5, 45, 0.8*this.width, 13);
-		context.fillStyle = "#ffff1c";
-		context.fillRect(5, 45, char.exp/100 * (0.8*this.width), 13);
+		context.fillStyle = "gold";
+		context.fillRect(5, 45, char.exp/(100 + ((char.level-1)*50)) * (0.8*this.width), 13);
 		context.fillStyle = "#000000";
-		context.font = "15px Times New Roman";
 		context.fillText("Experience", 5, 43);
-
-		// Gold
-		context.fillStyle = "#000000";
-		context.font = "15px Times New Roman";
-		context.fillText(char.gold + " Gold", 5, 85);
 
 		// Level
 		context.fillStyle = "#000000";
-		context.font = "15px Times New Roman";
-		context.fillText("Power Level " + char.level, 5, 105);
+		context.fillText("Power Level " + char.level, 5, 85);
+
+		// Deaths
+		context.fillStyle = "#000000";
+		char.deaths == 1 ? context.fillText("1 Death", 5, 105) : context.fillText(char.deaths + " Deaths", 5, 105);
 
 		// Weapons
 		var curWep = char.weapon;
 		if (curWep == 1) {
-			context.fillStyle = "#ffff0a";
+			context.fillStyle = "gold";
 			context.fillRect(0.05*this.width, 125, 0.3*this.width, 50);
-			context.fillStyle = "#666768";
+			context.fillStyle = "whitesmoke";
 			context.fillRect(0.505*this.width, 125, 0.3*this.width, 50);
-			context.fillStyle = "#666768";
+			context.fillStyle = "whitesmoke";
 			context.fillRect(0.05*this.width, 195, 0.3*this.width, 50);
-		} else if (curWep == 2) {
-			context.fillStyle = "#666768";
+		} else if(curWep == 2) {
+			context.fillStyle = "whitesmoke";
 			context.fillRect(0.05*this.width, 125, 0.3*this.width, 50);
-			context.fillStyle = "#ffff0a";
+			context.fillStyle = "gold";
 			context.fillRect(0.505*this.width, 125, 0.3*this.width, 50);
-			context.fillStyle = "#666768";
+			context.fillStyle = "whitesmoke";
 			context.fillRect(0.05*this.width, 195, 0.3*this.width, 50);
-		} else if (curWep == 3) {
-			context.fillStyle = "#666768";
+		} else {
+			context.fillStyle = "whitesmoke";
 			context.fillRect(0.05*this.width, 125, 0.3*this.width, 50);
-			context.fillStyle = "#666768";
+			context.fillStyle = "whitesmoke";
 			context.fillRect(0.505*this.width, 125, 0.3*this.width, 50);
-			context.fillStyle = "#ffff0a";
+			context.fillStyle = "gold";
 			context.fillRect(0.05*this.width, 195, 0.3*this.width, 50);
 		} else if (curWep == 4) {
 			context.fillStyle = "#666768";
@@ -120,7 +118,7 @@ class Sidebar extends DisplayObjectContainer {
 			ts = 30;
 
 		context.fillText("Store : " + char.skillPoints + " SP", 5, 295);
-		context.fillStyle = "#f5ffff";
+		context.fillStyle = "whitesmoke";
 		context.fillRect(5, 300, (0.85*this.width), 5*ts + 10);
 		context.fillStyle = "#000000";
 		context.fillText("1 Max Health", 10, ft);
@@ -156,11 +154,20 @@ class Sidebar extends DisplayObjectContainer {
 			// Cooldown reduction
 			} else if (pressedKeys.indexOf(50) != -1) {
 				if (!this.upgrading) {
-					this.upgrading = true;
-					char.skillPoints -= 1;
-					// char.cooldown += 3;
-					char.spSpent[1] += 1;
-					SoundManager.getInstance().playSound("purchase");
+					var coolDownMax = 2;
+					if (char.spSpent[1] < coolDownMax) {
+						this.upgrading = true;
+						char.skillPoints -= 1;
+						// char.cooldown += 3;
+						char.spSpent[1] += 1;
+						SoundManager.getInstance().playSound("purchase");
+
+						// If cooldown is upgraded 5 times, burst is unlocked!
+						if (char.spSpent[1] >= coolDownMax) {
+							char.burstShot = true;
+							char.singleShot = false;
+						}
+					}
 				}
 			// Projectile Damage
 			} else if (pressedKeys.indexOf(51) != -1) {
@@ -185,7 +192,7 @@ class Sidebar extends DisplayObjectContainer {
 				if (!this.upgrading) {
 					this.upgrading = true;
 					char.skillPoints -= 1;
-					char.lifeSteal += .07;
+					char.lifeSteal += .2;
 					char.spSpent[4] += 1;
 					SoundManager.getInstance().playSound("purchase");
 				}

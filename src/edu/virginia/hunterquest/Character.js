@@ -10,7 +10,11 @@ class Character extends Entity {
 		Character.instance = this;
 
 		// preload projectile images
-		this.loadImage("weapons/fireball.png");
+		this.loadImage("weapon/energyball.png");
+		this.loadImage("weapon/fireball.png");
+		this.loadImage("weapon/superfireball.png");
+		this.loadImage("weapon/darkball.png");
+		this.loadImage("weapon/redball.png");
 		// Set proper character image
 		this.loadImage(filename);
 
@@ -21,6 +25,7 @@ class Character extends Entity {
 
 
 		this.hp = 30;
+		this.deaths = 0;
 
 		this.flinchable = true;
 		this.weapon = 1;
@@ -43,6 +48,7 @@ class Character extends Entity {
 		this.projectileSize 	= 10;
 		this.projectileDamage 	= 0.5;
 		this.projectileColor	= "#2f4d2f";
+		this.projectileFilename = "weapon/energyball.png";
 
 		this.singleShot = true;
 		this.burstShot = false;
@@ -121,7 +127,8 @@ class Character extends Entity {
 			this.movingDown = false;
 		}
 
-		this.moving = this.movingDown || this.movingRight || this.movingUp || this.movingLeft;
+		//this.moving = this.movingDown || this.movingRight || this.movingUp || this.movingLeft;
+		this.moving = pressedKeys.indexOf(65) != -1 || pressedKeys.indexOf(87) != -1 || pressedKeys.indexOf(68) != -1 || pressedKeys.indexOf(83) != -1;
 
 		/*
 		 * Shooting projectiles
@@ -290,7 +297,7 @@ class Character extends Entity {
 			}
 
 			if (!badDirection) {
-				new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
+				new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
 				SoundManager.getInstance().playSound("laser");
 			}
 		}
@@ -336,14 +343,14 @@ class Character extends Entity {
 				switch(direction) {
 					case "left":
 					case "right":
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, -vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, -vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
 						SoundManager.getInstance().playSound("laser");
 						break;
 					case "up":
 					case "down":
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, -vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, -vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
 						SoundManager.getInstance().playSound("laser");
 						break;
 					default:
@@ -389,7 +396,7 @@ class Character extends Entity {
 			}
 
 			if (!badDirection) {
-				new SplitProjectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
+				new SplitProjectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
 				SoundManager.getInstance().playSound("laser");
 			}
 		}
@@ -402,6 +409,59 @@ class Character extends Entity {
 				var vy = this.projectileSpeed * Math.sin(noise*1.571 + (15 * i * Math.PI/180));
 				new Projectile(this.getHitboxCenter().x, this.getHitboxCenter().y, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
 			}
+		}
+
+	checkBounds() {
+		if (this.position.x <= this.xMinBound) {
+			this.block.left = true;
+			this.position.x = this.xMinBound;
+		} else {
+			this.block.left = false;
+		}
+		if (this.position.x >= this.xMaxBound - this.getUnscaledWidth()) {
+			this.block.right = true;
+			this.position.x = this.xMaxBound - this.getUnscaledWidth();
+		} else {
+			this.block.right = false;
+		}
+		if (this.position.y <= this.yMinBound) {
+			this.block.up = true;
+			this.position.y = this.yMinBound;
+		} else {
+			this.block.up = false;
+		}
+		if (this.position.y >= this.yMaxBound - this.getUnscaledHeight()) {
+			this.block.down = true;
+			this.position.y = this.yMaxBound - this.getUnscaledHeight();
+			this.jumped = false;
+		} else {
+			this.block.down = false;
+		}
+	}
+
+	reset() {
+		this.hp = this.maxHealth;
+		this.position = Game.getInstance().midPoint.clone();
+	}
+
+	enemyDefeated(gold, exp) {
+		console.log("Exp gained: " + exp);
+		this.exp += exp;
+		if(this.exp >= 100 + ((this.level-1) * 50)) {
+			this.exp = 0;
+			this.level += 1;
+			this.skillPoints += 1;
+			this.maxHealth += 5;
+			SoundManager.getInstance().playSound("levelup");
+		}
+	}
+
+	regainHealth(amount) {
+		if (this.hp + amount > this.maxHealth) {
+			this.hp = this.maxHealth;
+		} else {
+			this.hp = this.hp + amount;
+		}
 	}
 
 }
