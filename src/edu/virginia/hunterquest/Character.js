@@ -14,7 +14,7 @@ class Character extends Entity {
 		this.loadImage("weapon/fireball.png");
 		this.loadImage("weapon/superfireball.png");
 		this.loadImage("weapon/darkball.png");
-		this.loadImage("weapon/solarball.png");
+		this.loadImage("weapon/redball.png");
 		// Set proper character image
 		this.loadImage(filename);
 
