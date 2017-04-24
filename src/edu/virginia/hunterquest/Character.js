@@ -377,11 +377,10 @@ class Character extends Entity {
 	}
 
 	enemyDefeated(gold, exp) {
-		console.log("Gold: " + gold + " | Exp: " + exp);
-		this.gold += gold;
+		console.log("Exp gained: " + exp);
 		this.exp += exp;
-		if(this.exp >= 100) {
-			this.exp -= 100;
+		if(this.exp >= 100 + ((this.level-1) * 50)) {
+			this.exp = 0;
 			this.level += 1;
 			this.skillPoints += 1;
 			this.maxHealth += 5;
