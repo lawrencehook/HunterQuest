@@ -78,7 +78,7 @@ class Character extends Entity {
 		} else if(pressedKeys.indexOf(69) != -1) { //Press E
 			if(!this.weaponChangeCooldown) {
 				this.weapon += 1;
-				if(this.weapon >= 4) {
+				if(this.weapon > 4) {
 					this.weapon = 1;
 				}
 				this.attackType = "attack" + this.weapon;
@@ -89,6 +89,9 @@ class Character extends Entity {
 		}
 
 
+		/*
+		 * Movement
+		 */
 		// left
 		if (pressedKeys.indexOf(65) != -1 && !this.block.left) {
 			this.position.x -= this.speed;
@@ -193,6 +196,61 @@ class Character extends Entity {
 			this.setAngle(utils.upAngle + this.position.getAngle(oldPosition));
 		}
 
+	}
+
+	checkBounds() {
+		if (this.position.x <= this.xMinBound) {
+			this.block.left = true;
+			this.position.x = this.xMinBound;
+		} else {
+			this.block.left = false;
+		}
+		if (this.position.x >= this.xMaxBound - this.getUnscaledWidth()) {
+			this.block.right = true;
+			this.position.x = this.xMaxBound - this.getUnscaledWidth();
+		} else {
+			this.block.right = false;
+		}
+		if (this.position.y <= this.yMinBound) {
+			this.block.up = true;
+			this.position.y = this.yMinBound;
+		} else {
+			this.block.up = false;
+		}
+		if (this.position.y >= this.yMaxBound - this.getUnscaledHeight()) {
+			this.block.down = true;
+			this.position.y = this.yMaxBound - this.getUnscaledHeight();
+			this.jumped = false;
+		} else {
+			this.block.down = false;
+		}
+	}
+
+	reset() {
+		this.hp = this.maxHealth;
+		this.position.y = 500;
+		this.position.x = 500;
+	}
+
+	enemyDefeated(gold, exp) {
+		console.log("Gold: " + gold + " | Exp: " + exp);
+		this.gold += gold;
+		this.exp += exp;
+		if(this.exp >= 100) {
+			this.exp -= 100;
+			this.level += 1;
+			this.skillPoints += 1;
+			this.maxHealth += 5;
+			SoundManager.getInstance().playSound("levelup");
+		}
+	}
+
+	regainHealth(amount) {
+		if (this.hp + amount > this.maxHealth) {
+			this.hp = this.maxHealth;
+		} else {
+			this.hp = this.hp + amount;
+		}
 	}
 
 	attack1(direction) {
@@ -337,59 +395,13 @@ class Character extends Entity {
 		}
 	}
 
-	checkBounds() {
-		if (this.position.x <= this.xMinBound) {
-			this.block.left = true;
-			this.position.x = this.xMinBound;
-		} else {
-			this.block.left = false;
-		}
-		if (this.position.x >= this.xMaxBound - this.getUnscaledWidth()) {
-			this.block.right = true;
-			this.position.x = this.xMaxBound - this.getUnscaledWidth();
-		} else {
-			this.block.right = false;
-		}
-		if (this.position.y <= this.yMinBound) {
-			this.block.up = true;
-			this.position.y = this.yMinBound;
-		} else {
-			this.block.up = false;
-		}
-		if (this.position.y >= this.yMaxBound - this.getUnscaledHeight()) {
-			this.block.down = true;
-			this.position.y = this.yMaxBound - this.getUnscaledHeight();
-			this.jumped = false;
-		} else {
-			this.block.down = false;
-		}
-	}
-
-	reset() {
-		this.hp = this.maxHealth;
-		this.position.y = 500;
-		this.position.x = 500;
-	}
-
-	enemyDefeated(gold, exp) {
-		console.log("Gold: " + gold + " | Exp: " + exp);
-		this.gold += gold;
-		this.exp += exp;
-		if(this.exp >= 100) {
-			this.exp -= 100;
-			this.level += 1;
-			this.skillPoints += 1;
-			this.maxHealth += 5;
-			SoundManager.getInstance().playSound("levelup");
-		}
-	}
-
-	regainHealth(amount) {
-		if (this.hp + amount > this.maxHealth) {
-			this.hp = this.maxHealth;
-		} else {
-			this.hp = this.hp + amount;
-		}
+	attack4() {
+		var noise = Math.random();
+		for(var i = 0; i < 24; i++) {
+				var vx = this.projectileSpeed * Math.cos(noise*1.571 + (15 * i * Math.PI/180));
+				var vy = this.projectileSpeed * Math.sin(noise*1.571 + (15 * i * Math.PI/180));
+				new Projectile(this.getHitboxCenter().x, this.getHitboxCenter().y, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
+			}
 	}
 
 }

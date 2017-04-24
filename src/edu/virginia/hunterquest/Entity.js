@@ -37,12 +37,10 @@ class Entity extends AnimatedSprite {
 							// Implement lifesteal & poisoning
 							var char = Character.getInstance();
 							char.regainHealth(char.lifeSteal * projectile.damage);
-							console.log(char.poisonDamage);
 							if (char.poisonDamage > 0) {
 								this.poisoned = true;
 								this.poisonDamage = char.poisonDamage;
 								this.poisonRemaining = char.poisonDuration;
-								console.log("poisoned!");
 							}
 						}
 						projectile.destroy();

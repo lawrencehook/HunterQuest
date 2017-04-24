@@ -67,20 +67,30 @@ class Sidebar extends DisplayObjectContainer {
 			context.fillRect(0.505*this.width, 125, 0.3*this.width, 50);
 			context.fillStyle = "#666768";
 			context.fillRect(0.05*this.width, 195, 0.3*this.width, 50);
-		} else if(curWep == 2) {
+		} else if (curWep == 2) {
 			context.fillStyle = "#666768";
 			context.fillRect(0.05*this.width, 125, 0.3*this.width, 50);
 			context.fillStyle = "#ffff0a";
 			context.fillRect(0.505*this.width, 125, 0.3*this.width, 50);
 			context.fillStyle = "#666768";
 			context.fillRect(0.05*this.width, 195, 0.3*this.width, 50);
-		} else {
+		} else if (curWep == 3) {
 			context.fillStyle = "#666768";
 			context.fillRect(0.05*this.width, 125, 0.3*this.width, 50);
 			context.fillStyle = "#666768";
 			context.fillRect(0.505*this.width, 125, 0.3*this.width, 50);
 			context.fillStyle = "#ffff0a";
 			context.fillRect(0.05*this.width, 195, 0.3*this.width, 50);
+		} else if (curWep == 4) {
+			context.fillStyle = "#666768";
+			context.fillRect(0.05*this.width, 125, 0.3*this.width, 50);
+			context.fillStyle = "#666768";
+			context.fillRect(0.505*this.width, 125, 0.3*this.width, 50);
+			context.fillStyle = "#666768";
+			context.fillRect(0.05*this.width, 195, 0.3*this.width, 50);
+			context.fillStyle = "#ffff0a";
+			context.fillRect(0.505*this.width, 195, 0.3*this.width, 50);
+
 		}
 
 		context.fillStyle = "#000000";
@@ -93,9 +103,16 @@ class Sidebar extends DisplayObjectContainer {
 		context.fillRect(0.68*this.width, 130, 0.05*this.width, 40);
 		
 		// Weapon III
-		context.fillRect(0.1*this.width, 200, 0.05*this.width, 40);		
+		context.fillRect(0.1*this.width, 200, 0.05*this.width, 40);
 		context.fillRect(0.175*this.width, 200, 0.05*this.width, 40);
 		context.fillRect(0.25*this.width, 200, 0.05*this.width, 40);
+
+		// Weapon IV
+		if (true) {
+			context.fillRect(0.1*this.width, 200, 0.05*this.width, 40);
+			context.fillRect(0.175*this.width, 200, 0.05*this.width, 40);
+			context.fillRect(0.25*this.width, 200, 0.05*this.width, 40);			
+		}
 
 
 		// Store
