@@ -124,7 +124,8 @@ class Character extends Entity {
 			this.movingDown = false;
 		}
 
-		this.moving = this.movingDown || this.movingRight || this.movingUp || this.movingLeft;
+		//this.moving = this.movingDown || this.movingRight || this.movingUp || this.movingLeft;
+		this.moving = pressedKeys.indexOf(65) != -1 || pressedKeys.indexOf(87) != -1 || pressedKeys.indexOf(68) != -1 || pressedKeys.indexOf(83) != -1;
 
 		/*
 		 * Shooting projectiles

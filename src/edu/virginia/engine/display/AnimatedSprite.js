@@ -28,7 +28,7 @@ class AnimatedSprite extends Sprite {
 		this.sw = this.currentFrame.width;
 		this.sh = this.currentFrame.height;
 
-		this.animationSpeedFactor = 10;
+		this.animationSpeedFactor = 4;
 		this.frameCounter = 0;
 	}
 
