@@ -8,7 +8,7 @@ class LevelNine extends Level {
 	initialize() {
 		super.initialize();
 		var game = Game.getInstance();
-		var simon1 = new Monster("enemy1", "monster/simon.png", null, game.gamescreen, 100);
+		var simon1 = new Monster("enemy2", "monster/simon.png", null, game.gamescreen, 100);
 
 		var screenWidth = game.gamescreen.width - 50;
 		var screenHeight = game.gamescreen.height - 50;
@@ -24,7 +24,7 @@ class LevelNine extends Level {
 		simon1.hp = 25;
 		simon1.maxHealth = 25;
 
-		var simon2 = new Monster("enemy1", "monster/simon.png", null, game.gamescreen, 100)
+		var simon2 = new Monster("enemy2", "monster/simon.png", null, game.gamescreen, 100)
 
 		simon2.position = game.midPoint.plus(new Point(75, 0));
 
