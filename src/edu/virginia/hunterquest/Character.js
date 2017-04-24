@@ -371,7 +371,7 @@ class Character extends Entity {
 
 	reset() {
 		this.hp = this.maxHealth;
-		this.position = Game.getInstance().midPoint;
+		this.position = Game.getInstance().midPoint.clone();
 	}
 
 	enemyDefeated(gold, exp) {
