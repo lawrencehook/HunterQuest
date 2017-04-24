@@ -26,5 +26,6 @@ class LevelSix extends Level {
 
 		this.monsters.push(simon1);
 
+		SoundManager.getInstance().setBackgroundMusic("level3");
 	}
 }

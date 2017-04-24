@@ -10,7 +10,9 @@ class Character extends Entity {
 		Character.instance = this;
 
 		// preload projectile images
+		this.loadImage("weapons/energyball.png");
 		this.loadImage("weapons/fireball.png");
+		this.loadImage("weapons/superfireball.png");
 		// Set proper character image
 		this.loadImage(filename);
 
@@ -43,6 +45,7 @@ class Character extends Entity {
 		this.projectileSize 	= 10;
 		this.projectileDamage 	= 0.5;
 		this.projectileColor	= "#2f4d2f";
+		this.projectileFilename = "weapons/energyball.png";
 
 		this.singleShot = true;
 		this.burstShot = false;
@@ -232,7 +235,7 @@ class Character extends Entity {
 			}
 
 			if (!badDirection) {
-				new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
+				new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
 				SoundManager.getInstance().playSound("laser");
 			}
 		}
@@ -278,14 +281,14 @@ class Character extends Entity {
 				switch(direction) {
 					case "left":
 					case "right":
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, -vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, -vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
 						SoundManager.getInstance().playSound("laser");
 						break;
 					case "up":
 					case "down":
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, -vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, -vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
+						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
 						SoundManager.getInstance().playSound("laser");
 						break;
 					default:
@@ -331,7 +334,7 @@ class Character extends Entity {
 			}
 
 			if (!badDirection) {
-				new SplitProjectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, "weapons/fireball.png");
+				new SplitProjectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
 				SoundManager.getInstance().playSound("laser");
 			}
 		}

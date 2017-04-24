@@ -27,6 +27,7 @@ class Monster extends Entity {
 		this.projectileSize = 10;
 		this.projectileDamage = 2;
 		this.projectileColor = "#2f4d2f";
+		this.projectileFilename = "weapons/fireball.png"
 		this.projectileTracking = 0;
 
 		this.poisoned = false;
@@ -101,7 +102,7 @@ class Monster extends Entity {
 			// console.log(angle);
 			var vx = this.projectileSpeed * Math.cos(angle);
 			var vy = this.projectileSpeed * Math.sin(angle);
-			new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, "", this.projectileTracking);
+			new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, this.projectileFilename, this.projectileTracking);
 		}
 
 		if(this.maxACooldown !== 0 && this.attackCooldown <= 0) {
@@ -137,7 +138,7 @@ class Monster extends Entity {
 			for(var i = 0; i < 12; i++) {
 				var vx = this.projectileSpeed * Math.cos(angle - 1.571 + (15 * i * Math.PI/180));
 				var vy = this.projectileSpeed * Math.sin(angle - 1.571 + (15 * i * Math.PI/180));
-				new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, "", this.projectileTracking);
+				new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, this.projectileFilename, this.projectileTracking);
 			}
 		}
 
@@ -174,7 +175,7 @@ class Monster extends Entity {
 			for(var i = 0; i < 24; i++) {
 				var vx = this.projectileSpeed * Math.cos(angle - 1.571 + (15 * i * Math.PI/180));
 				var vy = this.projectileSpeed * Math.sin(angle - 1.571 + (15 * i * Math.PI/180));
-				new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, "", this.projectileTracking);
+				new Projectile(projectileX, projectileY, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, false, this.projectileFilename, this.projectileTracking);
 			}
 		}
 

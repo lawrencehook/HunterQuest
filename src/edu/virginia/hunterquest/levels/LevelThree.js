@@ -25,6 +25,6 @@ class LevelThree extends Level {
 
 		this.monsters = [bigMonster];
 
-		SoundManager.getInstance().setBackgroundMusic("level2");
+		SoundManager.getInstance().setBackgroundMusic("minibosslevel");
 	}
 }

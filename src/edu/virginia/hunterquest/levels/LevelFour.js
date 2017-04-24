@@ -36,6 +36,6 @@ class LevelFour extends Level {
 
 		this.monsters = [bigMonster, bigMonster2];
 
-		SoundManager.getInstance().setBackgroundMusic("level3");
+		SoundManager.getInstance().setBackgroundMusic("level2");
 	}
 }
