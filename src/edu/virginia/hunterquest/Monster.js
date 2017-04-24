@@ -27,8 +27,15 @@ class Monster extends Entity {
 		this.projectileSize = 10;
 		this.projectileDamage = 2;
 		this.projectileColor = "#2f4d2f";
-		this.projectileFilename = "weapons/fireball.png"
 		this.projectileTracking = 0;
+		if (id == "finalBoss")
+			this.projectileFilename = "weapon/superfireball.png";
+		else if (id == "enemy2")
+			this.projectileFilename = "weapon/redball.png";
+		else if (id == "enemy3")
+			this.projectileFilename = "weapon/darkball.png";
+		else
+			this.projectileFilename = "weapon/fireball.png"
 
 		this.poisoned = false;
 		this.poisonDamage;
