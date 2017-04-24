@@ -31,7 +31,7 @@ class Monster extends Entity {
 		if (id == "finalBoss")
 			this.projectileFilename = "weapon/superfireball.png";
 		else if (id == "enemy2")
-			this.projectileFilename = "weapon/solarball.png";
+			this.projectileFilename = "weapon/redball.png";
 		else if (id == "enemy3")
 			this.projectileFilename = "weapon/darkball.png";
 		else
