@@ -19,7 +19,7 @@ class Monster extends Entity {
 		this.speed = 2;
 		this.attackCooldown = attackCooldown;
 		this.maxACooldown = attackCooldown;
-		this.attackPhase = true;
+		this.attackPhase = false;
 		this.phaseChange = false;
 		this.attackType = 1;
 
@@ -127,6 +127,8 @@ class Monster extends Entity {
 					this.phaseChange = true;
 				}
 			}
+		} else if(this.maxACooldown === 0) {
+			this.attackPhase = true;
 		} else {
 			this.attackCooldown -= 1;
 		}
