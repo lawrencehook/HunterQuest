@@ -186,8 +186,11 @@ class HunterQuest extends Game {
 		super.draw(context);
 
 		if(this.levelComplete === true) {
-			write(context, "black", "20px Georgia", this.completeMessage, 200, 100);
+			write(context, "black", "20px Macondo", this.completeMessage, 200, 100);
 		}		
+		else if(this.currentLevel == 0) {
+			write(context, "black", "20px Macondo", "Press Spacebar to Begin Your Quest", 200, 100);
+		}
 	}
 }
 
