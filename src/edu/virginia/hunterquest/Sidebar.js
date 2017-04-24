@@ -44,7 +44,7 @@ class Sidebar extends DisplayObjectContainer {
 		context.fillStyle = "whitesmoke";
 		context.fillRect(5, 45, 0.8*this.width, 13);
 		context.fillStyle = "gold";
-		context.fillRect(5, 45, char.exp/100 * (0.8*this.width), 13);
+		context.fillRect(5, 45, char.exp/(100 + ((char.level-1)*50)) * (0.8*this.width), 13);
 		context.fillStyle = "#000000";
 		context.fillText("Experience", 5, 43);
 
