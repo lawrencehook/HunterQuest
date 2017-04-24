@@ -13,7 +13,6 @@ class HunterQuest extends Game {
 		canvas.width = canvasWidth;
 		canvas.height = canvasHeight;
 
-
 		super("Hunter Quest", canvasWidth, canvasHeight, canvas);
 
 		this.sidebarWidth = 150;
@@ -116,6 +115,11 @@ class HunterQuest extends Game {
 		this.messageDelay = 200;
 
 		this.levels[this.currentLevel].initialize();
+
+		// Pausing
+		this.paused = false;
+		this.pauseCD = false;
+		this.pausWritten = false;
 	}
 
 	update(pressedKeys) {
@@ -137,11 +141,13 @@ class HunterQuest extends Game {
 				this.pause();
 			}
 		} else {
-			if(this.messageDelay <= 0) {
-				this.levelComplete = false;
-				this.messageDelay = 200;
-			} else {
-				this.messageDelay -= 1;
+			if (!this.paused) {
+				if(this.messageDelay <= 0) {
+					this.levelComplete = false;
+					this.messageDelay = 200;
+				} else {
+					this.messageDelay -= 1;
+				}
 			}
 		}
 
@@ -170,26 +176,43 @@ class HunterQuest extends Game {
 			if (!this.pauseCD) {
 				this.paused = !this.paused;
 				this.pauseCD = true;
-			} else {
-				this.pauseCD = false;
+				if (this.paused) {
+					this.pauseWritten = false;
+					this.removeChild(this.gamescreen);
+				} else {
+					if (!this.contains(this.gamescreen)) {
+						this.addChild(this.gamescreen);
+					}
+				}
 			}
+		} else {
+			this.pauseCD = false;
 		}
 
-		if (this.paused) {
-			console.log("Game paused");
-		}
 
 	}
 
 	draw(context) {
-		context.clearRect(0, 0, this.width, this.height);
+		if (this.paused) {
+			context.clearRect(0, 0, this.sidebar.width, this.sidebar.height);
+		} else {
+			context.clearRect(0, 0, this.width, this.height);
+		}
+
 		super.draw(context);
 
-		if(this.levelComplete === true) {
-			write(context, "black", "20px Macondo", this.completeMessage, 200, 100);
-		}		
-		else if(this.currentLevel == 0) {
-			write(context, "black", "20px Macondo", "Press Spacebar to Begin Your Quest", 200, 100);
+		if (!this.paused) {
+			if(this.levelComplete === true) {
+				write(context, "black", "20px Macondo", this.completeMessage, 200, 100);
+			}		
+			else if(this.currentLevel == 0) {
+				write(context, "black", "20px Macondo", "Press Spacebar to Begin Your Quest", 200, 100);
+			}
+		} else {
+			if (!this.pauseWritten) {
+				write(context, "black", "20px Macondo", "Paused!", this.width - 200, 100);
+				this.pauseWritten = true;
+			}
 		}
 	}
 }
