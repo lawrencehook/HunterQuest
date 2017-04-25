@@ -23,7 +23,7 @@ class Monster extends Entity {
 		this.phaseChange = false;
 		this.attackType = 1;
 
-		this.projectileSpeed = 10;
+		this.projectileSpeed = 5;
 		this.projectileSize = 10;
 		this.projectileDamage = 2;
 		this.projectileColor = "#2f4d2f";

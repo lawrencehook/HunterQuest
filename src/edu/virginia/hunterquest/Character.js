@@ -23,6 +23,7 @@ class Character extends Entity {
 		this.yMinBound = 0;
 		this.yMaxBound;
 
+		this.speed = 6;
 
 		this.hp = 30;
 		this.deaths = 0;
@@ -32,9 +33,7 @@ class Character extends Entity {
 		this.attackType = "attack1";
 		this.weaponChangeCooldown = false;
 
-		this.projectileWidth 	= 10;
-		this.projectileHeight	= 10;
-		this.projectileSpeed 	= 5;
+		this.projectileSpeed 	= 15;
 
 		this.burstCount;
 		this.recentlyShot = false;
@@ -45,7 +44,7 @@ class Character extends Entity {
 		this.level = 1;
 		this.maxHealth = 30;
 		this.cooldown = 0;
-		this.projectileSize 	= 10;
+		this.projectileSize 	= 12;
 		this.projectileDamage 	= 0.5;
 		this.projectileColor	= "#2f4d2f";
 		this.projectileFilename = "weapon/energyball.png";
@@ -212,26 +211,26 @@ class Character extends Entity {
 				case "left":
 					x = this.position.x - 10;
 					y = center.y - 5;
-					vx = -20;
+					vx = -this.projectileSpeed;
 					vy = 0;
 					break;
 				case "right":
 					x = this.position.x + this.getUnscaledWidth();
 					y = center.y - 5;
-					vx = 20;
+					vx = this.projectileSpeed;
 					vy = 0;
 					break;
 				case "up":
 					x = center.x - 5;
 					y = this.position.y - 10;
 					vx = 0;
-					vy = -20;
+					vy = -this.projectileSpeed;
 					break;
 				case "down":
 					x = center.x - 5;
 					y = this.position.y + this.getUnscaledHeight();
 					vx = 0;
-					vy = 20;
+					vy = this.projectileSpeed;
 					break;
 				default:
 					console.log("Bad projectile direction" + direction);
@@ -239,7 +238,7 @@ class Character extends Entity {
 			}
 
 			if (!badDirection) {
-				new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
+				new Projectile(x, y, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
 				SoundManager.getInstance().playSound("laser");
 			}
 		}
@@ -255,26 +254,26 @@ class Character extends Entity {
 				case "left":
 					x = this.position.x - 10;
 					y = center.y - 5;
-					vx = -20 * Math.cos(angle);
-					vy = 20 * Math.sin(angle);
+					vx = -this.projectileSpeed * Math.cos(angle);
+					vy = this.projectileSpeed * Math.sin(angle);
 					break;
 				case "right":
 					x = this.position.x + this.getUnscaledWidth();
 					y = center.y - 5;
-					vx = 20 * Math.cos(angle);
-					vy = 20 * Math.sin(angle);
+					vx = this.projectileSpeed * Math.cos(angle);
+					vy = this.projectileSpeed * Math.sin(angle);
 					break;
 				case "up":
 					x = center.x - 5;
 					y = this.position.y - 10;
-					vx = 20 * Math.sin(angle);
-					vy = -20 * Math.cos(angle);
+					vx = this.projectileSpeed * Math.sin(angle);
+					vy = -this.projectileSpeed * Math.cos(angle);
 					break;
 				case "down":
 					x = center.x - 5;
 					y = this.position.y + this.getUnscaledHeight();
-					vx = 20 * Math.sin(angle);
-					vy = 20 * Math.cos(angle);
+					vx = this.projectileSpeed * Math.sin(angle);
+					vy = this.projectileSpeed * Math.cos(angle);
 					break;
 				default:
 					console.log("Bad projectile direction " + direction);
@@ -285,14 +284,14 @@ class Character extends Entity {
 				switch(direction) {
 					case "left":
 					case "right":
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, -vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
+						new Projectile(x, y, this.projectileSize, this.projectileSize, vx, -vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
+						new Projectile(x, y, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
 						SoundManager.getInstance().playSound("laser");
 						break;
 					case "up":
 					case "down":
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, -vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
-						new Projectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
+						new Projectile(x, y, this.projectileSize, this.projectileSize, -vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
+						new Projectile(x, y, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
 						SoundManager.getInstance().playSound("laser");
 						break;
 					default:
@@ -311,26 +310,26 @@ class Character extends Entity {
 				case "left":
 					x = this.position.x - 10;
 					y = center.y - 5;
-					vx = -20;
+					vx = -this.projectileSpeed;
 					vy = 0;
 					break;
 				case "right":
 					x = this.position.x + this.getUnscaledWidth();
 					y = center.y - 5;
-					vx = 20;
+					vx = this.projectileSpeed;
 					vy = 0;
 					break;
 				case "up":
 					x = center.x - 5;
 					y = this.position.y - 10;
 					vx = 0;
-					vy = -20;
+					vy = -this.projectileSpeed;
 					break;
 				case "down":
 					x = center.x - 5;
 					y = this.position.y + this.getUnscaledHeight();
 					vx = 0;
-					vy = 20;
+					vy = this.projectileSpeed;
 					break;
 				default:
 					console.log("Bad projectile direction" + direction);
@@ -338,7 +337,7 @@ class Character extends Entity {
 			}
 
 			if (!badDirection) {
-				new SplitProjectile(x, y, this.projectileWidth, this.projectileHeight, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
+				new SplitProjectile(x, y, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
 				SoundManager.getInstance().playSound("laser");
 			}
 		}

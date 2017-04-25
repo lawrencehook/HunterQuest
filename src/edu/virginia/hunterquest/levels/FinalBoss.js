@@ -26,7 +26,7 @@ class FinalBoss extends Level {
 		finalBoss.gold = 1000;
 		finalBoss.exp = 0;
 
-		finalBoss.projectileSpeed = 20;
+		finalBoss.projectileSpeed = 10;
 		finalBoss.projectileSize = 30;
 		finalBoss.projectileDamage = 35;
 		finalBoss.projectileColor = "#fb00d4";
