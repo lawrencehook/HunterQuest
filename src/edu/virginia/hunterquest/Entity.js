@@ -80,8 +80,8 @@ class Entity extends AnimatedSprite {
 		var tween = new Tween(this);
 		TweenJuggler.add(tween);
 		tween.displayObject.eventDispatcher.addEventListener(this, "TWEEN_COMPLETE_EVENT");
-		tween.animate("x", this.position.x, this.position.x + 30*Math.cos(angle), 100);
-		tween.animate("y", this.position.y, this.position.y + 30*Math.sin(angle), 100);
+		tween.animate("x", this.position.x, this.position.x + 40*Math.cos(angle), 100);
+		tween.animate("y", this.position.y, this.position.y + 40*Math.sin(angle), 100);
 		this.hitboxActive = false;
 
 	}
