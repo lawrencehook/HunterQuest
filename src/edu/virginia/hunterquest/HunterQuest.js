@@ -79,7 +79,6 @@ class HunterQuest extends Game {
 		this.projectiles = new ArrayList();
 
 		this.levels = [];
-		this.levels.push(new LevelFour());
 		this.levels.push(new EmptyLevel());
 		this.levels.push(new LevelOne());
 		this.levels.push(new LevelTwo());
