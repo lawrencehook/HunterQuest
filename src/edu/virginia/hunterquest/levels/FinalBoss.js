@@ -17,7 +17,12 @@ class FinalBoss extends Level {
 	}
 
 	initialize() {
-		super.emptyLevel();
+		Game.getInstance().gamescreen.getChildren().contents.forEach(function(entity) {
+			//console.log("Entity id: " + entity.id);
+			if(entity.id.includes("projectile")) {
+				entity.destroy();
+			}
+		});
 		var game = Game.getInstance();
 		var finalBoss = new Monster("finalBoss", "monster/boss.png", bossSprites, game.gamescreen, 50)
 		finalBoss.hp = this.finalBossHealth;
