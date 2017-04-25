@@ -30,5 +30,7 @@ vanquish him once and for all!
 |Arrow left|Shoot left|
 |Arrow right|Shoot right|
 |Arrow down|Shoot down|
-|Q|Switch Weapons (up)|
-|E|Switch Weapons (down)|
+|Q|Switch weapons (up)|
+|E|Switch weapons (down)|
+|1-5|Purchase upgrades|
+|Spacebar|Pause|
