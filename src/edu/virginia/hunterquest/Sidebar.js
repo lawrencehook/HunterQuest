@@ -12,12 +12,22 @@ class Sidebar extends DisplayObjectContainer {
 		this.height = height;
 
 		this.upgrading = false;
+
+		this.resetBox = new Rectangle(56, this.height-33, 21, 21);
 	}
 
 	onClick(e) {
 		var game = Game.getInstance();
+		var mouse = game.mouse;
+
 		// console.log(e);
-		// console.log(game.mouse);
+		console.log(game.mouse);
+
+		// Restart
+		if (utils.containsPoint(this.resetBox, mouse.x, mouse.y)) {
+			console.log("restart game");
+			game.reset();
+		}
 	}
 
 	update(pressedKeys) {
@@ -216,6 +226,12 @@ class Sidebar extends DisplayObjectContainer {
 		var t = new Date(game.elapsedTime);
 		// context.fillText(t.getMinutes() + ":" + t.getSeconds() + " " + t.getMilliseconds(), 50, this.height - 50);
 		context.fillText(t.getMinutes() + ":" + t.getSeconds(), 55, this.height - 50);
+
+		context.font = "bold 35px Macondo";
+		context.fillText("\u21ba", 56, this.height - 15);
+		context.globalAlpha = 0.5;
+		context.fillRect(this.resetBox.x, this.resetBox.y, this.resetBox.width, this.resetBox.height);
+		context.globalAlpha = 1;
 	}
 
 }

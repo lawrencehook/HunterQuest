@@ -31,6 +31,11 @@ class Game extends DisplayObjectContainer {
 		return Game.instance;
 	}
 
+	reset() {
+		this.removeAll();
+		this.initialize();
+	}
+
 	update(pressedKeys) {
 		super.update(pressedKeys);
 	}
