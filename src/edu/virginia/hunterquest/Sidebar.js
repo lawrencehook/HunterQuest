@@ -24,6 +24,29 @@ class Sidebar extends DisplayObjectContainer {
 		super.update(pressedKeys);
 		var char = Character.getInstance();
 
+		// Weapon cycling
+		if(pressedKeys.indexOf(81) != -1) { //Press Q
+			if(!char.weaponChangeCooldown) {
+				char.weapon -= 1;
+				if(char.weapon <= 0) {
+					char.weapon = 3;
+				}
+				char.attackType = "attack" + char.weapon;
+				char.weaponChangeCooldown = true;
+			}
+		} else if(pressedKeys.indexOf(69) != -1) { //Press E
+			if(!char.weaponChangeCooldown) {
+				char.weapon += 1;
+				if(char.weapon >= 4) {
+					char.weapon = 1;
+				}
+				char.attackType = "attack" + char.weapon;
+				char.weaponChangeCooldown = true;
+			}
+		} else {
+			char.weaponChangeCooldown = false;
+		}
+
 		if (char.skillPoints) {
 			// Max Health
 			if (pressedKeys.indexOf(49) != -1) {

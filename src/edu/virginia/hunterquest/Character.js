@@ -64,30 +64,6 @@ class Character extends Entity {
 	updateCharacter(pressedKeys) {
 		var oldPosition = this.position.clone();
 
-		// Weapon cycling
-		if(pressedKeys.indexOf(81) != -1) { //Press Q
-			if(!this.weaponChangeCooldown) {
-				this.weapon -= 1;
-				if(this.weapon <= 0) {
-					this.weapon = 3;
-				}
-				this.attackType = "attack" + this.weapon;
-				this.weaponChangeCooldown = true;
-			}
-		} else if(pressedKeys.indexOf(69) != -1) { //Press E
-			if(!this.weaponChangeCooldown) {
-				this.weapon += 1;
-				if(this.weapon >= 4) {
-					this.weapon = 1;
-				}
-				this.attackType = "attack" + this.weapon;
-				this.weaponChangeCooldown = true;
-			}
-		} else {
-			this.weaponChangeCooldown = false;
-		}
-
-
 		// left
 		if (pressedKeys.indexOf(65) != -1 && !this.block.left) {
 			this.position.x -= this.speed;
