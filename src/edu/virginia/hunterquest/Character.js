@@ -353,7 +353,11 @@ class Character extends Entity {
 			this.exp = 0;
 			this.level += 1;
 			this.skillPoints += 1;
+
+			var percentHP = (this.hp / this.maxHealth);
 			this.maxHealth += 5;
+			this.hp = percentHP * this.maxHealth;
+
 			SoundManager.getInstance().playSound("levelup");
 		}
 	}
