@@ -20,11 +20,81 @@ class Sidebar extends DisplayObjectContainer {
 		// console.log(game.mouse);
 	}
 
+	update(pressedKeys) {
+		super.update(pressedKeys);
+		var char = Character.getInstance();
+
+		if (char.skillPoints) {
+			// Max Health
+			if (pressedKeys.indexOf(49) != -1) {
+				if (!this.upgrading) {
+					this.upgrading = true;
+					char.skillPoints -= 1;
+					char.maxHealth += 5;
+					char.hp += 5;
+					char.spSpent[0] += 1;
+					SoundManager.getInstance().playSound("purchase");
+				}
+			// Cooldown reduction
+			} else if (pressedKeys.indexOf(50) != -1) {
+				if (!this.upgrading) {
+					var coolDownMax = 2;
+					if (char.spSpent[1] < coolDownMax) {
+						this.upgrading = true;
+						char.skillPoints -= 1;
+						// char.cooldown += 3;
+						char.spSpent[1] += 1;
+						SoundManager.getInstance().playSound("purchase");
+
+						// If cooldown is upgraded 5 times, burst is unlocked!
+						if (char.spSpent[1] >= coolDownMax) {
+							char.burstShot = true;
+							char.singleShot = false;
+						}
+					}
+				}
+			// Projectile Damage
+			} else if (pressedKeys.indexOf(51) != -1) {
+				if (!this.upgrading) {
+					this.upgrading = true;
+					char.skillPoints -= 1;
+					char.projectileDamage += 0.5;
+					char.spSpent[2] += 1;
+					SoundManager.getInstance().playSound("purchase");
+				}
+			// Poison Damage
+			} else if (pressedKeys.indexOf(52) != -1) {
+				if (!this.upgrading) {
+					this.upgrading = true;
+					char.skillPoints -= 1;
+					char.poisonDamage += .02;
+					char.spSpent[3] += 1;
+					SoundManager.getInstance().playSound("purchase");
+				}
+			// Life Steal
+			} else if (pressedKeys.indexOf(53) != -1) {
+				if (!this.upgrading) {
+					this.upgrading = true;
+					char.skillPoints -= 1;
+					char.lifeSteal += .2;
+					char.spSpent[4] += 1;
+					SoundManager.getInstance().playSound("purchase");
+				}
+			} else {
+				this.upgrading = false;
+			}
+
+		} else {
+			this.upgrading = false;
+		}
+	}
+
 
 	draw(context) {
 		super.draw(context);
 
 		var char = Character.getInstance();
+		var game = Game.getInstance();
 
 		context.font = "bold 15px Macondo";
 
@@ -117,75 +187,11 @@ class Sidebar extends DisplayObjectContainer {
 				context.fillText(".", 20 + (5*j), (5) + (ft + i*ts));
 			}
 		}
-		
+
+		// Time elapsed
+		var t = new Date(game.elapsedTime);
+		// context.fillText(t.getMinutes() + ":" + t.getSeconds() + " " + t.getMilliseconds(), 50, this.height - 50);
+		context.fillText(t.getMinutes() + ":" + t.getSeconds(), 55, this.height - 50);
 	}
 
-	update(pressedKeys) {
-		super.update(pressedKeys);
-		var char = Character.getInstance();
-
-		if (char.skillPoints) {
-			// Max Health
-			if (pressedKeys.indexOf(49) != -1) {
-				if (!this.upgrading) {
-					this.upgrading = true;
-					char.skillPoints -= 1;
-					char.maxHealth += 5;
-					char.hp += 5;
-					char.spSpent[0] += 1;
-					SoundManager.getInstance().playSound("purchase");
-				}
-			// Cooldown reduction
-			} else if (pressedKeys.indexOf(50) != -1) {
-				if (!this.upgrading) {
-					var coolDownMax = 2;
-					if (char.spSpent[1] < coolDownMax) {
-						this.upgrading = true;
-						char.skillPoints -= 1;
-						// char.cooldown += 3;
-						char.spSpent[1] += 1;
-						SoundManager.getInstance().playSound("purchase");
-
-						// If cooldown is upgraded 5 times, burst is unlocked!
-						if (char.spSpent[1] >= coolDownMax) {
-							char.burstShot = true;
-							char.singleShot = false;
-						}
-					}
-				}
-			// Projectile Damage
-			} else if (pressedKeys.indexOf(51) != -1) {
-				if (!this.upgrading) {
-					this.upgrading = true;
-					char.skillPoints -= 1;
-					char.projectileDamage += 0.5;
-					char.spSpent[2] += 1;
-					SoundManager.getInstance().playSound("purchase");
-				}
-			// Poison Damage
-			} else if (pressedKeys.indexOf(52) != -1) {
-				if (!this.upgrading) {
-					this.upgrading = true;
-					char.skillPoints -= 1;
-					char.poisonDamage += .02;
-					char.spSpent[3] += 1;
-					SoundManager.getInstance().playSound("purchase");
-				}
-			// Life Steal
-			} else if (pressedKeys.indexOf(53) != -1) {
-				if (!this.upgrading) {
-					this.upgrading = true;
-					char.skillPoints -= 1;
-					char.lifeSteal += .2;
-					char.spSpent[4] += 1;
-					SoundManager.getInstance().playSound("purchase");
-				}
-			} else {
-				this.upgrading = false;
-			}
-
-		} else {
-			this.upgrading = false;
-		}
-	}
 }

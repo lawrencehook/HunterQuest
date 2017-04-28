@@ -26,6 +26,10 @@ class HunterQuest extends Game {
 		window.addEventListener("click", onClick, true);
 		this.mouse = utils.captureMouse(canvas);
 
+		this.startTime = null;
+		this.elapsedTime = 0;
+		this.gameOver = false;
+
 		this.initialize();
 	}
 
@@ -155,6 +159,10 @@ class HunterQuest extends Game {
 
 		// Advance from the first level
 		if (pressedKeys.indexOf(13) != -1) {
+			if (this.currentLevel == 0) {
+				this.startTime = this.clock.getElapsedTime();
+			}
+
 			if (this.levels[this.currentLevel].empty) this.levels[this.currentLevel].completed = true;
 		}
 
@@ -176,6 +184,10 @@ class HunterQuest extends Game {
 		}
 
 
+		// Elapsed time
+		if (this.startTime && !this.gameOver) {
+			this.elapsedTime = this.clock.getElapsedTime() - this.startTime;
+		}
 	}
 
 	draw(context) {
@@ -188,13 +200,16 @@ class HunterQuest extends Game {
 		super.draw(context);
 
 		if (!this.paused) {
-			if(this.levelComplete === true) {
+			if (this.levelComplete === true) {
 				write(context, "black", "20px Macondo", this.completeMessage, 200, 100);
+				if (this.currentLevel == 11) {
+					this.gameOver = true;
+				}
 			}		
-			else if(this.currentLevel == 0) {
+			else if (this.currentLevel == 0) {
 				write(context, "black", "20px Macondo", "Press Enter to Begin Your Quest", 200, 100);
-			} else if(this.currentLevel == 11) {
-				var finishMessage = "You've defeated the demon!  Congratulations!\nYou've beaten HunterQuest!";
+			} else if (this.currentLevel == 11) {
+				var finishMessage = "You defeated the demon!  Congratulations!\nYou beat HunterQuest!";
 				write(context, "black", "20px Macondo", finishMessage, 200, 100);
 			}
 		} else {
