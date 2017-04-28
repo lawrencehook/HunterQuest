@@ -229,9 +229,6 @@ class Sidebar extends DisplayObjectContainer {
 
 		context.font = "bold 35px Macondo";
 		context.fillText("\u21ba", 56, this.height - 15);
-		context.globalAlpha = 0.5;
-		context.fillRect(this.resetBox.x, this.resetBox.y, this.resetBox.width, this.resetBox.height);
-		context.globalAlpha = 1;
 	}
 
 }
