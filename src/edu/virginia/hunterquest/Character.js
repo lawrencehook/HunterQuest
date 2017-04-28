@@ -9,12 +9,6 @@ class Character extends Entity {
 		super(id, filename, jsonSprites, parentObj);
 		Character.instance = this;
 
-		// preload projectile images
-		this.loadImage("weapon/energyball.png");
-		this.loadImage("weapon/fireball.png");
-		this.loadImage("weapon/superfireball.png");
-		this.loadImage("weapon/darkball.png");
-		this.loadImage("weapon/redball.png");
 		// Set proper character image
 		this.loadImage(filename);
 

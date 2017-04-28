@@ -26,10 +26,6 @@ class HunterQuest extends Game {
 		window.addEventListener("click", onClick, true);
 		this.mouse = utils.captureMouse(canvas);
 
-		this.startTime = null;
-		this.elapsedTime = 0;
-		this.gameOver = false;
-
 		this.initialize();
 	}
 
@@ -109,6 +105,59 @@ class HunterQuest extends Game {
 		this.paused = false;
 		this.pauseCD = false;
 		this.pausWritten = false;
+
+		// Timing
+		this.startTime = null;
+		this.elapsedTime = 0;
+		this.gameOver = false;
+
+		// Controls
+		this.controlsY = this.gamescreen.height - 150;
+		this.controls = new DisplayObject("controls", "controls_QEcontrast.png", this.gamescreen);
+		this.controls.setScaleX(0.85);
+		this.controls.setScaleY(0.85);
+		this.controls.position = new Point(150, this.controlsY);
+		this.controlsTween = new Tween(this.controls);
+		this.controlsCD = false;
+		this.controlsVisible = true;
+
+		/*
+		 * Start and end text
+		 */
+		this.startText = new DisplayObject("start_text", "text/start_text.png", this.gamescreen);
+		this.enterText = new DisplayObject("enter_text", "text/enter_text.png", this.gamescreen);
+		this.enterText.position = new Point(-150, -150);
+
+		this.endText = new DisplayObject("end_text", "text/end_text.png", this.gamescreen);
+		this.endText.position = new Point(-1000, -1000);
+
+		this.startText.centerPivotPoint();
+		this.enterText.centerPivotPoint();
+		this.endText.centerPivotPoint();
+
+		this.startTween = new Tween(this.startText);
+
+		this.startTween.animate("scaleX", 3, 1, 3000, "easeInSine");
+		this.startTween.animate("scaleY", 3, 1, 3000, "easeInSine");
+
+		TweenJuggler.add(this.startTween);
+		// TweenJuggler.add(this.enterTween);
+		// TweenJuggler.add(this.endTween);
+
+		this.startText.eventDispatcher.addEventListener(this.enterText, "TWEEN_COMPLETE_EVENT");
+		this.enterText.handleEvent = function(event) {
+			this.position = new Point(150, 150);
+			var enterTween = new Tween(this);
+			enterTween.animate("alpha", 0, 1, 3000, "easeOutSine");
+			TweenJuggler.add(enterTween);
+		}
+
+		// Preload projectile images
+		this.projectile1 = new DisplayObject("sample1", "weapon/energyball.png", this.gamescreen);
+		this.projectile2 = new DisplayObject("sample2", "weapon/fireball.png", this.gamescreen);
+		this.projectile3 = new DisplayObject("sample3", "weapon/superfireball.png", this.gamescreen);
+		this.projectile4 = new DisplayObject("sample4", "weapon/darkball.png", this.gamescreen);
+		this.projectile5 = new DisplayObject("sample5", "weapon/redball.png", this.gamescreen);
 	}
 
 	update(pressedKeys) {
@@ -117,6 +166,10 @@ class HunterQuest extends Game {
 		// TODO bring up a UI to continue/restart/etc.
 		//	Tween it up
 		if (this.levels[this.currentLevel].isCompleted()) {
+			if (this.currentLevel == 0) {
+				this.startText.parent.removeChild(this.startText);
+				this.enterText.parent.removeChild(this.enterText);
+			}
 			if (this.currentLevel < this.levels.length - 1) {
 				this.levelComplete = true;
 				console.log("Level " + (this.currentLevel) + " completed!");
@@ -146,8 +199,8 @@ class HunterQuest extends Game {
 		 * Debugging utilities
 		 */
 		if(pressedKeys.indexOf(74) !== -1) { //Press key = j
-			var rX = Math.random() * this.canvasWidth;
-			var rY = Math.random() * this.canvasHeight + 50;
+			var rX = Math.random() * this.gamescreen.width;
+			var rY = Math.random() * this.gamescreen.height;
 			this.enemy1 = new Monster("enemy1", "spritesheet.png", marioSprites, this.gamescreen);
 			this.enemy1.position = (new Point(rX, rY)).minus(new Point(0.5*this.hunter.getUnscaledWidth(), 0));
 		}
@@ -166,6 +219,7 @@ class HunterQuest extends Game {
 			if (this.levels[this.currentLevel].empty) this.levels[this.currentLevel].completed = true;
 		}
 
+		// Pause
 		if (pressedKeys.indexOf(32) != -1) {
 			if (!this.pauseCD) {
 				this.paused = !this.paused;
@@ -188,6 +242,36 @@ class HunterQuest extends Game {
 		if (this.startTime && !this.gameOver) {
 			this.elapsedTime = this.clock.getElapsedTime() - this.startTime;
 		}
+
+		// Controls
+		if (pressedKeys.indexOf(67) != -1) {
+			if (!this.controlsCD) {
+				var destY,
+					controlsTweenDistance,
+					controlsTweenTime;
+
+				if (this.controlsVisible) {
+					destY = this.gamescreen.height;
+					controlsTweenDistance = this.gamescreen.height - this.controls.position.y;
+				} else {
+					destY = this.controlsY;
+					controlsTweenDistance =this.controls.position.y - this.controlsY;
+
+				}
+				controlsTweenTime = 500 * Math.abs(controlsTweenDistance / 150);
+
+				this.controlsTween.animate("y", this.controls.position.y, destY, controlsTweenTime);
+				TweenJuggler.add(this.controlsTween);
+
+				this.controlsVisible = !this.controlsVisible
+				this.controlsCD = true;
+
+				console.log(controlsTweenDistance, this.controls.position.y);
+			}
+
+		} else {
+			this.controlsCD = false;
+		}
 	}
 
 	draw(context) {
@@ -205,9 +289,6 @@ class HunterQuest extends Game {
 				if (this.currentLevel == 11) {
 					this.gameOver = true;
 				}
-			}		
-			else if (this.currentLevel == 0) {
-				write(context, "black", "20px Macondo", "Press Enter to Begin Your Quest", 200, 100);
 			} else if (this.currentLevel == 11) {
 				var finishMessage = "You defeated the demon!  Congratulations!\nYou beat HunterQuest!";
 				write(context, "black", "20px Macondo", finishMessage, 200, 100);

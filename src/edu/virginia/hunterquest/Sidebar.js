@@ -6,8 +6,8 @@ class Sidebar extends DisplayObjectContainer {
 	constructor(id, filename, parentObj=null, width, height) {
 		super(id, filename, parentObj);
 
-		this.x = -5;
-		this.y = -5;
+		this.x = 0;
+		this.y = 0;
 		this.width = width;
 		this.height = height;
 
@@ -95,6 +95,7 @@ class Sidebar extends DisplayObjectContainer {
 
 		var char = Character.getInstance();
 		var game = Game.getInstance();
+		var leftPadding = 10;
 
 		context.font = "bold 15px Macondo";
 
@@ -104,57 +105,57 @@ class Sidebar extends DisplayObjectContainer {
 
 		// Health bar
 		context.fillStyle = "#fc0008";
-		context.fillRect(5, 15, (0.8*this.width), 13);
+		context.fillRect(leftPadding, 15, (0.8*this.width), 13);
 		context.fillStyle = "#00ff08";
-		context.fillRect(5, 15, char.getPercentHealth() * (0.8*this.width), 13);
+		context.fillRect(leftPadding, 15, char.getPercentHealth() * (0.8*this.width), 13);
 		context.fillStyle = "#000000";
-		context.fillText("Health", 5, 13);
+		context.fillText("Health", leftPadding, 13);
 
 		// Experience bar
 		context.fillStyle = "whitesmoke";
-		context.fillRect(5, 45, 0.8*this.width, 13);
+		context.fillRect(leftPadding, 45, 0.8*this.width, 13);
 		context.fillStyle = "gold";
-		context.fillRect(5, 45, char.exp/(100 + ((char.level-1)*50)) * (0.8*this.width), 13);
+		context.fillRect(leftPadding, 45, char.exp/(100 + ((char.level-1)*50)) * (0.8*this.width), 13);
 		context.fillStyle = "#000000";
-		context.fillText("Experience", 5, 43);
+		context.fillText("Experience", leftPadding, 43);
 
 		// Level
 		context.fillStyle = "#000000";
-		context.fillText("Power Level " + char.level, 5, 85);
+		context.fillText("Power Level " + char.level, leftPadding, 85);
 
 		// Deaths
 		context.fillStyle = "#000000";
-		char.deaths == 1 ? context.fillText("1 Death", 5, 105) : context.fillText(char.deaths + " Deaths", 5, 105);
+		char.deaths == 1 ? context.fillText("1 Death", leftPadding, 105) : context.fillText(char.deaths + " Deaths", leftPadding, 105);
 
 		// Weapons
 		var curWep = char.weapon;
 		if (curWep == 1) {
 			context.fillStyle = "gold";
-			context.fillRect(0.05*this.width, 125, 0.3*this.width, 50);
+			context.fillRect(0.07*this.width, 125, 0.3*this.width, 50);
 			context.fillStyle = "whitesmoke";
-			context.fillRect(0.505*this.width, 125, 0.3*this.width, 50);
+			context.fillRect(0.507*this.width, 125, 0.3*this.width, 50);
 			context.fillStyle = "whitesmoke";
-			context.fillRect(0.05*this.width, 195, 0.3*this.width, 50);
+			context.fillRect(0.07*this.width, 195, 0.3*this.width, 50);
 		} else if(curWep == 2) {
 			context.fillStyle = "whitesmoke";
-			context.fillRect(0.05*this.width, 125, 0.3*this.width, 50);
+			context.fillRect(0.07*this.width, 125, 0.3*this.width, 50);
 			context.fillStyle = "gold";
-			context.fillRect(0.505*this.width, 125, 0.3*this.width, 50);
+			context.fillRect(0.507*this.width, 125, 0.3*this.width, 50);
 			context.fillStyle = "whitesmoke";
-			context.fillRect(0.05*this.width, 195, 0.3*this.width, 50);
+			context.fillRect(0.07*this.width, 195, 0.3*this.width, 50);
 		} else {
 			context.fillStyle = "whitesmoke";
-			context.fillRect(0.05*this.width, 125, 0.3*this.width, 50);
+			context.fillRect(0.07*this.width, 125, 0.3*this.width, 50);
 			context.fillStyle = "whitesmoke";
-			context.fillRect(0.505*this.width, 125, 0.3*this.width, 50);
+			context.fillRect(0.507*this.width, 125, 0.3*this.width, 50);
 			context.fillStyle = "gold";
-			context.fillRect(0.05*this.width, 195, 0.3*this.width, 50);
+			context.fillRect(0.07*this.width, 195, 0.3*this.width, 50);
 		}
 
 		context.fillStyle = "#000000";
 		
 		// Weapon I
-		context.fillRect(0.175*this.width, 130, 0.05*this.width, 40);
+		context.fillRect(0.18*this.width, 130, 0.05*this.width, 40);
 
 		// Weapon II
 		context.fillRect(0.58*this.width, 130, 0.05*this.width, 40);
@@ -170,21 +171,21 @@ class Sidebar extends DisplayObjectContainer {
 		var ft = 320,
 			ts = 30;
 
-		context.fillText("Store : " + char.skillPoints + " SP", 5, 295);
+		context.fillText("Store : " + char.skillPoints + " SP", leftPadding, 295);
 		context.fillStyle = "whitesmoke";
-		context.fillRect(5, 300, (0.85*this.width), 5*ts + 10);
+		context.fillRect(leftPadding, 300, (0.85*this.width), 5*ts + 10);
 		context.fillStyle = "#000000";
-		context.fillText("1 Max Health", 10, ft);
-		context.fillText("2 Cooldown", 10, ft + ts);
-		context.fillText("3 Attack Damage", 10, ft + 2*ts);
-		context.fillText("4 Poison Damage", 10, ft + 3*ts);
-		context.fillText("5 Life Steal", 10, ft + 4*ts);
+		context.fillText("1 Max Health", 15, ft);
+		context.fillText("2 Cooldown", 15, ft + ts);
+		context.fillText("3 Attack Damage", 15, ft + 2*ts);
+		context.fillText("4 Poison Damage", 15, ft + 3*ts);
+		context.fillText("5 Life Steal", 15, ft + 4*ts);
 		// context.fillText("6 Max Health", 10, 420);
 
 		// Skills points spent
 		for (var i = 0; i < char.spSpent.length; i++) {
 			for (var j = 0; j < char.spSpent[i]; j++) {
-				context.fillText(".", 20 + (5*j), (5) + (ft + i*ts));
+				context.fillText(".", 25 + (5*j), (5) + (ft + i*ts));
 			}
 		}
 

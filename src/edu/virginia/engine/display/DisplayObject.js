@@ -28,7 +28,12 @@ class DisplayObject {
 		this.visible = true;
 		this.visibilityChanged = false;
 
-		this.position = new Point(5, 5);
+		if (this.id.includes("sample")) {
+			this.position = new Point(-500, -500);
+		} else {
+			this.position = new Point(0, 0);
+		}
+		
 		this.pivotPoint = new Point(0, 0);
 		this.scaleX = 1;
 		this.scaleY = 1;

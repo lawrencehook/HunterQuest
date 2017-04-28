@@ -14,8 +14,21 @@ class Tween {
 
 
 	animate(fieldToAnimate, startVal, endVal, time, transition=null) {
-		var tweenParam = new TweenParam(fieldToAnimate, startVal, endVal, time, transition);
-		this.tweenParams.add(tweenParam);
+		console.log("field\:" + fieldToAnimate,
+					"start\:" + startVal,
+					"end\:" + endVal,
+					"time\:" + time,
+					"transition\:" + transition);
+		var tweenParams = this.tweenParams;
+		var newTweenParam = new TweenParam(fieldToAnimate, startVal, endVal, time, transition);
+
+		tweenParams.contents.forEach(function(tweenParam) {
+			if (tweenParam.getField() == fieldToAnimate) {
+				tweenParams.remove(tweenParam);
+			}
+		});
+
+		this.tweenParams.add(newTweenParam);
 	}
 
 	// Invoked once per frame by TweenJuggler

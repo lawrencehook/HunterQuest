@@ -28,4 +28,8 @@ class TweenParam {
 		var timeElapsed = this.getTimeElapsed();
 		return timeElapsed > this.time;
 	}
+
+	getField() {
+		return this.fieldToAnimate;
+	}
 }
