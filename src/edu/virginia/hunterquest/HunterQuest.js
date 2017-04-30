@@ -177,10 +177,10 @@ class HunterQuest extends Game {
 				this.currentLevel += 1;
 				this.levels[this.currentLevel].initialize();
 			} else {
-				console.log("You beat Hunter Quest!");
-				this.completeMessage = "You beat Hunter Quest!";
-				this.levelComplete = true;
-				this.pause();
+				// console.log("You beat Hunter Quest!");
+				// this.completeMessage = "You beat Hunter Quest!";
+				// this.levelComplete = true;
+				// this.pause();
 			}
 		} else {
 			if (!this.paused) {
@@ -290,8 +290,9 @@ class HunterQuest extends Game {
 					this.gameOver = true;
 				}
 			} else if (this.currentLevel == 11) {
-				var finishMessage = "You defeated the demon!  Congratulations!\nYou beat HunterQuest!";
-				write(context, "black", "20px Macondo", finishMessage, 200, 100);
+				// var finishMessage = "You defeated the demon!  Congratulations!\nYou beat HunterQuest!";
+				// write(context, "black", "20px Macondo", finishMessage, 200, 100);
+				this.endText.position.set(0,0);
 			}
 		} else {
 			if (!this.pauseWritten) {
