@@ -33,6 +33,7 @@ class Game extends DisplayObjectContainer {
 
 	reset() {
 		this.removeAll();
+		this.soundManager.stopAllSounds();
 		this.initialize();
 	}
 
