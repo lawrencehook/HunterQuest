@@ -128,33 +128,33 @@ class Character extends Entity {
 		/*
 		 * Shooting modes: single shot, burst shot, machine
 		 */
-		if (this.singleShot) {
-			if (direction != "") {
-				if (!this.recentlyShot) {
+		if (this.attackCooldown == 0) {
+			if (this.singleShot) {
+				if (direction != "") {
+					if (!this.recentlyShot) {
+						Character.getInstance()[this.attackType](direction);
+						this.recentlyShot = true;
+					}
+				} else {
+					this.recentlyShot = false;
+				}
+			} else if (this.burstShot) {
+				if (direction != "") {
+					if (!this.recentlyShot) {
+						this.burstCount = this.burst;
+						this.recentlyShot = true;
+					}
+					if (this.burstCount > 0) {
+						Character.getInstance()[this.attackType](direction);
+						this.burstCount -= 1;
+					}
+				} else {
+					this.recentlyShot = false;
+				}
+			} else if (this.machineShot) {
+				if (direction != "") {
 					Character.getInstance()[this.attackType](direction);
-					this.recentlyShot = true;
-					SoundManager.getInstance().playSound("laser");
 				}
-			} else {
-				this.recentlyShot = false;
-			}
-		} else if (this.burstShot) {
-			if (direction != "") {
-				if (!this.recentlyShot) {
-					this.burstCount = this.burst;
-					this.recentlyShot = true;
-					SoundManager.getInstance().playSound("laser");
-				}
-				if (this.burstCount > 0) {
-					this.burstCount -= 1;
-					Character.getInstance()[this.attackType](direction);
-				}
-			} else {
-				this.recentlyShot = false;
-			}
-		} else if (this.machineShot) {
-			if (direction != "") {
-				Character.getInstance()[this.attackType](direction);
 			}
 		}
 
@@ -307,53 +307,48 @@ class Character extends Entity {
 		*/
 		var x, y, vx, vy, badDirection=false;
 
-		if (this.attackCooldown == 0) {
-			if (this.burstShot) {
-				console.log("burst count", this.burstCount);
-				if (this.burstCount == 0) {
-					this.attackCooldown = this.maxAttackCooldown;
-					console.log("cooldown", this.attackCooldown);
-				}
-			}
-			else {
+		if (this.burstShot) {
+			if (this.burstCount == 1)
 				this.attackCooldown = this.maxAttackCooldown;
-			}
+		}
+		else {
+			this.attackCooldown = this.maxAttackCooldown;
+		}
 
-			var center = this.getHitboxCenter();
-			switch(direction) {
-				case "left":
-					x = this.position.x - 10;
-					y = center.y - 5;
-					vx = -this.projectileSpeed;
-					vy = 0;
-					break;
-				case "right":
-					x = this.position.x + this.getUnscaledWidth();
-					y = center.y - 5;
-					vx = this.projectileSpeed;
-					vy = 0;
-					break;
-				case "up":
-					x = center.x - 5;
-					y = this.position.y - 10;
-					vx = 0;
-					vy = -this.projectileSpeed;
-					break;
-				case "down":
-					x = center.x - 5;
-					y = this.position.y + this.getUnscaledHeight();
-					vx = 0;
-					vy = this.projectileSpeed;
-					break;
-				default:
-					console.log("Bad projectile direction" + direction);
-					badDirection = true;
-			}
+		var center = this.getHitboxCenter();
+		switch(direction) {
+			case "left":
+				x = this.position.x - 10;
+				y = center.y - 5;
+				vx = -this.projectileSpeed;
+				vy = 0;
+				break;
+			case "right":
+				x = this.position.x + this.getUnscaledWidth();
+				y = center.y - 5;
+				vx = this.projectileSpeed;
+				vy = 0;
+				break;
+			case "up":
+				x = center.x - 5;
+				y = this.position.y - 10;
+				vx = 0;
+				vy = -this.projectileSpeed;
+				break;
+			case "down":
+				x = center.x - 5;
+				y = this.position.y + this.getUnscaledHeight();
+				vx = 0;
+				vy = this.projectileSpeed;
+				break;
+			default:
+				console.log("Bad projectile direction" + direction);
+				badDirection = true;
+		}
 
-			if (!badDirection) {
-				new Projectile(x, y, this.projectileSize, this.projectileSize, vx*2, vy*2, this.projectileDamage, this.projectileColor, true, this.projectileFilename2, 0.75);
-				
-			}
+		if (!badDirection) {
+			new Projectile(x, y, this.projectileSize, this.projectileSize, vx*2, vy*2, this.projectileDamage, this.projectileColor, true, this.projectileFilename2, 0.75);
+			SoundManager.getInstance().playSound("laser");
 		}
 	}
 
