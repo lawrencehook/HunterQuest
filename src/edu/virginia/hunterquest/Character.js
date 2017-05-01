@@ -133,6 +133,7 @@ class Character extends Entity {
 				if (!this.recentlyShot) {
 					Character.getInstance()[this.attackType](direction);
 					this.recentlyShot = true;
+					SoundManager.getInstance().playSound("laser");
 				}
 			} else {
 				this.recentlyShot = false;
@@ -142,6 +143,7 @@ class Character extends Entity {
 				if (!this.recentlyShot) {
 					this.burstCount = this.burst;
 					this.recentlyShot = true;
+					SoundManager.getInstance().playSound("laser");
 				}
 				if (this.burstCount > 0) {
 					this.burstCount -= 1;
@@ -350,7 +352,7 @@ class Character extends Entity {
 
 			if (!badDirection) {
 				new Projectile(x, y, this.projectileSize, this.projectileSize, vx*2, vy*2, this.projectileDamage, this.projectileColor, true, this.projectileFilename2, 0.75);
-				SoundManager.getInstance().playSound("laser");
+				
 			}
 		}
 	}
