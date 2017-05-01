@@ -39,7 +39,7 @@ class Character extends Entity {
 		this.level 				= 1;
 		this.maxHealth 			= 30;
 		this.projectileSize 	= 12;
-		this.projectileDamage 	= 500;
+		this.projectileDamage 	= 0.5;
 		this.projectileColor	= "#2f4d2f";
 		this.projectileFilename = "weapon/energyball.png";
 		this.projectileFilename2 = "weapon/neonball.png";
