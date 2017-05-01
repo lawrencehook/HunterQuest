@@ -43,6 +43,7 @@ class Sidebar extends DisplayObjectContainer {
 				}
 				char.attackType = "attack" + char.weapon;
 				char.weaponChangeCooldown = true;
+				char.attackCooldown = 0;
 			}
 		} else if(pressedKeys.indexOf(69) != -1) { //Press E
 			if(!char.weaponChangeCooldown) {
@@ -52,6 +53,7 @@ class Sidebar extends DisplayObjectContainer {
 				}
 				char.attackType = "attack" + char.weapon;
 				char.weaponChangeCooldown = true;
+				char.attackCooldown = 0;
 			}
 		} else {
 			char.weaponChangeCooldown = false;
