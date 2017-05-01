@@ -169,10 +169,22 @@ class HunterQuest extends Game {
 		this.projectile3 = new DisplayObject("sample3", "weapon/superfireball.png", this.gamescreen);
 		this.projectile4 = new DisplayObject("sample4", "weapon/darkball.png", this.gamescreen);
 		this.projectile5 = new DisplayObject("sample5", "weapon/redball.png", this.gamescreen);
+		this.projectile6 = new DisplayObject("sample6", "weapon/neonball.png", this.gamescreen);
 
+		//Load the secret video
+		this.video = document.getElementById("video");
 
-		// Reset game doesn't do have some things
-		// 	controls, title text
+		// this.video.addEventListener('play', function() {
+		// 	var localThis = this;
+		// 	(function loop() {
+		// 		if(!localThis.paused && !localThis.ended) {
+		// 			context.drawImage(localThis, 0, 0);
+		// 			setTimeout(loop, 1000 / 30); //30 fps playback rate
+		// 		}
+		// 	})();
+		// }, 0);
+
+		//this.video.play();
 	}
 
 	update(pressedKeys) {
@@ -297,6 +309,13 @@ class HunterQuest extends Game {
 				this.reset();
 			}
 		}
+
+		//test
+		if(pressedKeys.indexOf(221) != -1) {
+			this.playVideo = true;
+		} else {
+			this.playVideo = false;
+		}
 	}
 
 	draw(context) {
@@ -335,6 +354,20 @@ class HunterQuest extends Game {
 				this.pauseWritten = true;
 			}
 		}
+
+		if(this.playVideo) {
+			this.pause();
+			this.video.addEventListener('play', function() {
+				var localThis = this;
+				(function loop() {
+					if(!localThis.paused && !localThis.ended) {
+						context.drawImage(localThis, 150, 0, Game.getInstance().gamescreen.width, Game.getInstance().gamescreen.height);
+						setTimeout(loop, 1000 / 30); //30 fps playback rate
+					}
+				})();
+			}, 0);
+			this.video.play();
+		}
 	}
 }
 
@@ -357,6 +390,9 @@ if(drawingCanvas.getContext) {
 // Necessary for proper "this" object
 function onClick(e) {
 	game.onClick(e);
+	console.log(Game.getInstance());
+	Game.getInstance().video.pause();
+	game.start();
 }
 
 function write(context, style, font, text, x, y) {

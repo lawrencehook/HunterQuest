@@ -48,4 +48,8 @@ class Point {
 	equals(p) {
 		return this.x == p.x && this.y == p.y;
 	}
+
+	distanceFrom(p) {
+		return this.minus(p).norm();
+	}
 }

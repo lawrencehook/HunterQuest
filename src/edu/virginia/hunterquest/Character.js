@@ -31,22 +31,24 @@ class Character extends Entity {
 
 		this.burstCount;
 		this.recentlyShot = false;
+		this.attackCooldown = 0;
 
 		/*
 		 * Store upgrades
 		 */
-		this.level = 1;
-		this.maxHealth = 30;
-		this.cooldown = 0;
+		this.level 				= 1;
+		this.maxHealth 			= 30;
 		this.projectileSize 	= 12;
 		this.projectileDamage 	= 0.5;
 		this.projectileColor	= "#2f4d2f";
 		this.projectileFilename = "weapon/energyball.png";
+		this.projectileFilename2 = "weapon/neonball.png";
 
 		this.singleShot = true;
 		this.burstShot = false;
 		this.machineShot = false;
 		this.burst = 3;
+		this.maxAttackCooldown 	= 30;
 
 		this.poisonDamage = 0;
 		this.poisonDuration = 300;
@@ -142,8 +144,8 @@ class Character extends Entity {
 					this.recentlyShot = true;
 				}
 				if (this.burstCount > 0) {
-					Character.getInstance()[this.attackType](direction);
 					this.burstCount -= 1;
+					Character.getInstance()[this.attackType](direction);
 				}
 			} else {
 				this.recentlyShot = false;
@@ -152,13 +154,10 @@ class Character extends Entity {
 			if (direction != "") {
 				Character.getInstance()[this.attackType](direction);
 			}
-
-			if(this.cooldown <= 0) {
-				this.cooldown = this.projectileSpeed;
-			} else {
-				this.cooldown -= 1;
-			}
 		}
+
+		if(this.attackCooldown > 0)
+			this.attackCooldown -= 1;
 
 		/*
 		 * Rotate to moving direction
@@ -174,107 +173,150 @@ class Character extends Entity {
 	attack1(direction) {
 		var x, y, vx, vy, badDirection=false;
 
-		if (this.cooldown <= 0) {
-			// ATTACK!
-			var center = this.getHitboxCenter();
-			switch(direction) {
-				case "left":
-					x = this.position.x - 10;
-					y = center.y - 5;
-					vx = -this.projectileSpeed;
-					vy = 0;
-					break;
-				case "right":
-					x = this.position.x + this.getUnscaledWidth();
-					y = center.y - 5;
-					vx = this.projectileSpeed;
-					vy = 0;
-					break;
-				case "up":
-					x = center.x - 5;
-					y = this.position.y - 10;
-					vx = 0;
-					vy = -this.projectileSpeed;
-					break;
-				case "down":
-					x = center.x - 5;
-					y = this.position.y + this.getUnscaledHeight();
-					vx = 0;
-					vy = this.projectileSpeed;
-					break;
-				default:
-					console.log("Bad projectile direction" + direction);
-					badDirection = true;
-			}
+		var center = this.getHitboxCenter();
+		switch(direction) {
+			case "left":
+				x = this.position.x - 10;
+				y = center.y - 5;
+				vx = -this.projectileSpeed;
+				vy = 0;
+				break;
+			case "right":
+				x = this.position.x + this.getUnscaledWidth();
+				y = center.y - 5;
+				vx = this.projectileSpeed;
+				vy = 0;
+				break;
+			case "up":
+				x = center.x - 5;
+				y = this.position.y - 10;
+				vx = 0;
+				vy = -this.projectileSpeed;
+				break;
+			case "down":
+				x = center.x - 5;
+				y = this.position.y + this.getUnscaledHeight();
+				vx = 0;
+				vy = this.projectileSpeed;
+				break;
+			default:
+				console.log("Bad projectile direction" + direction);
+				badDirection = true;
+		}
 
-			if (!badDirection) {
-				new Projectile(x, y, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
-				SoundManager.getInstance().playSound("laser");
-			}
+		if (!badDirection) {
+			new Projectile(x, y, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
+			SoundManager.getInstance().playSound("laser");
 		}
 	}
 
 	attack2(direction) {
 		var x, y, vx, vy, angle=Math.PI/6, badDirection=false;
 
-		if (this.cooldown <= 0) {
-			// ATTACK!
-			var center = this.getHitboxCenter();
+		var center = this.getHitboxCenter();
+		switch(direction) {
+			case "left":
+				x = this.position.x - 10;
+				y = center.y - 5;
+				vx = -this.projectileSpeed * Math.cos(angle);
+				vy = this.projectileSpeed * Math.sin(angle);
+				break;
+			case "right":
+				x = this.position.x + this.getUnscaledWidth();
+				y = center.y - 5;
+				vx = this.projectileSpeed * Math.cos(angle);
+				vy = this.projectileSpeed * Math.sin(angle);
+				break;
+			case "up":
+				x = center.x - 5;
+				y = this.position.y - 10;
+				vx = this.projectileSpeed * Math.sin(angle);
+				vy = -this.projectileSpeed * Math.cos(angle);
+				break;
+			case "down":
+				x = center.x - 5;
+				y = this.position.y + this.getUnscaledHeight();
+				vx = this.projectileSpeed * Math.sin(angle);
+				vy = this.projectileSpeed * Math.cos(angle);
+				break;
+			default:
+				console.log("Bad projectile direction " + direction);
+				badDirection = true;
+		}
+
+		if (!badDirection) {
 			switch(direction) {
 				case "left":
-					x = this.position.x - 10;
-					y = center.y - 5;
-					vx = -this.projectileSpeed * Math.cos(angle);
-					vy = this.projectileSpeed * Math.sin(angle);
-					break;
 				case "right":
-					x = this.position.x + this.getUnscaledWidth();
-					y = center.y - 5;
-					vx = this.projectileSpeed * Math.cos(angle);
-					vy = this.projectileSpeed * Math.sin(angle);
+					new Projectile(x, y, this.projectileSize, this.projectileSize, vx, -vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
+					new Projectile(x, y, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
+					SoundManager.getInstance().playSound("laser");
 					break;
 				case "up":
-					x = center.x - 5;
-					y = this.position.y - 10;
-					vx = this.projectileSpeed * Math.sin(angle);
-					vy = -this.projectileSpeed * Math.cos(angle);
-					break;
 				case "down":
-					x = center.x - 5;
-					y = this.position.y + this.getUnscaledHeight();
-					vx = this.projectileSpeed * Math.sin(angle);
-					vy = this.projectileSpeed * Math.cos(angle);
+					new Projectile(x, y, this.projectileSize, this.projectileSize, -vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
+					new Projectile(x, y, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
+					SoundManager.getInstance().playSound("laser");
 					break;
 				default:
-					console.log("Bad projectile direction " + direction);
-					badDirection = true;
-			}
-
-			if (!badDirection) {
-				switch(direction) {
-					case "left":
-					case "right":
-						new Projectile(x, y, this.projectileSize, this.projectileSize, vx, -vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
-						new Projectile(x, y, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
-						SoundManager.getInstance().playSound("laser");
-						break;
-					case "up":
-					case "down":
-						new Projectile(x, y, this.projectileSize, this.projectileSize, -vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
-						new Projectile(x, y, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
-						SoundManager.getInstance().playSound("laser");
-						break;
-					default:
-				}
 			}
 		}
 	}
 
 	attack3(direction) {
+		/*
 		var x, y, vx, vy, badDirection=false;
 
-		if (this.cooldown <= 0) {
-			// ATTACK!
+		var center = this.getHitboxCenter();
+		switch(direction) {
+			case "left":
+				x = this.position.x - 10;
+				y = center.y - 5;
+				vx = -this.projectileSpeed;
+				vy = 0;
+				break;
+			case "right":
+				x = this.position.x + this.getUnscaledWidth();
+				y = center.y - 5;
+				vx = this.projectileSpeed;
+				vy = 0;
+				break;
+			case "up":
+				x = center.x - 5;
+				y = this.position.y - 10;
+				vx = 0;
+				vy = -this.projectileSpeed;
+				break;
+			case "down":
+				x = center.x - 5;
+				y = this.position.y + this.getUnscaledHeight();
+				vx = 0;
+				vy = this.projectileSpeed;
+				break;
+			default:
+				console.log("Bad projectile direction" + direction);
+				badDirection = true;
+		}
+
+		if (!badDirection) {
+			new SplitProjectile(x, y, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
+			SoundManager.getInstance().playSound("laser");
+		}
+		*/
+		var x, y, vx, vy, badDirection=false;
+
+		if (this.attackCooldown == 0) {
+			if (this.burstShot) {
+				console.log("burst count", this.burstCount);
+				if (this.burstCount == 0) {
+					this.attackCooldown = this.maxAttackCooldown;
+					console.log("cooldown", this.attackCooldown);
+				}
+			}
+			else {
+				this.attackCooldown = this.maxAttackCooldown;
+			}
+
 			var center = this.getHitboxCenter();
 			switch(direction) {
 				case "left":
@@ -307,7 +349,7 @@ class Character extends Entity {
 			}
 
 			if (!badDirection) {
-				new SplitProjectile(x, y, this.projectileSize, this.projectileSize, vx, vy, this.projectileDamage, this.projectileColor, true, this.projectileFilename);
+				new Projectile(x, y, this.projectileSize, this.projectileSize, vx*2, vy*2, this.projectileDamage, this.projectileColor, true, this.projectileFilename2, 0.75);
 				SoundManager.getInstance().playSound("laser");
 			}
 		}

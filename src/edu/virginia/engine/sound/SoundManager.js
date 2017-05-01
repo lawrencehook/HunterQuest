@@ -23,6 +23,10 @@ class SoundManager {
 		this.sounds[id].play();
 	}
 
+	pauseSound(id) {
+		this.sounds[id].pause();
+	}
+
 	stopSound(id) {
 		this.sounds[id].pause();
 		this.sounds[id].currentTime = 0;
