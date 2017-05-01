@@ -161,6 +161,7 @@ class HunterQuest extends Game {
 		this.projectile3 = new DisplayObject("sample3", "weapon/superfireball.png", this.gamescreen);
 		this.projectile4 = new DisplayObject("sample4", "weapon/darkball.png", this.gamescreen);
 		this.projectile5 = new DisplayObject("sample5", "weapon/redball.png", this.gamescreen);
+		this.projectile5 = new DisplayObject("sample6", "weapon/neonball.png", this.gamescreen);
 
 		//Load the secret video
 		this.video = document.getElementById("video");

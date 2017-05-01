@@ -25,6 +25,27 @@ class Projectile extends DisplayObjectContainer {
 			this.setScaleY(this.height / this.displayImage.height);
 		}
 
+		if (this.tracking != 0) {
+			if (!this.isFriendly)
+				this.target = Character.getInstance();
+			else {
+				var t = this;
+				var game = Game.getInstance();
+				var player = Character.getInstance();
+				var monsters = game.levels[game.currentLevel].monsters;
+				var minDist = Number.MAX_VALUE;
+				monsters.forEach(function(monster) {
+					if (monster.parent) {
+						var dist = player.getHitboxCenter().distanceFrom(monster.getHitboxCenter());
+						if (dist < minDist) {
+							minDist = dist;
+							t.target = monster;
+						}
+					}
+				});
+			}
+		}
+
 		Game.getInstance().projectiles.add(this);
 	}
 
@@ -46,12 +67,12 @@ class Projectile extends DisplayObjectContainer {
 
 		if(this.isOffscreen()) this.destroy();
 
-		if(this.tracking != 0) {
+		if(this.tracking != 0 && this.target && this.target.parent) {
 			var speed = Math.sqrt(this.vx*this.vx + this.vy*this.vy);
 			var thisPos = this.getHitboxCenter();
-			var playerPos = Character.getInstance().getHitboxCenter();
+			var targetPos = this.target.getHitboxCenter();
 
-			var vectorAngle = Math.atan2(playerPos.y - thisPos.y, playerPos.x - thisPos.x);
+			var vectorAngle = Math.atan2(targetPos.y - thisPos.y, targetPos.x - thisPos.x);
 			var vectorX = speed * Math.cos(vectorAngle) * this.tracking;
 			var vectorY = speed * Math.sin(vectorAngle) * this.tracking;
 
