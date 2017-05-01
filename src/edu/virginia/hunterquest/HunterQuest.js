@@ -36,7 +36,6 @@ class HunterQuest extends Game {
 	restart() {
 		// Remove all children from Game.
 		this.removeAll();
-
 		this.initialize();
 	}
 
@@ -116,10 +115,17 @@ class HunterQuest extends Game {
 		this.controls = new DisplayObject("controls", "controls_QEcontrast.png", this.gamescreen);
 		this.controls.setScaleX(0.85);
 		this.controls.setScaleY(0.85);
-		this.controls.position = new Point(150, this.controlsY);
+		
+		if (!this.resetting) {
+			this.controls.position = new Point(150, this.controlsY);
+			this.controlsVisible = true;
+		} else {
+			this.controls.position = new Point(150, this.gamescreen.height);
+			this.controlsVisible = false;
+		}
+		
 		this.controlsTween = new Tween(this.controls);
 		this.controlsCD = false;
-		this.controlsVisible = true;
 
 		/*
 		 * Start and end text
@@ -130,26 +136,31 @@ class HunterQuest extends Game {
 
 		this.endText = new DisplayObject("end_text", "text/end_text.png", this.gamescreen);
 		this.endText.position = new Point(-1000, -1000);
+		// this.endTween = new Tween(this.endText);
 
 		this.startText.centerPivotPoint();
 		this.enterText.centerPivotPoint();
 		this.endText.centerPivotPoint();
 
-		this.startTween = new Tween(this.startText);
+		if (!this.resetting) {
+			this.startTween = new Tween(this.startText);
 
-		this.startTween.animate("scaleX", 3, 1, 3000, "easeInSine");
-		this.startTween.animate("scaleY", 3, 1, 3000, "easeInSine");
+			this.startTween.animate("scaleX", 3, 1, 3000, "easeInSine");
+			this.startTween.animate("scaleY", 3, 1, 3000, "easeInSine");
 
-		TweenJuggler.add(this.startTween);
-		// TweenJuggler.add(this.enterTween);
-		// TweenJuggler.add(this.endTween);
+			TweenJuggler.add(this.startTween);
+			// TweenJuggler.add(this.enterTween);
+			// TweenJuggler.add(this.endTween);
 
-		this.startText.eventDispatcher.addEventListener(this.enterText, "TWEEN_COMPLETE_EVENT");
-		this.enterText.handleEvent = function(event) {
-			this.position = new Point(150, 150);
-			var enterTween = new Tween(this);
-			enterTween.animate("alpha", 0, 1, 3000, "easeOutSine");
-			TweenJuggler.add(enterTween);
+			this.startText.eventDispatcher.addEventListener(this.enterText, "TWEEN_COMPLETE_EVENT");
+			this.enterText.handleEvent = function(event) {
+				this.position = new Point(150, 150);
+				var enterTween = new Tween(this);
+				enterTween.animate("alpha", 0, 1, 3000, "easeOutSine");
+				TweenJuggler.add(enterTween);
+			}
+		} else {
+			this.enterText.position.set(150, 150);
 		}
 
 		// Preload projectile images
@@ -158,6 +169,10 @@ class HunterQuest extends Game {
 		this.projectile3 = new DisplayObject("sample3", "weapon/superfireball.png", this.gamescreen);
 		this.projectile4 = new DisplayObject("sample4", "weapon/darkball.png", this.gamescreen);
 		this.projectile5 = new DisplayObject("sample5", "weapon/redball.png", this.gamescreen);
+
+
+		// Reset game doesn't do have some things
+		// 	controls, title text
 	}
 
 	update(pressedKeys) {
@@ -172,10 +187,13 @@ class HunterQuest extends Game {
 			}
 			if (this.currentLevel < this.levels.length - 1) {
 				this.levelComplete = true;
-				console.log("Level " + (this.currentLevel) + " completed!");
-				this.completeMessage = "Level " + (this.currentLevel) + " completed!";
 				this.currentLevel += 1;
 				this.levels[this.currentLevel].initialize();
+				
+				if (this.currentLevel < this.levels.length - 2) {
+					console.log("Level " + (this.currentLevel) + " completed!");
+					this.completeMessage = "Level " + (this.currentLevel) + " completed!";
+				}
 			} else {
 				// console.log("You beat Hunter Quest!");
 				// this.completeMessage = "You beat Hunter Quest!";
@@ -272,6 +290,13 @@ class HunterQuest extends Game {
 		} else {
 			this.controlsCD = false;
 		}
+
+		// Reset game
+		if (this.paused) {
+			if (pressedKeys.indexOf(82) != -1) {
+				this.reset();
+			}
+		}
 	}
 
 	draw(context) {
@@ -288,15 +313,25 @@ class HunterQuest extends Game {
 				write(context, "black", "20px Macondo", this.completeMessage, 200, 100);
 				if (this.currentLevel == 11) {
 					this.gameOver = true;
+
+					console.log(this.endText.pivotPoint);
+					this.endText.position.set(0,0);
+					this.endText.setScaleX(0.1);
+					this.endText.setScaleY(0.1);
+
+					this.endTween = new Tween(this.endText);
+					this.endTween.animate("scaleX", .1, 1, 2000, "easeInSine");
+					this.endTween.animate("scaleY", .1, 1, 2000, "easeInSine");
+					TweenJuggler.add(this.endTween);
 				}
 			} else if (this.currentLevel == 11) {
 				// var finishMessage = "You defeated the demon!  Congratulations!\nYou beat HunterQuest!";
 				// write(context, "black", "20px Macondo", finishMessage, 200, 100);
-				this.endText.position.set(0,0);
 			}
 		} else {
 			if (!this.pauseWritten) {
 				write(context, "black", "20px Macondo", "Paused!", this.width - 200, 100);
+				write(context, "black", "20px Macondo", "Press R to restart", this.width - 200, 140);
 				this.pauseWritten = true;
 			}
 		}

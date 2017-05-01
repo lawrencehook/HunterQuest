@@ -14,11 +14,6 @@ class Tween {
 
 
 	animate(fieldToAnimate, startVal, endVal, time, transition=null) {
-		console.log("field\:" + fieldToAnimate,
-					"start\:" + startVal,
-					"end\:" + endVal,
-					"time\:" + time,
-					"transition\:" + transition);
 		var tweenParams = this.tweenParams;
 		var newTweenParam = new TweenParam(fieldToAnimate, startVal, endVal, time, transition);
 
