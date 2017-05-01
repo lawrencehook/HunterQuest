@@ -333,7 +333,6 @@ class HunterQuest extends Game {
 
 		if (!this.paused) {
 			if (this.levelComplete === true) {
-				write(context, "black", "20px Macondo", this.completeMessage, 200, 100);
 				if (this.currentLevel == 11) {
 					this.gameOver = true;
 
@@ -346,6 +345,8 @@ class HunterQuest extends Game {
 					this.endTween.animate("scaleX", .1, 1, 2000, "easeInSine");
 					this.endTween.animate("scaleY", .1, 1, 2000, "easeInSine");
 					TweenJuggler.add(this.endTween);
+				} else {
+					write(context, "black", "20px Macondo", this.completeMessage, 200, 100);
 				}
 			} else if (this.currentLevel == 11) {
 				// var finishMessage = "You defeated the demon!  Congratulations!\nYou beat HunterQuest!";
