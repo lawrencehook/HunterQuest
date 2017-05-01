@@ -17,6 +17,7 @@ class Game extends DisplayObjectContainer {
 		this.g = canvas.getContext('2d'); //the graphics object
 		this.clock = new GameClock();
 		this.playing = false;
+		this.resetting = false;
 
 		this.pressedKeys = new ArrayList();
 		this.clickedKeys = {};
@@ -32,9 +33,11 @@ class Game extends DisplayObjectContainer {
 	}
 
 	reset() {
+		this.resetting = true;
 		this.removeAll();
 		this.soundManager.stopAllSounds();
 		this.initialize();
+		this.resetting = false;
 	}
 
 	update(pressedKeys) {
