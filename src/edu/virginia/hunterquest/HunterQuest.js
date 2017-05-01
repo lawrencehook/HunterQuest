@@ -159,6 +159,21 @@ class HunterQuest extends Game {
 		this.projectile4 = new DisplayObject("sample4", "weapon/darkball.png", this.gamescreen);
 		this.projectile5 = new DisplayObject("sample5", "weapon/redball.png", this.gamescreen);
 		this.projectile5 = new DisplayObject("sample6", "weapon/neonball.png", this.gamescreen);
+
+		//Load the secret video
+		this.video = document.getElementById("video");
+
+		// this.video.addEventListener('play', function() {
+		// 	var localThis = this;
+		// 	(function loop() {
+		// 		if(!localThis.paused && !localThis.ended) {
+		// 			context.drawImage(localThis, 0, 0);
+		// 			setTimeout(loop, 1000 / 30); //30 fps playback rate
+		// 		}
+		// 	})();
+		// }, 0);
+
+		//this.video.play();
 	}
 
 	update(pressedKeys) {
@@ -178,10 +193,10 @@ class HunterQuest extends Game {
 				this.currentLevel += 1;
 				this.levels[this.currentLevel].initialize();
 			} else {
-				console.log("You beat Hunter Quest!");
-				this.completeMessage = "You beat Hunter Quest!";
-				this.levelComplete = true;
-				this.pause();
+				// console.log("You beat Hunter Quest!");
+				// this.completeMessage = "You beat Hunter Quest!";
+				// this.levelComplete = true;
+				// this.pause();
 			}
 		} else {
 			if (!this.paused) {
@@ -273,6 +288,13 @@ class HunterQuest extends Game {
 		} else {
 			this.controlsCD = false;
 		}
+
+		//test
+		if(pressedKeys.indexOf(221) != -1) {
+			this.playVideo = true;
+		} else {
+			this.playVideo = false;
+		}
 	}
 
 	draw(context) {
@@ -291,14 +313,30 @@ class HunterQuest extends Game {
 					this.gameOver = true;
 				}
 			} else if (this.currentLevel == 11) {
-				var finishMessage = "You defeated the demon!  Congratulations!\nYou beat HunterQuest!";
-				write(context, "black", "20px Macondo", finishMessage, 200, 100);
+				// var finishMessage = "You defeated the demon!  Congratulations!\nYou beat HunterQuest!";
+				// write(context, "black", "20px Macondo", finishMessage, 200, 100);
+				this.endText.position.set(0,0);
+				//this.playVideo = true;
 			}
 		} else {
 			if (!this.pauseWritten) {
 				write(context, "black", "20px Macondo", "Paused!", this.width - 200, 100);
 				this.pauseWritten = true;
 			}
+		}
+
+		if(this.playVideo) {
+			this.pause();
+			this.video.addEventListener('play', function() {
+				var localThis = this;
+				(function loop() {
+					if(!localThis.paused && !localThis.ended) {
+						context.drawImage(localThis, 150, 0, Game.getInstance().gamescreen.width, Game.getInstance().gamescreen.height);
+						setTimeout(loop, 1000 / 30); //30 fps playback rate
+					}
+				})();
+			}, 0);
+			this.video.play();
 		}
 	}
 }
@@ -322,6 +360,9 @@ if(drawingCanvas.getContext) {
 // Necessary for proper "this" object
 function onClick(e) {
 	game.onClick(e);
+	console.log(Game.getInstance());
+	Game.getInstance().video.pause();
+	game.start();
 }
 
 function write(context, style, font, text, x, y) {

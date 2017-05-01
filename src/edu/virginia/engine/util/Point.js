@@ -4,6 +4,11 @@ class Point {
 		this.y = y;
 	}
 
+	set(x, y) {
+		this.x = x;
+		this.y = y;
+	}
+
 	plus(point) {
 		return new Point(this.x + point.x, this.y + point.y)
 	}
