@@ -41,6 +41,9 @@ class HunterQuest extends Game {
 	}
 
 	restartLevel() {
+		if(this.currentLevel == 10) { //Check for final level deaths
+			this.finalLevelDeath = true;
+		}
 		this.levels[this.currentLevel].emptyLevel();
 		this.levels[this.currentLevel].initialize();
 	}
@@ -161,6 +164,7 @@ class HunterQuest extends Game {
 
 		//Load the secret video
 		this.video = document.getElementById("video");
+		this.finalLevelDeath = false;
 
 		// this.video.addEventListener('play', function() {
 		// 	var localThis = this;
@@ -315,7 +319,9 @@ class HunterQuest extends Game {
 				// var finishMessage = "You defeated the demon!  Congratulations!\nYou beat HunterQuest!";
 				// write(context, "black", "20px Macondo", finishMessage, 200, 100);
 				this.endText.position.set(0,0);
-				//this.playVideo = true;
+				if(!this.finalLevelDeath) {
+					this.playVideo = true;
+				}
 			}
 		} else {
 			if (!this.pauseWritten) {
@@ -358,10 +364,10 @@ if(drawingCanvas.getContext) {
 
 // Necessary for proper "this" object
 function onClick(e) {
-	game.onClick(e);
-	console.log(Game.getInstance());
-	Game.getInstance().video.pause();
-	game.start();
+	//game.onClick(e);
+	//console.log(Game.getInstance());
+	game.video.pause();
+	if(!game.playing) game.start();
 }
 
 function write(context, style, font, text, x, y) {
