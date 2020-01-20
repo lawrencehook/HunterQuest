@@ -1,4 +1,4 @@
-# HunterQuest
+# HunterQuest — [play it here](https://emumoo.github.io/HunterQuest/)
 ## A game by Jon Ting, Steven Wang, and Lawrence Hook
 ## Made for CS 4730 - Game Design at UVa
 
